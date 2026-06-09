@@ -6,7 +6,7 @@ const domains = [
   "trading desks",
   "event ops",
   "change management",
-  "healthcare ops",
+  "nonprofit ops",
   "intake & triage",
   "fitness",
 ];
@@ -36,10 +36,11 @@ export default function HomePage() {
           I build AI-first products by embedding in the domain.
         </p>
         <p className="max-w-2xl" style={{ color: "var(--text-secondary)" }}>
-          I drop into a specific world&mdash;a rates trading desk, a regulated
-          compliance team, a Microsoft event program&mdash;learn how the people
-          there actually work, and ship the AI tool they use. Business and
-          engineering, end to end.
+          I take a partnership approach. I don&apos;t start with the answers; I
+          start by learning the business and the process, working alongside the
+          people who&apos;ll use what I build. Then I ship the AI tool that fits
+          how they actually work. I&apos;ve done it on a rates trading desk, with
+          a change-management team, and inside a Microsoft event program.
         </p>
 
         {/* Proof: range across domains */}
@@ -57,12 +58,6 @@ export default function HomePage() {
 
         {/* CTA */}
         <div className="mt-7 flex flex-wrap items-center gap-4 text-sm">
-          <span
-            className="px-3 py-1"
-            style={{ border: "1px solid var(--accent)", color: "var(--accent)" }}
-          >
-            available for select work
-          </span>
           <Link
             href="/contact"
             className="hover:underline"

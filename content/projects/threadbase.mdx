@@ -1,44 +1,49 @@
 ---
 title: Threadbase
-summary: Portfolio governance that uses what people already produce—calls, decks, updates—instead of asking for more.
+summary: Portfolio intelligence that runs like a team of analysts. Agents read across the org, link everything into a knowledge graph, and surface conflicts, hidden dependencies, and risks before anyone thinks to ask.
 date: 2024-10
 stack: [Next.js, React 19, TypeScript, PostgreSQL, pgvector, Azure Content Understanding, OpenAI, Voyage AI, Tailwind, Radix UI]
 status: in-progress
 featured: true
+priority: 100
 url: https://threadbase.co
 ---
 
 ## The Problem
 
-Every week, leaders circle the same three questions:
+The failures that hurt a portfolio are rarely unknown. They're unasked.
 
-* What's going to miss—and what's the real reason?
-* Which dependencies are quietly getting bigger?
-* What assumptions have expired without anyone saying it out loud?
+Two teams are running on assumptions that quietly contradict each other. A dependency is getting bigger while everyone treats it as settled. A risk spans three orgs, so no single person ever sees the whole shape of it. The information exists. Nobody connected it in time.
 
-They *should* be easy to answer. They aren't.
+Status tools don't help here, because they wait. They sit there until someone thinks to ask the right question, and the right question is the one thing you don't know to ask. By the time it surfaces in a meeting with five VPs and twenty managers, it isn't a question anymore. It's a problem.
 
-The truth is scattered: in the heads of a few long-tenured people, in slide decks that took hours to craft, and in back-to-back calls everyone hates but nobody can cancel. So you get "status," not clarity.
-
-And adding another system doesn't fix that. A database tool can be clean and still miss the nuance that lives in decks. Notes never capture what actually happened in the room. And asking people to adopt yet another app when their week is already calls + slides? That's dead on arrival.
+The signal that would have caught it is scattered: in the heads of a few long-tenured people, in slide decks that took hours to craft, in back-to-back calls everyone hates but nobody can cancel. Different teams describe the same work in different words, in different tools. So you get "status," not clarity.
 
 ## The Insight
 
-If the organization lives inside calls and decks, then that's the data model. Stop fighting it.
+Stop waiting for the user to ask.
 
-A deck made by a human and a transcript of what people actually said is about as close as you get to intent: decisions, context, subtext, friction, the real blockers, the half-commitments. It's all there—already being produced.
+Threadbase runs like a team of analysts that never stops reading. Agents work across the portfolio continuously, comparing what one team said against what another assumed, tracking how dependencies move, watching for assumptions that expired without anyone saying so out loud. Instead of answering questions, it asks them first, then puts what it found in front of you to confirm or act on.
 
-So Threadbase takes those artifacts as-is. It ingests documents and transcripts, connects the threads across teams that use different vocabularies and tools, and surfaces dependencies before they turn into "how did we not see this coming?" meetings with five VPs and twenty managers.
+These are the questions it asks before you do:
 
-The result is a knowledge base that doesn't get stale. It compounds.
+* What's going to miss, and what's the real reason?
+* Which dependencies are quietly getting bigger?
+* What assumptions have expired without anyone saying it out loud?
+
+To answer them, it has to read everything, in whatever form it shows up. A deck made by a human and a transcript of what people actually said are about as close to intent as you get: decisions, context, subtext, friction, the real blockers, the half-commitments. Threadbase takes those artifacts as-is, across teams that use different vocabularies and tools, and links them into one knowledge graph: initiatives, programs, owners, dependencies, risks, decisions, and how they all touch each other.
+
+Taxonomies don't survive the first status update, so the graph doesn't depend on them. It connects the work across orgs and across formats, then keeps those connections live as reality changes.
+
+The result is intelligence that compounds instead of going stale.
 
 ## The Approach
 
-I started with a chat interface because "AI product" basically implies chat. That was a mistake.
+I started with a chat interface, because "AI product" basically implies chat. That was a mistake.
 
-The state of a portfolio can't be hidden behind prompts. If someone has to ask the system what's going on, you've already added friction the system was meant to eliminate.
+The state of a portfolio can't sit behind a prompt. If someone has to ask the system what's going on, you've added the exact friction the system was meant to remove, and you're back to reactive. An insight only matters if it reaches you before you went looking for it.
 
-Threadbase is built around a persistent, always-visible model: initiatives, programs, owners, dependencies, risks, and decisions. Taxonomies are a legacy construct that can't survive the first status update. When something changes, the knock-on effects show up early. The tool doesn't wait for the status meeting to reveal the surprise.
+So Threadbase is built around a persistent, always-visible model with agents working against it in the background: initiatives, programs, owners, dependencies, risks, and decisions. When something changes, the knock-on effects show up early. When two things conflict, it flags the conflict. The tool doesn't wait for the status meeting to reveal the surprise. It surfaces the surprise while there's still time to do something about it.
 
 That product choice forced a few gnarly technical problems: extracting signal from corporate slides, retrieval that actually works in this domain, a relationship-aware model without operational drag, and dashboards that stay live as reality changes.
 
@@ -51,24 +56,30 @@ I tried a pile of OCR/vision stacks. Corporate slides are brutal: dense layouts,
 I tested ColPali, Voyage, and others. Voyage was the most reliable for retrieval quality in this domain.
 
 ### Graph structure
-I began with Neo4j because relationships are the point. It worked—but the operational overhead wasn't worth it at this stage. I moved to a pseudo-graph in Postgres using pgvector: most of the graph benefit, with standard Postgres tooling and fewer moving parts.
+The knowledge graph is the product, so I started with Neo4j. It worked, but the operational overhead wasn't worth it at this stage. I moved the graph into Postgres with pgvector: a relationship-aware model that gives most of the graph benefit with standard tooling and fewer moving parts. The graph is the point. A dedicated graph database isn't.
 
 ### Dashboards
 No more "build a Power BI report, refresh it weekly, hope someone uses it." Threadbase generates dashboards at runtime from the live model. If the underlying truth changes, the dashboard changes with it.
 
 ## Building with AI
 
-I used v0 to move fast on early UI. Then Cursor for real development. I refactored the codebase more times than I'd like to admit just to get the feel right.
+Threadbase is my flagship build, and most of it is written with AI. The lesson that shaped how I work: AI doesn't make a system like this good. It makes you faster in whatever direction you were already pointed. If the direction is vague, you get vague output, just sooner. So the real work isn't prompting. It's building the discipline that keeps the speed aimed at the right thing.
 
-I also learned that "AI makes coding cheap" is not purely good news. If your direction is vague, the output is vague—just faster. The bottleneck moved from implementation to taste and clarity. The real skill became knowing what I actually want before I ask for it.
+I do that with tuned skills and plugins. Instead of asking a model to "go fix this," I route the work through fixed procedures I've written for this project: one for scoping and planning a change, one for exploring the codebase before touching it, one for reviewing a diff, one for debugging. Each runs the same steps every time, so the quality doesn't ride on how I happened to phrase the request that day.
 
-GPT-5.2 extra high has been a genuine unlock: one-shotting full features, wiring Azure components correctly, generating IaC aligned with Microsoft's production patterns. When the prompt is crisp, the gap between idea and working software shrinks to almost nothing.
+A few things hold it together:
 
-When it isn't crisp, you end up building the wrong thing, fast.
+* **A knowledge graph of the code.** Before any change, the workflow checks the blast radius and the cross-module connections I wouldn't have thought to look for. Nothing gets called "isolated" until the graph agrees. The index updates itself on every edit and commit.
+* **Planning before code.** Major features start as a written plan, and there are dozens of them now. Scoping happens on paper before anything gets built, and adjacent work gets logged instead of quietly absorbed.
+* **Tests from the acceptance criteria, not the implementation.** The rule is simple: if someone reimplemented this differently but correctly, the tests should still pass. Every task ships with a verification command and a self-check against each criterion before it can move to review.
+* **Project rules that don't drift.** Naming, SQL, architecture, providers, deployment, testing gotchas: written down once, applied every time, by me or the model.
+* **Evals for the AI itself.** The extraction pipeline has its own labeled eval suites, including an LLM-as-judge layer, so a prompt change has to prove it didn't regress before it lands.
+
+The point of all of it is consistency. A model will happily build the wrong thing very fast. The skills and plugins exist to make sure the fast thing is also the right thing.
 
 ## What I learned
 
 * **Ease of use wins.** If it takes effort, it won't get adopted. Period.
 * **Use the data people already create.** Don't ask for "one more update." Extract value from what already exists.
-* **Graph databases are often overkill.** Most "graph-like" questions can be handled with a solid relational model plus vector search.
+* **A knowledge graph doesn't require a graph database.** The graph is the model that matters. Most of it can be handled with a solid relational model plus vector search, minus the operational drag.
 * **AI accelerates mistakes.** Speed is a trap if you're not disciplined. Clarity is the new bottleneck.

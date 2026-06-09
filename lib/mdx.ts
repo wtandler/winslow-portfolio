@@ -15,6 +15,8 @@ export interface ProjectFrontmatter {
   url?: string;
   github?: string;
   featured?: boolean;
+  // Higher sorts first; ties fall back to date (newest first). Defaults to 0.
+  priority?: number;
 }
 
 export interface Project {
@@ -54,6 +56,7 @@ function normalizeFrontmatter(
     url: data.url ? String(data.url) : undefined,
     github: data.github ? String(data.github) : undefined,
     featured: Boolean(data.featured),
+    priority: typeof data.priority === "number" ? data.priority : 0,
   };
 }
 
@@ -104,6 +107,10 @@ export function getAllProjects(): Project[] {
     .map((slug) => getProjectBySlug(slug))
     .filter((project): project is Project => project !== null)
     .sort((a, b) => {
+      const priorityDiff =
+        (b.frontmatter.priority ?? 0) - (a.frontmatter.priority ?? 0);
+      if (priorityDiff !== 0) return priorityDiff;
+
       const dateA = new Date(a.frontmatter.date);
       const dateB = new Date(b.frontmatter.date);
       return dateB.getTime() - dateA.getTime();
