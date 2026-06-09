@@ -9,8 +9,8 @@ import {
 const contactLinks = [
   {
     label: "email",
-    value: "slow@slowwin.xyz",
-    href: "mailto:slow@slowwin.xyz",
+    value: "winslow.tandler@gmail.com",
+    href: "mailto:winslow.tandler@gmail.com",
     description: "Best for project inquiries",
   },
   {
@@ -111,29 +111,6 @@ export default function ContactPage() {
               </StaggeredItem>
             ))}
           </div>
-        </section>
-
-        {/* Availability */}
-        <section>
-          <StaggeredItem>
-            <div
-              className="p-4"
-              style={{
-                background: "var(--bg-secondary)",
-                borderLeft: "2px solid var(--accent)",
-              }}
-            >
-              <p
-                className="text-sm uppercase mb-2"
-                style={{ color: "var(--accent)" }}
-              >
-                status: available
-              </p>
-              <p style={{ color: "var(--text-secondary)" }}>
-                Currently open to freelance projects and interesting collaborations.
-              </p>
-            </div>
-          </StaggeredItem>
         </section>
       </StaggeredContainer>
     </div>
