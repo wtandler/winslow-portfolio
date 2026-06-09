@@ -17,7 +17,7 @@ export function Footer() {
             className="text-sm"
             style={{ color: "var(--text-muted)" }}
           >
-            // built with ai
+            Winslow Tandler // built with ai
           </p>
 
           <div className="flex items-center gap-4">

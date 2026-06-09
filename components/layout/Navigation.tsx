@@ -29,7 +29,7 @@ export function Navigation() {
             className="text-sm"
             style={{ color: "var(--accent)" }}
           >
-            ~/winslow
+            ~/wtandler
           </Link>
 
           <div className="flex items-center gap-0">

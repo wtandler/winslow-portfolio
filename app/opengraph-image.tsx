@@ -23,7 +23,7 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", color: "#4ade80", fontSize: 30, marginBottom: 28 }}>
-          ~/winslow
+          ~/wtandler
         </div>
         <div
           style={{
