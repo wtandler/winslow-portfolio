@@ -1,0 +1,55 @@
+---
+title: CoachGPT
+summary: AI-powered fitness programming that builds custom workouts and long-term plans around your goals, gear, and history.
+date: 2023-03
+stack: [FlutterFlow, Flutter, Supabase, PostgreSQL, Edge Functions, OpenAI, Anthropic, Groq, PWA]
+status: archived
+url: https://app.gocoachgpt.com
+---
+
+## Why I Built It
+
+I started CoachGPT in spring 2023, a couple months after ChatGPT launched. I wanted a real app I could own end-to-end. Around the same time, I hit a fitness plateau and kept leaning on my brother (a part-time CrossFit coach and full-time protein shake enthusiast) for daily workouts. He was great for one-off WODs and about as useful as a chocolate teapot for long-term programming.
+
+When ChatGPT first came out, I started asking it for workouts and feeding it years of my training history. It was not perfect, but it was surprisingly solid. After some experimentation, it started producing genuinely creative sessions. That was the spark. CoachGPT became the project where I could build the app I had always wanted to build, and prove an AI system can plan, adapt, and stay grounded in real-world constraints.
+
+
+## What CoachGPT Does
+
+CoachGPT builds workouts across CrossFit, running, biking, weightlifting, rowing, or any mix you can dream up. You can train in two modes:
+
+**Daily Mode:** A fresh workout each day based on your preferences, time, and equipment.
+
+**Program Mode:** A structured plan with dates, goals, and a training strategy. It asks clarifying questions up front, then turns your answers into a schedule that progresses logically.
+
+## How It Actually Works
+
+CoachGPT is not a single prompt. It is a chained pipeline: intake, strategy, scheduling, a human-readable phase plan, JSON parsing, then logging. That structure is why it holds together across long timelines and different training styles.
+
+## The Hard Problem I Solved
+
+Long programs are dense. Even GPT-4o could not fit a full program in one output context window. I had to scaffold the plan and serialize it in chunks: generate a section, save it, then feed the tail of the previous section plus all outputs so far into the next call. If a program needed three calls, they had to run in sequence. Parallel calls broke the plan because each model assumed it was writing the beginning.
+
+So I built a status-driven pipeline of Supabase Edge Functions with explicit locks and idempotency. The program moves through states (definition, phase generation, JSON chunking, workout placeholders), each step triggered by a status update and guarded by compare-and-set locks. The database is the state machine, so each stage can retry safely and failures are visible in SQL.
+
+Creativity was another bottleneck. AI is not naturally inventive, so I built a variety engine around it: a database of 1,000 workouts as raw material, sampled for inspiration, plus the programming philosophies of five prominent coaches as creative guides. The result is consistent structure with real variety, not just superficial shuffling.
+
+## The UI Reality Check
+
+UI was harder than I expected. There were no vibe-coding tools to spit out interfaces, and I am not a designer. I had to iterate the old-fashioned way: lots of experiments, lots of wrong turns, and a pile of screens that got thrown away before the layout finally felt right.
+
+## Features That Make It Feel Different
+
+**Structured workout logging:** From a simple 5K to a multi-part WOD, CoachGPT can parse the workout into loggable components so your history stays usable.
+
+**Equipment-aware programming:** Snap a photo of your gym setup and the workout adapts. Save different configs for home, hotel, or commercial gyms and switch instantly.
+
+**Cross-discipline coverage:** It handles one sport or hybrid plans without forcing you into a single training template.
+
+## The Stack
+
+The app is built with FlutterFlow and shipped as a mobile-first PWA. The backend runs on Supabase (Postgres, auth, Edge Functions). The AI layer uses multiple models with clear roles: GPT-4o and GPT-4o-mini for reliable structure, Claude 3.5 Sonnet for creative variety, o3-mini for focused reasoning, and Groq-hosted Llama 3.2 for high-speed formatting.
+
+Each model does the job it is best at. No single model wins across the whole pipeline.
+
+CoachGPT is on pause. There are bugs I need to work through and I have moved on to other projects, but I will be back to it. It will be interesting to revisit this with newer models that have longer output context and stronger reasoning. I expect the programs and other elements to improve a lot.

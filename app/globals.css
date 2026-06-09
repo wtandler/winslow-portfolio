@@ -1,26 +1,216 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core palette - terminal dark */
+  --bg-primary: #0c0c0c;
+  --bg-secondary: #141414;
+  --bg-tertiary: #1a1a1a;
+  --bg-elevated: #222222;
+
+  /* Text hierarchy */
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  /* Boosted for readability/contrast on dark background */
+  --text-tertiary: #8a8a8a;
+  --text-muted: #7d7d7d;
+
+  /* Accent - terminal green, NO PURPLE */
+  --accent: #4ade80;
+  --accent-muted: rgba(74, 222, 128, 0.12);
+  --accent-glow: rgba(74, 222, 128, 0.2);
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-default: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.18);
+
+  /* Depth - for focus states */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.7);
+  --shadow-focus: 0 0 0 1px var(--accent), 0 2px 12px rgba(74, 222, 128, 0.15);
+
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* Typography - monospace first */
+  --font-mono: var(--font-geist-mono), "JetBrains Mono", "Fira Code", monospace;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+
+  /* Transitions */
+  --transition-fast: 100ms ease;
+  --transition-default: 200ms ease;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-mono);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base styles */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection styling */
+::selection {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+/* Focus styles - with depth */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* Scrollbar - minimal */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Typography utilities */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Code blocks - square */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--bg-tertiary);
+  padding: 0.2em 0.4em;
+  border: 1px solid var(--border-subtle);
+}
+
+pre {
+  font-family: var(--font-mono);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  padding: var(--space-lg);
+  overflow-x: auto;
+}
+
+pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Prose styles for MDX content */
+.prose {
+  --prose-headings: var(--text-primary);
+  --prose-body: var(--text-secondary);
+  --prose-links: var(--accent);
+  --prose-bold: var(--text-primary);
+  --prose-code: var(--text-primary);
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--prose-headings);
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.prose h1 {
+  font-size: 1.75rem;
+  margin-bottom: var(--space-lg);
+}
+
+.prose h2 {
+  font-size: 1.25rem;
+  margin-top: var(--space-3xl);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.prose h3 {
+  font-size: 1.1rem;
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-md);
+}
+
+.prose p {
+  color: var(--prose-body);
+  margin-bottom: var(--space-lg);
+}
+
+.prose a {
+  color: var(--prose-links);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  color: var(--text-primary);
+}
+
+.prose ul,
+.prose ol {
+  color: var(--prose-body);
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.prose li {
+  margin-bottom: var(--space-sm);
+}
+
+.prose li::marker {
+  color: var(--accent);
+}
+
+.prose blockquote {
+  border-left: 2px solid var(--accent);
+  padding-left: var(--space-lg);
+  color: var(--text-tertiary);
+  margin: var(--space-xl) 0;
+}
+
+/* Card component - blocky with depth on hover */
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  transition: box-shadow var(--transition-default), border-color var(--transition-default);
+}
+
+.card:hover,
+.card:focus-within {
+  border-color: var(--border-default);
+  box-shadow: var(--shadow-md);
 }

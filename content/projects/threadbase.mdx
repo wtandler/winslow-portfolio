@@ -1,0 +1,74 @@
+---
+title: Threadbase
+summary: Portfolio governance that uses what people already produce—calls, decks, updates—instead of asking for more.
+date: 2024-10
+stack: [Next.js, React 19, TypeScript, PostgreSQL, pgvector, Azure Content Understanding, OpenAI, Voyage AI, Tailwind, Radix UI]
+status: in-progress
+featured: true
+url: https://threadbase.co
+---
+
+## The Problem
+
+Every week, leaders circle the same three questions:
+
+* What's going to miss—and what's the real reason?
+* Which dependencies are quietly getting bigger?
+* What assumptions have expired without anyone saying it out loud?
+
+They *should* be easy to answer. They aren't.
+
+The truth is scattered: in the heads of a few long-tenured people, in slide decks that took hours to craft, and in back-to-back calls everyone hates but nobody can cancel. So you get "status," not clarity.
+
+And adding another system doesn't fix that. A database tool can be clean and still miss the nuance that lives in decks. Notes never capture what actually happened in the room. And asking people to adopt yet another app when their week is already calls + slides? That's dead on arrival.
+
+## The Insight
+
+If the organization lives inside calls and decks, then that's the data model. Stop fighting it.
+
+A deck made by a human and a transcript of what people actually said is about as close as you get to intent: decisions, context, subtext, friction, the real blockers, the half-commitments. It's all there—already being produced.
+
+So Threadbase takes those artifacts as-is. It ingests documents and transcripts, connects the threads across teams that use different vocabularies and tools, and surfaces dependencies before they turn into "how did we not see this coming?" meetings with five VPs and twenty managers.
+
+The result is a knowledge base that doesn't get stale. It compounds.
+
+## The Approach
+
+I started with a chat interface because "AI product" basically implies chat. That was a mistake.
+
+The state of a portfolio can't be hidden behind prompts. If someone has to ask the system what's going on, you've already added friction the system was meant to eliminate.
+
+Threadbase is built around a persistent, always-visible model: initiatives, programs, owners, dependencies, risks, and decisions. Taxonomies are a legacy construct that can't survive the first status update. When something changes, the knock-on effects show up early. The tool doesn't wait for the status meeting to reveal the surprise.
+
+That product choice forced a few gnarly technical problems: extracting signal from corporate slides, retrieval that actually works in this domain, a relationship-aware model without operational drag, and dashboards that stay live as reality changes.
+
+## Technical Exploration
+
+### Document ingestion
+I tried a pile of OCR/vision stacks. Corporate slides are brutal: dense layouts, tiny text, icons that matter, nested tables, "this one dot means red." Most open-source approaches fell apart on edge cases. Azure Content Understanding was the first thing that consistently handled the mess.
+
+### Embeddings
+I tested ColPali, Voyage, and others. Voyage was the most reliable for retrieval quality in this domain.
+
+### Graph structure
+I began with Neo4j because relationships are the point. It worked—but the operational overhead wasn't worth it at this stage. I moved to a pseudo-graph in Postgres using pgvector: most of the graph benefit, with standard Postgres tooling and fewer moving parts.
+
+### Dashboards
+No more "build a Power BI report, refresh it weekly, hope someone uses it." Threadbase generates dashboards at runtime from the live model. If the underlying truth changes, the dashboard changes with it.
+
+## Building with AI
+
+I used v0 to move fast on early UI. Then Cursor for real development. I refactored the codebase more times than I'd like to admit just to get the feel right.
+
+I also learned that "AI makes coding cheap" is not purely good news. If your direction is vague, the output is vague—just faster. The bottleneck moved from implementation to taste and clarity. The real skill became knowing what I actually want before I ask for it.
+
+GPT-5.2 extra high has been a genuine unlock: one-shotting full features, wiring Azure components correctly, generating IaC aligned with Microsoft's production patterns. When the prompt is crisp, the gap between idea and working software shrinks to almost nothing.
+
+When it isn't crisp, you end up building the wrong thing, fast.
+
+## What I learned
+
+* **Ease of use wins.** If it takes effort, it won't get adopted. Period.
+* **Use the data people already create.** Don't ask for "one more update." Extract value from what already exists.
+* **Graph databases are often overkill.** Most "graph-like" questions can be handled with a solid relational model plus vector search.
+* **AI accelerates mistakes.** Speed is a trap if you're not disciplined. Clarity is the new bottleneck.
