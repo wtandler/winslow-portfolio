@@ -3,7 +3,7 @@ import { ProjectCard } from "@/components/projects/ProjectCard";
 
 export const metadata = {
   title: "Projects",
-  description: "AI-first products I've built by embedding in a domain and shipping the tool the people there use.",
+  description: "AI tools built by learning the job first.",
 };
 
 export default function ProjectsPage() {
@@ -22,8 +22,8 @@ export default function ProjectsPage() {
           What I&apos;ve Built
         </h1>
         <p style={{ color: "var(--text-secondary)" }}>
-          Each project is a domain I embedded in and a tool I shipped for the
-          people who work there. The case studies show how it came together.
+          Each one started with a job I didn&apos;t know and ended with a tool
+          the team actually uses. The case studies show how.
         </p>
       </div>
 

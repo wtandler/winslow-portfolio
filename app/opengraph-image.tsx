@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Winslow — I build AI-first products by embedding in the domain";
+export const alt = "Winslow — My job is learning yours. Then building the AI tool for it.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -35,10 +35,10 @@ export default function OpengraphImage() {
             maxWidth: 920,
           }}
         >
-          I build AI-first products by embedding in the domain.
+          My job is learning yours. Then building the AI tool for it.
         </div>
         <div style={{ display: "flex", color: "#8a8a8a", fontSize: 26, marginTop: 36 }}>
-          trading desks · compliance · MS event ops · PMO · healthcare ops
+          trading desks · event ops · change management · nonprofit ops · intake &amp; triage
         </div>
       </div>
     ),

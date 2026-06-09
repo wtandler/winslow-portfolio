@@ -33,14 +33,12 @@ export default function HomePage() {
           className="text-base sm:text-lg mb-5"
           style={{ color: "var(--text-secondary)" }}
         >
-          I build AI-first products by embedding in the domain.
+          My job is learning yours.
         </p>
         <p className="max-w-2xl" style={{ color: "var(--text-secondary)" }}>
-          I take a partnership approach. I don&apos;t start with the answers; I
-          start by learning the business and the process, working alongside the
-          people who&apos;ll use what I build. Then I ship the AI tool that fits
-          how they actually work. I&apos;ve done it on a rates trading desk, with
-          a change-management team, and inside a Microsoft event program.
+          Then building the AI tool for it. Business people think I&apos;m an
+          engineer; engineers think I&apos;m a business guy. Both are roughly
+          right.
         </p>
 
         {/* Proof: range across domains */}

@@ -21,11 +21,11 @@ const siteUrl =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Winslow Tandler | AI-First Builder",
+    default: "Winslow Tandler",
     template: "%s | Winslow Tandler",
   },
   description:
-    "I build AI-first products by embedding in a domain and shipping the tool the people there use. Selected work and case studies.",
+    "My job is learning yours — then building the AI tool for it. Selected work and case studies.",
   keywords: ["AI", "product", "engineering", "portfolio", "AI products", "case studies"],
   authors: [{ name: "Winslow Tandler" }],
   openGraph: {
@@ -33,15 +33,15 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "Winslow Tandler",
-    title: "Winslow Tandler | AI-First Builder",
+    title: "Winslow Tandler",
     description:
-      "I build AI-first products by embedding in a domain and shipping the tool the people there use.",
+      "My job is learning yours — then building the AI tool for it.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Winslow Tandler | AI-First Builder",
+    title: "Winslow Tandler",
     description:
-      "I build AI-first products by embedding in a domain and shipping the tool the people there use.",
+      "My job is learning yours — then building the AI tool for it.",
   },
 };
 
