@@ -1,29 +1,36 @@
 ---
 title: Agentic Intake
-summary: An AI-first intake and triage workflow—requests come in, an agent scores and routes them, humans review only what needs judgment.
+summary: Reimagining intake for a world where analysis is free—requests come in, AI researches and prepares each one live, and humans only do the part that needs a person: judge and decide.
 date: 2026-03
 stack: [React, TypeScript, Vite, Tailwind, React Router]
 status: in-progress
 featured: false
 ---
 
-{/* Kept intentionally as an honest early-prototype case study (not featured). Real-world
-    name generalized; mock data; repo private. Swap in the real story anytime if it ships. */}
+{/* Honest prototype (mock data, not featured). Real-world domain generalized. */}
 
-## The Idea
+## The Problem
 
-Most intake processes are a queue of requests and a human reading every one to decide what it is, how urgent it is, and where it goes. That triage is mechanical right up until the moment it needs judgment—which makes it a near-perfect fit for an agent that does the first pass and hands humans only the calls that actually need a person.
+Legacy intake is a bottleneck by design. A request comes in and waits in a queue until a reviewer can work through it—reading, researching, gathering context, assessing—before anyone decides anything. That review labor is slow, expensive, and gated on a small number of expensive people. The reviewer spends most of their time on research, not judgment, and throughput is capped by how fast humans can read.
+
+## The Reframe
+
+That whole model assumes analysis and research are scarce, expensive labor. They aren't anymore. When AI can do the reading, research, and preparation live—at a marginal cost near zero—intake itself can be reimagined.
+
+So flip the division of labor: **AI analyzes and prepares; humans judge and decide.** The reviewer stops spending their day on research and spends it on the only thing that actually needs a person—the call.
 
 ## What the Prototype Does
 
-A working front-end for that pattern:
+A working front-end for that flipped model:
 
 * **Submit** — a request comes in through a simple form.
-* **Queue** — requests land in a triage queue, each tagged with an AI **confidence** and **status** so the obvious ones are obvious.
-* **Review** — a human opens anything the agent is unsure about, with the context already assembled.
+* **Analyze** — the agent researches and prepares each request live, attaching a **confidence** and the assembled context.
+* **Queue** — everything lands triaged, so the obvious cases are obvious and the hard ones are flagged.
+* **Review** — a human opens only what needs judgment, with the research already done.
 * **Analysis** — a view over what's flowing through the system.
-* **Admin** — configuration for the business units the intake routes to.
+
+The point isn't to automate the decision. It's to delete the research labor that used to sit in front of it.
 
 ## Status
 
-This one is earlier than the others on this page—a functional prototype built to prove out the submit → triage → review → analysis loop and the AI-confidence UX, not yet a shipped product. The interesting question it's testing: how much of an intake desk can an agent own before a human needs to step in, and how do you make that handoff legible?
+A functional prototype proving out the loop and the AI-confidence UX—not yet a shipped product. The bet it's testing: once research labor is effectively free, how much of intake collapses into "AI prepares, human decides," and how do you make that handoff legible enough that a reviewer actually trusts it?
