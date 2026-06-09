@@ -1,34 +1,15 @@
-"use client";
-
-import { useMemo } from "react";
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import { serialize } from "next-mdx-remote/serialize";
-import { useEffect, useState } from "react";
+import { MDXRemote } from "next-mdx-remote/rsc";
 
 interface MDXContentProps {
   source: string;
 }
 
-// Custom components for MDX
-const components = {
-  // Add custom components here as needed
-  // e.g., custom code blocks, callouts, etc.
-};
+// Custom components for MDX (add as needed — e.g. callouts, custom code blocks)
+const components = {};
 
+// Server component: MDX is compiled on the server at build time (SSG), so the
+// rendered content lands in the static HTML — good for SEO and link previews,
+// with no client-side serialize round-trip or loading flash.
 export function MDXContent({ source }: MDXContentProps) {
-  const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(
-    null
-  );
-
-  useEffect(() => {
-    serialize(source).then(setMdxSource);
-  }, [source]);
-
-  if (!mdxSource) {
-    return (
-      <div style={{ color: "var(--text-muted)" }}>Loading content...</div>
-    );
-  }
-
-  return <MDXRemote {...mdxSource} components={components} />;
+  return <MDXRemote source={source} components={components} />;
 }
