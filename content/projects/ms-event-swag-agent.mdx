@@ -9,7 +9,9 @@ featured: true
 
 ## The Problem
 
-An events program runs roughly 90 events a quarter, each one needing the right swag for the right attendees, all drawn against a single budget that has to last the whole period. The people requesting swag want to describe an event and get a sensible package back. The ops team needs budget, inventory, allocation rules, and orders in one place instead of scattered across spreadsheets.
+A central team runs the events program for a company with more than 5,000 account managers and sellers. On average that's an event a day—a seller hosting customers somewhere between the C-suite and the technical staff, where each tier of attendee warrants a different level of swag. Every event needs the right swag for the right people, allocated against a single budget that has to last the whole period.
+
+The sellers requesting swag just want to describe an event and get a sensible package back. The ops team needs budget, inventory, allocation rules, and orders in one place instead of scattered across spreadsheets.
 
 There was also a hard constraint up front: it had to be built **Power-Platform-first**—Copilot Studio for the agent, Dataverse for the data—so it lived natively inside the org's existing tools, identity, and governance rather than as one more outside app to adopt and secure.
 
@@ -34,7 +36,7 @@ Two things were genuinely hard, and both came partly from the Power-Platform-fir
 
 First, **budget-aware negotiation inside Copilot Studio.** A Copilot Studio agent isn't a free-form LLM loop—you build within its topics, flows, and Power Fx. Getting it to propose a package, hold a budget constraint, and negotiate down without going off the rails meant pushing real optimization math into Power Fx and keeping the agent's state honest across the conversation, all inside those rails. The constraint cuts both ways: you trade raw flexibility for something governed, native, and auditable that a bespoke agent wouldn't be.
 
-Second, **personas-as-data.** The early version hardcoded attendee tiers as a TypeScript union—a code change and a deploy every time the program renamed a tier. I tore that out and made personas editable data: rename a tier in settings and it propagates everywhere, no deploy. Boring-sounding, but it's the difference between a tool the ops team owns and a tool they have to file a ticket against.
+Second, **personas-as-data.** Those customer-attendee tiers—C-suite down to technical staff—started life hardcoded as a TypeScript union, which meant a code change and a deploy every time the program renamed or re-cut a tier. I tore that out and made personas editable data: rename a tier in settings and it propagates everywhere, no deploy. Boring-sounding, but it's the difference between a tool the ops team owns and a tool they have to file a ticket against.
 
 ## Building on the Microsoft Stack
 
