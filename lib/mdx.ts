@@ -75,7 +75,20 @@ export function getProjectBySlug(slug: string): Project | null {
   }
 
   const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
+
+  let parsed;
+  try {
+    parsed = matter(fileContents);
+  } catch (error) {
+    throw new Error(
+      `content/projects/${slug}.mdx has invalid frontmatter (YAML): ${
+        error instanceof Error ? error.message : String(error)
+      }`
+    );
+  }
+
+  const data = parsed.data as Record<string, unknown>;
+  const content = parsed.content;
 
   return {
     slug,
