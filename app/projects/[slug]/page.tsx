@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/mdx";
+import { STATUS_COLORS } from "@/lib/status";
 import { MDXContent } from "@/components/projects/MDXContent";
 
 interface ProjectPageProps {
@@ -42,12 +43,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     month: "short",
   });
 
-  const statusColors = {
-    live: "var(--accent)",
-    "in-progress": "#eab308",
-    archived: "var(--text-muted)",
-  };
-
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">
       {/* Back link */}
@@ -64,11 +59,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <div className="flex items-center gap-2 mb-4 text-sm">
           <span
             className="flex items-center gap-1.5 uppercase"
-            style={{ color: statusColors[status] }}
+            style={{ color: STATUS_COLORS[status] }}
           >
             <span
               className="w-1.5 h-1.5"
-              style={{ background: statusColors[status] }}
+              style={{ background: STATUS_COLORS[status] }}
             />
             {status}
           </span>

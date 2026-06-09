@@ -3,16 +3,11 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Project } from "@/lib/mdx";
+import { STATUS_COLORS } from "@/lib/status";
 
 interface ProjectCardProps {
   project: Project;
 }
-
-const statusColors = {
-  live: "var(--accent)",
-  "in-progress": "#eab308",
-  archived: "var(--text-muted)",
-};
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const { slug, frontmatter, readingTime } = project;
@@ -46,11 +41,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </h2>
           <span
             className="flex items-center gap-1.5 text-xs uppercase shrink-0"
-            style={{ color: statusColors[status] }}
+            style={{ color: STATUS_COLORS[status] }}
           >
             <span
               className="w-1.5 h-1.5"
-              style={{ background: statusColors[status] }}
+              style={{ background: STATUS_COLORS[status] }}
             />
             {status}
           </span>

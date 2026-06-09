@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
+import { VALID_STATUSES, type ProjectStatus } from "./status";
 
 const projectsDirectory = path.join(process.cwd(), "content/projects");
 
@@ -10,7 +11,7 @@ export interface ProjectFrontmatter {
   summary: string;
   date: string;
   stack: string[];
-  status: "live" | "in-progress" | "archived";
+  status: ProjectStatus;
   url?: string;
   github?: string;
   featured?: boolean;
@@ -21,6 +22,39 @@ export interface Project {
   frontmatter: ProjectFrontmatter;
   content: string;
   readingTime: string;
+}
+
+// Validate + normalize frontmatter so a typo in one .mdx file fails loudly here
+// (with the file name) at build time, instead of crashing a component at render.
+function normalizeFrontmatter(
+  slug: string,
+  data: Record<string, unknown>
+): ProjectFrontmatter {
+  const missing = (["title", "summary", "date"] as const).filter(
+    (key) => !data[key]
+  );
+  if (missing.length > 0) {
+    throw new Error(
+      `content/projects/${slug}.mdx is missing required frontmatter: ${missing.join(
+        ", "
+      )}`
+    );
+  }
+
+  const status = VALID_STATUSES.includes(data.status as ProjectStatus)
+    ? (data.status as ProjectStatus)
+    : "in-progress";
+
+  return {
+    title: String(data.title),
+    summary: String(data.summary),
+    date: String(data.date),
+    stack: Array.isArray(data.stack) ? (data.stack as string[]) : [],
+    status,
+    url: data.url ? String(data.url) : undefined,
+    github: data.github ? String(data.github) : undefined,
+    featured: Boolean(data.featured),
+  };
 }
 
 export function getProjectSlugs(): string[] {
@@ -45,7 +79,7 @@ export function getProjectBySlug(slug: string): Project | null {
 
   return {
     slug,
-    frontmatter: data as ProjectFrontmatter,
+    frontmatter: normalizeFrontmatter(slug, data),
     content,
     readingTime: readingTime(content).text,
   };
