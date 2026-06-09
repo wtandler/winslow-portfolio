@@ -4,10 +4,10 @@ import Link from "next/link";
 
 const domains = [
   "trading desks",
-  "compliance",
   "event ops",
   "change management",
   "healthcare ops",
+  "intake & triage",
   "fitness",
 ];
 
