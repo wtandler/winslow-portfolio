@@ -1,0 +1,47 @@
+---
+title: MS Event Swag Agent
+summary: AI swag-allocation for Microsoft seller events—a Copilot Studio agent that proposes and negotiates swag packages, plus an admin app for the ops team, on one Dataverse backend.
+date: 2026-04
+stack: [Copilot Studio, Power Fx, Power Automate, Dataverse, Microsoft Entra, Vite, React, TypeScript, Fluent UI]
+status: in-progress
+featured: true
+---
+
+{/* DRAFT — confidentiality check before publishing: I've kept names and internal program codenames out and described it as "a Microsoft seller-events swag program." Please confirm nothing here is sensitive. Private repo, internal tool: no github/live link. */}
+
+## The Problem
+
+A Microsoft seller-events program runs roughly 90 events a quarter, each one needing the right swag for the right attendees, all drawn against a single budget that has to last the period. Sellers want to describe an event and get a sensible package. The ops team needs to keep budget, inventory, allocation rules, and orders straight without it turning into a spreadsheet graveyard. And the whole thing has to live where these people already work: inside the Microsoft stack, next to Outlook, Teams, and Dynamics.
+
+## The Insight
+
+This is two products wearing a trench coat, and pretending otherwise makes both worse. So I built two systems on one shared Dataverse backend:
+
+* A **Copilot Studio agent** for the sellers—conversational, low-friction, "describe your event."
+* An **admin Code App** for the ops team—dense, data-first, decision-oriented.
+
+Same data, two completely different surfaces tuned to two completely different users.
+
+## What I Built
+
+**The agent.** A seller describes an event in natural language; the agent proposes a swag package, negotiates within budget, and finalizes it. It does portfolio-aware budget optimization—allocating against the program's remaining budget across all events, not just the one in front of it—with the negotiation math written in Power Fx and two Power Automate flows handling context-loading and finalization.
+
+**The admin app.** A Vite + React + TypeScript app in Fluent UI, built in the spirit of the Azure Portal's Cost Management rather than a marketing page: an events-first budget dashboard, a packages editor, personas managed as data, inventory, and orders. Budget health is a real business rule, not decoration—green / yellow / red derived from remaining budget against the program total.
+
+## The Hard Part
+
+Two things were genuinely hard.
+
+First, **budget-aware negotiation inside a conversational agent.** Getting an agent to propose a package, hold a budget constraint, and negotiate down without going off the rails meant pushing real math into Power Fx and keeping the agent's state honest across the conversation.
+
+Second, **personas-as-data.** The early version hardcoded attendee tiers as a TypeScript union. That meant a code change and a deploy every time the program renamed a tier. I tore that out and made personas editable data—rename a tier in settings and it propagates everywhere, no deploy. Boring-sounding, but it's the difference between a tool the ops team owns and a tool they have to file a ticket against.
+
+## Building on the Microsoft Stack
+
+Everything lives natively in the Microsoft ecosystem: Dataverse for storage, an Entra-backed people picker for identity, Dataverse security roles for access, Power Automate for orchestration. Deployment is `pac solution import` for the agent and `pac code push` for the app. The UI follows Fluent 2 with WCAG-redundant status encoding (color *and* icon), feature flags for chrome surfaces, and a test suite pinned with fake timers so date-bucketed assertions don't flake on the CI clock.
+
+## What I Learned
+
+* **One user is never the user.** The seller and the ops lead needed opposite interfaces; forcing them into one would have failed both.
+* **Config that needs a deploy isn't config.** Personas-as-data was the unlock for ops ownership.
+* **Native beats novel in the enterprise.** Building on the stack people already trust and already have permissions in removed an entire adoption battle.

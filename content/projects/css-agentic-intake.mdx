@@ -1,0 +1,41 @@
+---
+title: Agentic Intake
+summary: An AI-first intake and triage workflow—requests come in, an agent scores and routes them, humans review only what needs judgment.
+date: 2026-03
+stack: [React, TypeScript, Vite, Tailwind, React Router]
+status: in-progress
+featured: false
+---
+
+{/*
+  DRAFT — NEEDS YOUR INPUT. This repo (css-agentic-intake) is currently a single-commit
+  React PROTOTYPE with mock data: Submit -> Queue -> Review -> Analysis, plus an SBU admin
+  and AI confidence badges. I've described only what the prototype demonstrably does and
+  left the real-world domain vague on purpose — I don't want to invent who it's for.
+
+  To turn this into a real case study, tell me:
+   1. The actual domain / who this is for (the title shows "PCMO Intake" — what is that, and
+      is it OK to name publicly?).
+   2. The real problem it solves and the hard part.
+   3. Whether it's still in-progress, shipped, or a concept (sets `status`).
+  Or: if it's not ready to feature, we hold it and drop "compliance" from the homepage
+  proof row (or point me at the regulated-packaging/compliance project instead). Private repo.
+*/}
+
+## The Idea
+
+Most intake processes are a queue of requests and a human reading every one to decide what it is, how urgent it is, and where it goes. That triage is mechanical right up until the moment it needs judgment—which makes it a near-perfect fit for an agent that does the first pass and hands humans only the calls that actually need a person.
+
+## What the Prototype Does
+
+A working front-end for that pattern:
+
+* **Submit** — a request comes in through a simple form.
+* **Queue** — requests land in a triage queue, each tagged with an AI **confidence** and **status** so the obvious ones are obvious.
+* **Review** — a human opens anything the agent is unsure about, with the context already assembled.
+* **Analysis** — a view over what's flowing through the system.
+* **Admin** — configuration for the business units the intake routes to.
+
+## Status
+
+This one is earlier than the others on this page—a functional prototype built to prove out the submit → triage → review → analysis loop and the AI-confidence UX, not yet a shipped product. The interesting question it's testing: how much of an intake desk can an agent own before a human needs to step in, and how do you make that handoff legible?
