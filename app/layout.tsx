@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://winslow-portfolio.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://winslowtandler.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
