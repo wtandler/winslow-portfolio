@@ -33,12 +33,11 @@ export default function HomePage() {
           className="text-base sm:text-lg mb-5"
           style={{ color: "var(--text-secondary)" }}
         >
-          My job is learning yours.
+          AI tools, built one domain at a time.
         </p>
         <p className="max-w-2xl" style={{ color: "var(--text-secondary)" }}>
-          Then building the AI tool for it. Business people think I&apos;m an
-          engineer; engineers think I&apos;m a business guy. Both are roughly
-          right.
+          Case studies of the problem, what shipped, and how each tool fits the
+          work.
         </p>
 
         {/* Proof: range across domains */}

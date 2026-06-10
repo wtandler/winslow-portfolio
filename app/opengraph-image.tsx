@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Winslow — My job is learning yours. Then building the AI tool for it.";
+export const alt = "Winslow Tandler — AI tools, built one domain at a time";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -35,7 +35,7 @@ export default function OpengraphImage() {
             maxWidth: 920,
           }}
         >
-          My job is learning yours. Then building the AI tool for it.
+          AI tools, built one domain at a time.
         </div>
         <div style={{ display: "flex", color: "#8a8a8a", fontSize: 26, marginTop: 36 }}>
           trading desks · event ops · change management · nonprofit ops · intake &amp; triage

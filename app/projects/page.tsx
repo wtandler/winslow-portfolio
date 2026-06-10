@@ -22,8 +22,8 @@ export default function ProjectsPage() {
           What I&apos;ve Built
         </h1>
         <p style={{ color: "var(--text-secondary)" }}>
-          Each one started with a job I didn&apos;t know and ended with a tool
-          the team actually uses. The case studies show how.
+          Each case study covers the domain, the problem, and what shipped —
+          some built alongside a team, some built solo.
         </p>
       </div>
 
