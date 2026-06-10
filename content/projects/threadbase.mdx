@@ -11,17 +11,17 @@ url: https://threadbase.co
 
 ## The Problem
 
-The failures that hurt a portfolio are rarely unknown. They're unasked.
+The failures that hurt a portfolio usually come from questions nobody thought to ask.
 
 Two teams are running on assumptions that quietly contradict each other. A dependency is getting bigger while everyone treats it as settled. A risk spans three orgs, so no single person ever sees the whole shape of it. The information exists. Nobody connected it in time.
 
-Status tools don't help here, because they wait. They sit there until someone thinks to ask the right question, and the right question is the one thing you don't know to ask. By the time it surfaces in a meeting with five VPs and twenty managers, it isn't a question anymore. It's a problem.
+Status tools don't help here, because they wait. They sit there until someone thinks to ask the right question, and the right question is the one thing you don't know to ask. By the time it surfaces in a meeting with five VPs and twenty managers, it's too late to do much about it.
 
-The signal that would have caught it is scattered: in the heads of a few long-tenured people, in slide decks that took hours to craft, in back-to-back calls everyone hates but nobody can cancel. Different teams describe the same work in different words, in different tools. So you get "status," not clarity.
+The signal that would have caught it is scattered: in the heads of a few long-tenured people, in slide decks that took hours to craft, in back-to-back calls everyone hates but nobody can cancel. Different teams describe the same work in different words, in different tools. So you get status updates without real clarity.
 
 ## The Insight
 
-Stop waiting for the user to ask.
+The fix is to stop waiting for the user to ask.
 
 Threadbase runs like a team of analysts that never stops reading. Agents work across the portfolio continuously, comparing what one team said against what another assumed, tracking how dependencies move, watching for assumptions that expired without anyone saying so out loud. Instead of answering questions, it asks them first, then puts what it found in front of you to confirm or act on.
 
@@ -33,9 +33,9 @@ These are the questions it asks before you do:
 
 To answer them, it has to read everything, in whatever form it shows up. A deck made by a human and a transcript of what people actually said are about as close to intent as you get: decisions, context, subtext, friction, the real blockers, the half-commitments. Threadbase takes those artifacts as-is, across teams that use different vocabularies and tools, and links them into one knowledge graph: initiatives, programs, owners, dependencies, risks, decisions, and how they all touch each other.
 
-Taxonomies don't survive the first status update, so the graph doesn't depend on them. It connects the work across orgs and across formats, then keeps those connections live as reality changes.
+Taxonomies tend to fall apart once real status updates start flowing, so the graph doesn't depend on them. It connects the work across orgs and across formats, then keeps those connections live as reality changes.
 
-The result is intelligence that compounds instead of going stale.
+The result is a picture of the portfolio that stays current instead of going stale.
 
 ## The Approach
 
@@ -43,7 +43,7 @@ I started with a chat interface, because "AI product" basically implies chat. Th
 
 The state of a portfolio can't sit behind a prompt. If someone has to ask the system what's going on, you've added the exact friction the system was meant to remove, and you're back to reactive. An insight only matters if it reaches you before you went looking for it.
 
-So Threadbase is built around a persistent, always-visible model with agents working against it in the background: initiatives, programs, owners, dependencies, risks, and decisions. When something changes, the knock-on effects show up early. When two things conflict, it flags the conflict. The tool doesn't wait for the status meeting to reveal the surprise. It surfaces the surprise while there's still time to do something about it.
+So Threadbase is built around a persistent, always-visible model with agents working against it in the background: initiatives, programs, owners, dependencies, risks, and decisions. When something changes, the knock-on effects show up early. When two things conflict, it flags the conflict. Instead of letting the status meeting reveal the surprise, it surfaces the surprise while there's still time to do something about it.
 
 That product choice forced a few gnarly technical problems: extracting signal from corporate slides, retrieval that actually works in this domain, a relationship-aware model without operational drag, and dashboards that stay live as reality changes.
 
@@ -56,14 +56,14 @@ I tried a pile of OCR/vision stacks. Corporate slides are brutal: dense layouts,
 I tested ColPali, Voyage, and others. Voyage was the most reliable for retrieval quality in this domain.
 
 ### Graph structure
-The knowledge graph is the product, so I started with Neo4j. It worked, but the operational overhead wasn't worth it at this stage. I moved the graph into Postgres with pgvector: a relationship-aware model that gives most of the graph benefit with standard tooling and fewer moving parts. The graph is the point. A dedicated graph database isn't.
+The knowledge graph is the product, so I started with Neo4j. It worked, but the operational overhead wasn't worth it at this stage. I moved the graph into Postgres with pgvector: a relationship-aware model that gives most of the graph benefit with standard tooling and fewer moving parts. The graph structure is what matters, not the database it lives in.
 
 ### Dashboards
-No more "build a Power BI report, refresh it weekly, hope someone uses it." Threadbase generates dashboards at runtime from the live model. If the underlying truth changes, the dashboard changes with it.
+The old pattern was "build a Power BI report, refresh it weekly, hope someone uses it." Threadbase generates dashboards at runtime from the live model instead. If the underlying truth changes, the dashboard changes with it.
 
 ## Building with AI
 
-Threadbase is my flagship build, and most of it is written with AI. The lesson that shaped how I work: AI doesn't make a system like this good. It makes you faster in whatever direction you were already pointed. If the direction is vague, you get vague output, just sooner. So the real work isn't prompting. It's building the discipline that keeps the speed aimed at the right thing.
+Threadbase is my flagship build, and most of it is written with AI. The lesson that shaped how I work: AI doesn't make a system like this good. It makes you faster in whatever direction you were already pointed. If the direction is vague, you get vague output, just sooner. So the real work is less about prompting and more about building the discipline that keeps the speed aimed at the right thing.
 
 I do that with tuned skills and plugins. Instead of asking a model to "go fix this," I route the work through fixed procedures I've written for this project: one for scoping and planning a change, one for exploring the codebase before touching it, one for reviewing a diff, one for debugging. Each runs the same steps every time, so the quality doesn't ride on how I happened to phrase the request that day.
 
@@ -75,11 +75,11 @@ A few things hold it together:
 * **Project rules that don't drift.** Naming, SQL, architecture, providers, deployment, testing gotchas: written down once, applied every time, by me or the model.
 * **Evals for the AI itself.** The extraction pipeline has its own labeled eval suites, including an LLM-as-judge layer, so a prompt change has to prove it didn't regress before it lands.
 
-The point of all of it is consistency. A model will happily build the wrong thing very fast. The skills and plugins exist to make sure the fast thing is also the right thing.
+The point of all of it is consistency. A model will happily build the wrong thing very fast. The skills and plugins are there to make sure speed doesn't come at the cost of building the wrong thing.
 
 ## What I learned
 
-* **Ease of use wins.** If it takes effort, it won't get adopted. Period.
+* **Ease of use wins.** If it takes effort, it won't get adopted.
 * **Use the data people already create.** Don't ask for "one more update." Extract value from what already exists.
 * **A knowledge graph doesn't require a graph database.** The graph is the model that matters. Most of it can be handled with a solid relational model plus vector search, minus the operational drag.
-* **AI accelerates mistakes.** Speed is a trap if you're not disciplined. Clarity is the new bottleneck.
+* **AI accelerates mistakes.** Speed is a trap if you're not disciplined. The bottleneck stops being typing and becomes knowing what you actually want.

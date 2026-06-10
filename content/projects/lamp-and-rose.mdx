@@ -1,9 +1,9 @@
 ---
 title: Lamp & Rose
-summary: Multi-tenant platform for Nurse Honor Guard chapters—public sites, member portals, and admin tools that scale without mixing data.
+summary: "Multi-tenant platform for Nurse Honor Guard chapters: public sites, member portals, and admin tools that scale without mixing data."
 date: 2024-08
 stack: [Next.js, React, TypeScript, Supabase, Postgres, Stripe, Tailwind, Radix UI, Playwright, Vitest]
-status: in-progress
+status: live
 featured: true
 url: https://nursehonorguardnova.org
 ---
@@ -12,37 +12,37 @@ url: https://nursehonorguardnova.org
 
 Nurse Honor Guard chapters are run by retired nurses. They spent decades in healthcare, not tech. Now they're managing volunteer organizations with paper sign-up sheets, email threads, cash donations, and spreadsheets on someone's personal laptop.
 
-I talked to chapter leaders who were tracking member dues in one spreadsheet, ceremony availability in another, and training certifications in a third—all while fielding emails about who could cover a service next Tuesday. It's a full-time job with part-time tools. Most chapters don't have anything purpose-built. They make do.
+I talked to chapter leaders who were tracking member dues in one spreadsheet, ceremony availability in another, and training certifications in a third, all while fielding emails about who could cover a service next Tuesday. It's a lot of work, and none of their tools were built for it. Most chapters make do.
 
 ## What I Built
 
-Lamp & Rose gives each chapter its own space—subdomain or custom domain—with public pages, a member portal, and admin tools. One platform, many chapters, strict data isolation.
+Lamp & Rose gives each chapter its own space (a subdomain or custom domain) with public pages, a member portal, and admin tools. One platform serves many chapters with strict data isolation.
 
 The admin console consolidates everything chapter leaders were juggling separately:
 
-**Member management:** Full roster with contact info, dues status, training certifications, and ceremony availability. Filter by who's trained, who's current on dues, who's available on a given date. No more cross-referencing three spreadsheets to answer a simple question.
+**Member management:** Full roster with contact info, dues status, training certifications, and ceremony availability. Filter by who's trained, who's current on dues, who's available on a given date. Nobody has to cross-reference three spreadsheets to answer a simple question.
 
 **Ceremony coordination:** Schedule ceremonies, request volunteers, track RSVPs, record attendance. Members see upcoming ceremonies in their portal and can indicate availability directly. Admins get a clear picture of who's signed up without chasing emails.
 
-**Training & credentials:** Track who's completed what training and when certifications expire. Flag overdue credentials automatically. Generate reports for chapter leadership when they need to show compliance.
+**Training & credentials:** Track who's completed what training and when certifications expire. Overdue credentials get flagged automatically, and leadership can pull compliance reports when they need them.
 
 **Communications:** Announcements, event reminders, dues notices. Templated messages pull in member data so no one's copy-pasting names into emails one at a time.
 
-The goal is a chapter leader who spends time on the mission instead of the mechanics.
+The goal is for chapter leaders to spend their time running the chapter instead of managing spreadsheets.
 
 ## Payments
 
-I integrated Stripe Connect so donations and dues route directly to each chapter's account. The platform takes no cut—chapters receive funds directly.
+I integrated Stripe Connect so donations and dues route directly to each chapter's account. The platform takes no cut.
 
-**Public donations:** Visitors donate from the public site with embedded checkout. No redirect to a third-party page. Attribution ties to the chapter at the moment of payment.
+**Public donations:** Visitors donate from the public site with embedded checkout instead of being bounced to a third-party page. Attribution ties to the chapter at the moment of payment.
 
 **Member dues:** Members pay through the portal. The system tracks payment history, sends renewal reminders, and flags overdue accounts. Admins see who's current at a glance without maintaining a separate ledger.
 
-No manual reconciliation. No spreadsheet handoffs. Money flows where it should without someone in the middle making sure it got there.
+There's no manual reconciliation and no spreadsheet handoff. Money flows where it should without someone in the middle making sure it got there.
 
 ## The Hard Part
 
-Multi-tenancy with payments. The hard part was layering it all: public chapter sites, subdomains, private member portals, chapter-level payments, plus a platform management layer on top. Every request needs explicit tenant context—no guessing, no defaults. If context is missing, the system fails closed. That principle runs through routing, permissions, data access, and observability.
+Multi-tenancy with payments. The hard part was layering it all: public chapter sites, subdomains, private member portals, chapter-level payments, plus a platform management layer on top. Every request needs explicit tenant context rather than guessing or falling back to a default. If context is missing, the system fails closed. That principle runs through routing, permissions, data access, and observability.
 
 Building a platform the right way means designing boundaries first. You do not bolt on multi-tenancy later without paying for it. You need clean separation of data, a consistent permission model, safe defaults, and a way to reason about failures when real money is involved. It is not glamorous work, but it is the difference between a demo and something you can trust.
 
@@ -62,12 +62,12 @@ A donation can't land in the wrong chapter's bucket. With real money moving betw
 
 ## How It Came Together
 
-I started with an anchor chapter—one group of chapter leaders who gave me a rough list of needs. Literally a picture of notes on a napkin. We worked closely throughout the build, with constant feedback loops as I shipped and refined features. I fed that early input into AI to break it down into feature sets, surface hidden assumptions, and generate clarifying questions before I wrote any code.
+I started with an anchor chapter, one group of chapter leaders who gave me a rough list of needs. Literally a picture of notes on a napkin. We worked closely throughout the build, with constant feedback loops as I shipped and refined features. I fed that early input into AI to break it down into feature sets, surface hidden assumptions, and generate clarifying questions before I wrote any code.
 
-I'm not directly involved with Nurse Honor Guard chapters, so I needed context fast. I used AI to research how chapters operate—their ceremonies, training requirements, membership structures, the vocabulary they use. That research shaped the domain model and helped me ask better questions when I validated with the client.
+I'm not directly involved with Nurse Honor Guard chapters, so I needed context fast. I used AI to research how chapters operate: their ceremonies, training requirements, membership structures, the vocabulary they use. That research shaped the domain model and helped me ask better questions when I validated with the client.
 
 They tested continuously as I shipped. I adjusted based on what they found.
 
-Originally I thought this would just be a platform for their chapter. But the more I learned about how Honor Guard chapters operate nationally, the more I realized the pain points weren't unique. Every chapter is dealing with the same spreadsheet juggling, the same email chains, the same manual payment tracking. The tooling gap isn't local—it's the norm.
+Originally I thought this would just be a platform for their chapter. But the more I learned about how Honor Guard chapters operate nationally, the more I realized the pain points weren't unique. Every chapter is dealing with the same spreadsheet juggling, the same email chains, the same manual payment tracking. The tooling gap is the norm, not a local problem.
 
 That's when the architecture shifted from single-tenant to multi-tenant. Build once, let any chapter spin up their own instance with full data isolation. The system grew without losing consistency because the foundation was designed to scale from the start.

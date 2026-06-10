@@ -1,8 +1,8 @@
 ---
 title: Agentic Intake
-summary: "Reimagining intake for a world where analysis is free—requests come in, AI researches and prepares each one live, and humans only do the part that needs a person: judge and decide."
+summary: "An intake prototype where AI does the research and a person makes the decision. Requests come in through chat, and an agent assembles context by traversing Microsoft Graph."
 date: 2026-03
-stack: [React, TypeScript, Vite, Tailwind, React Router]
+stack: [React, TypeScript, Vite, Tailwind, React Router, Microsoft Graph]
 status: in-progress
 featured: false
 ---
@@ -11,26 +11,26 @@ featured: false
 
 ## The Problem
 
-Legacy intake is a bottleneck by design. A request comes in and waits in a queue until a reviewer can work through it—reading, researching, gathering context, assessing—before anyone decides anything. That review labor is slow, expensive, and gated on a small number of expensive people. The reviewer spends most of their time on research, not judgment, and throughput is capped by how fast humans can read.
+Legacy intake is a bottleneck by design. A request comes in and waits in a queue until a reviewer can work through it: reading, researching, gathering context, assessing. Only then does anyone decide anything. That review labor is slow, and it's gated on a small number of expensive people. The reviewer spends most of their time on research rather than judgment, and throughput is capped by how fast humans can read.
 
 ## The Reframe
 
-That whole model assumes analysis and research are scarce, expensive labor. They aren't anymore. When AI can do the reading, research, and preparation live—at a marginal cost near zero—intake itself can be reimagined.
+That whole model assumes analysis and research are scarce, expensive labor. They aren't anymore. When AI can do the reading and preparation live, at very low cost, the process can be reorganized.
 
-So flip the division of labor: **AI analyzes and prepares; humans judge and decide.** The reviewer stops spending their day on research and spends it on the only thing that actually needs a person—the call.
+The division of labor flips: AI analyzes and prepares, humans judge and decide. The reviewer stops spending their day on research and spends it on the part that actually needs a person, the decision.
 
 ## What the Prototype Does
 
-A working front-end for that flipped model:
+A standalone system built around that flipped model: chat in front, an agent in the middle, a human at the end.
 
-* **Submit** — a request comes in through a simple form.
-* **Analyze** — the agent researches and prepares each request live, attaching a **confidence** and the assembled context.
-* **Queue** — everything lands triaged, so the obvious cases are obvious and the hard ones are flagged.
-* **Review** — a human opens only what needs judgment, with the research already done.
-* **Analysis** — a view over what's flowing through the system.
+* Submit: a request comes in through a chat interface instead of a form.
+* Research: the agent traverses Microsoft Graph to assemble the context a reviewer used to chase down by hand, then attaches its findings and a confidence score to each request.
+* Queue: requests land already triaged, with the hard cases flagged for attention.
+* Review: a human opens only what needs judgment, with the research already done.
+* Analysis: a view over what's flowing through the system.
 
-The point isn't to automate the decision. It's to delete the research labor that used to sit in front of it.
+The decision still belongs to a human. The system removes the research work that used to sit in front of it.
 
 ## Status
 
-A functional prototype proving out the loop and the AI-confidence UX—not yet a shipped product. The bet it's testing: once research labor is effectively free, how much of intake collapses into "AI prepares, human decides," and how do you make that handoff legible enough that a reviewer actually trusts it?
+A functional prototype that proves out the loop and the confidence UX, not yet a shipped product. The questions it's testing: how much of intake can move to "AI prepares, human decides," and can the handoff be made clear enough that a reviewer actually trusts it?

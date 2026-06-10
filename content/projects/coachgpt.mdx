@@ -9,14 +9,14 @@ url: https://app.gocoachgpt.com
 
 ## Why I Built It
 
-I started CoachGPT in spring 2023, a couple months after ChatGPT launched. I wanted a real app I could own end-to-end. Around the same time, I hit a fitness plateau and kept leaning on my brother (a part-time CrossFit coach and full-time protein shake enthusiast) for daily workouts. He was great for one-off WODs and about as useful as a chocolate teapot for long-term programming.
+I started CoachGPT in spring 2023, a couple months after ChatGPT launched. It was my first attempt at building anything substantial. I'm not a trained engineer, and building with AI was what made a real, end-to-end app possible for me in the first place. Around the same time, I hit a fitness plateau and kept leaning on my brother, a part-time CrossFit coach, for daily workouts. He was great for one-off WODs but not much help with long-term programming.
 
-When ChatGPT first came out, I started asking it for workouts and feeding it years of my training history. It was not perfect, but it was surprisingly solid. After some experimentation, it started producing genuinely creative sessions. That was the spark. CoachGPT became the project where I could build the app I had always wanted to build, and prove an AI system can plan, adapt, and stay grounded in real-world constraints.
+When ChatGPT first came out, I started asking it for workouts and feeding it years of my training history. It was not perfect, but it was surprisingly solid. After some experimentation, it started producing genuinely creative sessions. That was the spark. CoachGPT became the project where I learned to build, and a test of whether an AI system could handle long-term programming without losing touch with real-world constraints.
 
 
 ## What CoachGPT Does
 
-CoachGPT builds workouts across CrossFit, running, biking, weightlifting, rowing, or any mix you can dream up. You can train in two modes:
+CoachGPT builds workouts across CrossFit, running, biking, weightlifting, rowing, or any mix of them. You can train in two modes:
 
 **Daily Mode:** A fresh workout each day based on your preferences, time, and equipment.
 
@@ -24,7 +24,7 @@ CoachGPT builds workouts across CrossFit, running, biking, weightlifting, rowing
 
 ## How It Actually Works
 
-CoachGPT is not a single prompt. It is a chained pipeline: intake, strategy, scheduling, a human-readable phase plan, JSON parsing, then logging. That structure is why it holds together across long timelines and different training styles.
+Under the hood, CoachGPT is a chained pipeline: intake, strategy, scheduling, a human-readable phase plan, JSON parsing, then logging. That structure is why it holds together across long timelines and different training styles.
 
 ## The Hard Problem I Solved
 
@@ -32,7 +32,7 @@ Long programs are dense. Even GPT-4o could not fit a full program in one output 
 
 So I built a status-driven pipeline of Supabase Edge Functions with explicit locks and idempotency. The program moves through states (definition, phase generation, JSON chunking, workout placeholders), each step triggered by a status update and guarded by compare-and-set locks. The database is the state machine, so each stage can retry safely and failures are visible in SQL.
 
-Creativity was another bottleneck. AI is not naturally inventive, so I built a variety engine around it: a database of 1,000 workouts as raw material, sampled for inspiration, plus the programming philosophies of five prominent coaches as creative guides. The result is consistent structure with real variety, not just superficial shuffling.
+Creativity was another bottleneck. AI is not naturally inventive, so I built a variety engine around it: a database of 1,000 workouts as raw material, sampled for inspiration, plus the programming philosophies of five prominent coaches as creative guides. The result is consistent structure with variety that goes deeper than shuffling the same movements around.
 
 ## The UI Reality Check
 

@@ -22,8 +22,8 @@ export default function ProjectsPage() {
           What I&apos;ve Built
         </h1>
         <p style={{ color: "var(--text-secondary)" }}>
-          Each case study covers the domain, the problem, and what shipped —
-          some built alongside a team, some built solo.
+          Each case study covers the domain, the problem, and what shipped.
+          Some were built alongside a team, some solo.
         </p>
       </div>
 

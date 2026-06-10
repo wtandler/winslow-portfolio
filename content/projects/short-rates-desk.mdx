@@ -1,56 +1,56 @@
 ---
 title: Short Rates Desk
-summary: Real-time AI research synthesis for hedge-fund rates PMs—compares what markets, dealers, the Street, and the data say, then flags where they disagree.
+summary: Real-time AI research synthesis for hedge-fund rates PMs. It compares what markets, dealers, the Street, and the data say, then flags where they disagree.
 date: 2026-05
 stack: [Python, Next.js, TypeScript, PostgreSQL, Neon, Anthropic Claude, OpenAI, GitHub Actions, Vercel, Resend]
-status: in-progress
+status: live
 featured: true
 url: https://shortratesdesk.com
 ---
 
 ## The Problem
 
-A rates PM's edge is having a view before everyone else does—and defending it when the desk pushes back. Forming that view means reading an absurd amount: sell-side research from a dozen banks, economist Substacks, Fed releases, NBER and SSRN papers, prediction-market odds, and the prints themselves. Large funds pay research teams to do this. It still takes hours every morning.
+A rates PM's edge is having a view before everyone else does, and defending it when the desk pushes back. Forming that view means reading an absurd amount: sell-side research from a dozen banks, economist Substacks, Fed releases, NBER and SSRN papers, prediction-market odds, and the prints themselves. Large funds pay research teams to do this. It still takes hours every morning.
 
-The information isn't hidden. It's scattered, and reading enough of it to be coherent is the bottleneck.
+None of this information is hidden. It's scattered, and reading enough of it to be coherent is the bottleneck.
 
 ## The Insight
 
 There are really only four voices in this market, and the signal is in where they disagree:
 
-* What **markets** say — Polymarket and Kalshi odds on Fed / CPI / NFP.
-* What **dealers** say — the NY Fed's Survey of Market Expectations.
-* What the **Street** is writing — bank desks, economists, independent researchers.
-* What the **data** says — our own model.
+* What **markets** say: Polymarket and Kalshi odds on Fed / CPI / NFP.
+* What **dealers** say: the NY Fed's Survey of Market Expectations.
+* What the **Street** is writing: bank desks, economists, independent researchers.
+* What the **data** says: our own model.
 
-Put them side by side and the divergences are the trade. A product that surfaces those gaps—on exclusively public data—compresses a research team's morning into a glance.
+Seen side by side, the disagreements between them are where the opportunities are. A product that surfaces those gaps, using only public data, replaces hours of morning reading.
 
 ## What It Does
 
-* **Today's View** — a proprietary forecast plus a one-paragraph thesis in a senior-strategist voice.
-* **Consensus vs Our View** — Markets / Dealers / Street / Our Model, side by side, with divergence flags.
-* **Event Feed** — a real-time chronological feed of Fed events, data prints, rate moves, and research drops, each AI-synthesized with attribution.
-* **Prediction Markets** — Kalshi + Polymarket probability bars on the contracts that matter.
-* **Street Synthesis** — firm-by-firm positioning (Barclays / Goldman / JPM / …) with consensus-vs-divergence flags.
-* **Morning & Close Notes** — twice-daily synthesis (7:00 AM ET pre-open, 4:15 PM ET post-close), emailed to subscribers.
+* **Today's View**: a proprietary forecast plus a one-paragraph thesis in a senior-strategist voice.
+* **Consensus vs Our View**: Markets / Dealers / Street / Our Model, side by side, with divergence flags.
+* **Event Feed**: a real-time chronological feed of Fed events, data prints, rate moves, and research drops, each AI-synthesized with attribution.
+* **Prediction Markets**: Kalshi + Polymarket probability bars on the relevant contracts.
+* **Street Synthesis**: firm-by-firm positioning (Barclays / Goldman / JPM / …) with consensus-vs-divergence flags.
+* **Morning & Close Notes**: twice-daily synthesis (7:00 AM ET pre-open, 4:15 PM ET post-close), emailed to subscribers.
 
 ## The Hard Part
 
-The interesting problem isn't the UI—it's trustworthy ingestion and synthesis over messy public sources. Pulling structured signal from DTCC, OFR, FINRA TRACE, NY Fed percentiles, prediction-market APIs, and free-form sell-side commentary means a custom adapter per source and a clustering step to dedupe the same idea showing up in ten places.
+The interesting problem is trustworthy ingestion and synthesis over messy public sources, not the UI. Pulling structured signal from DTCC, OFR, FINRA TRACE, NY Fed percentiles, prediction-market APIs, and free-form sell-side commentary means a custom adapter per source and a clustering step to dedupe the same idea showing up in ten places.
 
 Then synthesis has to be defensible. A rates PM will not trust a number they can't trace. So every synthesized claim carries attribution back to its source, and the LLM work runs in tiers with a cross-model check: Claude Haiku for fast, event-driven Tier 1 synthesis, Claude Opus for the scheduled morning/close notes and position extraction, and a GPT pass as cross-model confirmation on Tier 1 outputs before anything publishes.
 
 ## The Architecture
 
-A Python worker does the heavy lifting—ingest, clustering, synthesis, LLM notes—and writes to Postgres (Neon). The Next.js frontend on Vercel reads Postgres only, so the read path stays fast and dumb. All scheduling runs on GitHub Actions cron; no always-on infra to babysit. Email goes out through Resend. There's an admin research-intake console behind HTTP Basic Auth for pasting, uploading, and overriding failed notes.
+A Python worker does the heavy lifting (ingest, clustering, synthesis, LLM notes) and writes to Postgres (Neon). The Next.js frontend on Vercel reads Postgres only, so the read path stays fast and dumb. All scheduling runs on GitHub Actions cron, which means there's no always-on infra to babysit. Email goes out through Resend. There's an admin research-intake console behind HTTP Basic Auth for pasting, uploading, and overriding failed notes.
 
 ## Building with AI
 
-This is a single-builder attempt at something that's normally a team. The leverage isn't "AI writes the code"—it's that AI-assisted ingestion and summarization make it feasible for one person to cover the reading load of a research desk, shipping with Claude Code. The discipline is in the guardrails: public data only, attribution on every claim, and a cross-model confirmation pass so the morning note is something a PM can actually act on.
+This is a single-builder attempt at something that normally takes a team. The leverage comes from AI-assisted ingestion and summarization, which let one person cover the reading load of a research desk. I built and shipped it with Claude Code. The discipline is in the guardrails: public data only, attribution on every claim, and a cross-model confirmation pass so the morning note is something a PM can actually act on.
 
 ## What I Learned
 
-* **Divergence is the product.** Any one source is noise; the value is in the disagreement between them.
+* **The value is in the disagreement.** Any single source on its own is mostly noise.
 * **Attribution is non-negotiable in finance.** A synthesized view nobody can trace is worthless on a desk.
-* **Tiered + cross-model beats one big call.** Cheap fast models for the feed, expensive careful models for the notes, a second model to confirm—each does the job it's best at.
+* **Tiered + cross-model beats one big call.** Cheap fast models for the feed, expensive careful models for the notes, a second model to confirm. Each does the job it's best at.
 * **GitHub Actions is an underrated scheduler.** For a cron-driven data product, it removed a whole category of infrastructure.

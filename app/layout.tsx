@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | Winslow Tandler",
   },
   description:
-    "AI tools, built one domain at a time. Selected work and case studies.",
+    "AI tools built for specific domains. Selected work and case studies.",
   keywords: ["AI", "product", "engineering", "portfolio", "AI products", "case studies"],
   authors: [{ name: "Winslow Tandler" }],
   openGraph: {
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
     siteName: "Winslow Tandler",
     title: "Winslow Tandler",
     description:
-      "AI tools, built one domain at a time.",
+      "AI tools built for specific domains.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Winslow Tandler",
     description:
-      "AI tools, built one domain at a time.",
+      "AI tools built for specific domains.",
   },
 };
 

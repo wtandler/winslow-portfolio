@@ -33,7 +33,7 @@ export default function HomePage() {
           className="text-base sm:text-lg mb-5"
           style={{ color: "var(--text-secondary)" }}
         >
-          AI tools, built one domain at a time.
+          AI tools built for specific domains.
         </p>
         <p className="max-w-2xl" style={{ color: "var(--text-secondary)" }}>
           Case studies of the problem, what shipped, and how each tool fits the
@@ -110,9 +110,6 @@ export default function HomePage() {
           className="flex gap-6 text-sm"
           style={{ color: "var(--text-muted)" }}
         >
-          <Link href="/about" className="hover:underline">
-            about
-          </Link>
           <Link href="/contact" className="hover:underline">
             contact
           </Link>
