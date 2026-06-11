@@ -10,47 +10,51 @@ url: https://shortratesdesk.com
 
 ## The Problem
 
-A rates PM's edge is having a view before everyone else does, and defending it when the desk pushes back. Forming that view means reading an absurd amount: sell-side research from a dozen banks, economist Substacks, Fed releases, NBER and SSRN papers, prediction-market odds, and the prints themselves. Large funds pay research teams to do this. It still takes hours every morning.
+A rates PM is paid for having a view before the desk does, and defending it when they push back. The apparent obstacle is volume: sell-side research from a dozen banks, economist Substacks, Fed releases, NBER and SSRN papers, prediction-market odds, and the prints themselves. The obvious fix is more reading, or a bigger research team to do the reading. Large funds buy exactly that, and it still costs them hours every morning.
 
-None of this information is hidden. It's scattered, and reading enough of it to be coherent is the bottleneck.
+I think that misreads the constraint. None of this information is hidden, so access isn't the problem. The bottleneck is that the signal is scattered across sources that each say a piece of it, and reading enough of them to be coherent is what takes the morning.
 
 ## The Insight
 
-There are really only four voices in this market, and the signal is in where they disagree:
+I settled on a simpler model of the market: there are only four voices in it, and the value is not in any one of them. It is in where they disagree.
 
 * What **markets** say: Polymarket and Kalshi odds on Fed / CPI / NFP.
 * What **dealers** say: the NY Fed's Survey of Market Expectations.
 * What the **Street** is writing: bank desks, economists, independent researchers.
-* What the **data** says: our own model.
+* What the **data** says: my own model.
 
-Seen side by side, the disagreements between them are where the opportunities are. A product that surfaces those gaps, using only public data, replaces hours of morning reading.
+Read alone, any single source is mostly noise. Read side by side, the gaps between them are the opportunities. So I didn't build a better reader. I built a divergence detector on public data, and that reframing is what lets one person replace a research desk's morning.
 
 ## What It Does
 
 * **Today's View**: a proprietary forecast plus a one-paragraph thesis in a senior-strategist voice.
 * **Consensus vs Our View**: Markets / Dealers / Street / Our Model, side by side, with divergence flags.
-* **Event Feed**: a real-time chronological feed of Fed events, data prints, rate moves, and research drops, each AI-synthesized with attribution.
-* **Prediction Markets**: Kalshi + Polymarket probability bars on the relevant contracts.
-* **Street Synthesis**: firm-by-firm positioning (Barclays / Goldman / JPM / …) with consensus-vs-divergence flags.
-* **Morning & Close Notes**: twice-daily synthesis (7:00 AM ET pre-open, 4:15 PM ET post-close), emailed to subscribers.
+* **Event Feed**: a real-time chronological feed of Fed events, data prints, rate moves, and research drops, each synthesized with attribution.
+* **Prediction Markets**: Kalshi and Polymarket probability bars on the relevant contracts.
+* **Street Synthesis**: firm-by-firm positioning (Barclays / Goldman / JPM) with consensus-vs-divergence flags.
+* **Morning and Close Notes**: twice-daily synthesis, 7:00 AM ET pre-open and 4:15 PM ET post-close, emailed to subscribers.
+
+## What It Hinges On
+
+The product lives or dies on one thing: whether a PM trusts the synthesis enough to act on it. A PM will not trade a number they cannot trace, so a synthesized view nobody can source back is worth nothing on a desk. That single constraint drove the two hard decisions below. The interesting problem was never the UI.
 
 ## The Hard Part
 
-The interesting problem is trustworthy ingestion and synthesis over messy public sources, not the UI. Pulling structured signal from DTCC, OFR, FINRA TRACE, NY Fed percentiles, prediction-market APIs, and free-form sell-side commentary means a custom adapter per source and a clustering step to dedupe the same idea showing up in ten places.
+First, ingestion. To pull structured signal out of DTCC, OFR, FINRA TRACE, NY Fed percentiles, prediction-market APIs, and free-form sell-side commentary, I wrote a custom adapter per source, plus a clustering step to dedupe the same idea showing up in ten places at once.
 
-Then synthesis has to be defensible. A rates PM will not trust a number they can't trace. So every synthesized claim carries attribution back to its source, and the LLM work runs in tiers with a cross-model check: Claude Haiku for fast, event-driven Tier 1 synthesis, Claude Opus for the scheduled morning/close notes and position extraction, and a GPT pass as cross-model confirmation on Tier 1 outputs before anything publishes.
+Second, defensibility, which is where I paid for the trust constraint. Every synthesized claim carries attribution back to its source. I run the model work in tiers with a cross-model check rather than one large call: Claude Haiku for fast, event-driven Tier 1 synthesis; Claude Opus for the scheduled morning and close notes and for position extraction; and a GPT pass as cross-model confirmation on Tier 1 output before anything publishes. Each model does the job it is cheapest at doing well, and nothing reaches a subscriber on a single model's word.
 
 ## The Architecture
 
-A Python worker does the heavy lifting (ingest, clustering, synthesis, LLM notes) and writes to Postgres (Neon). The Next.js frontend on Vercel reads Postgres only, so the read path stays fast and dumb. All scheduling runs on GitHub Actions cron, which means there's no always-on infra to babysit. Email goes out through Resend. There's an admin research-intake console behind HTTP Basic Auth for pasting, uploading, and overriding failed notes.
+A Python worker does the heavy lifting (ingest, clustering, synthesis, the LLM notes) and writes to Postgres on Neon. The Next.js frontend on Vercel reads Postgres only, so I kept the read path fast and dumb. I run scheduling on GitHub Actions cron, which removes a whole category of always-on infrastructure to babysit. Email goes through Resend. An admin intake console behind HTTP Basic Auth lets me paste, upload, and override any note that failed.
 
 ## Building with AI
 
-This is a single-builder attempt at something that normally takes a team. The leverage comes from AI-assisted ingestion and summarization, which let one person cover the reading load of a research desk. I built and shipped it with Claude Code. The discipline is in the guardrails: public data only, attribution on every claim, and a cross-model confirmation pass so the morning note is something a PM can actually act on.
+This is a single-builder attempt at something that normally takes a team, and the honest accounting is that the leverage is real but bounded. AI-assisted ingestion and summarization let me carry the reading load of a research desk. What they do not supply is the judgment, so the work went into guardrails: public data only, attribution on every claim, and a cross-model confirmation pass. The point of those is not polish. It is that the morning note has to be something a PM can act on without re-checking it, or the product has no reason to exist.
 
 ## What I Learned
 
-* **The value is in the disagreement.** Any single source on its own is mostly noise.
-* **Attribution is non-negotiable in finance.** A synthesized view nobody can trace is worthless on a desk.
-* **Tiered + cross-model beats one big call.** Cheap fast models for the feed, expensive careful models for the notes, a second model to confirm. Each does the job it's best at.
-* **GitHub Actions is an underrated scheduler.** For a cron-driven data product, it removed a whole category of infrastructure.
+* **The value is in the disagreement.** Any single source on its own is mostly noise; the product is the comparison, not the reading.
+* **Attribution is non-negotiable in finance.** A synthesized view nobody can trace is worthless on a desk, and that constraint, not the interface, shaped the build.
+* **Tiered and cross-model beats one big call.** Cheap fast models for the feed, expensive careful models for the notes, a second model to confirm.
+* **GitHub Actions is an underrated scheduler.** For a cron-driven data product it removed an entire layer of infrastructure.

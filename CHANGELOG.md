@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.2.0.1] - 2026-06-11
+
+### Changed
+- Rewrote the Short Rates Desk case study in a financial-analyst voice (claim, evidence, the turn; named the load-bearing constraint), kept first person. Added a "What It Hinges On" section; no facts or architecture changed.
+
 ## [0.2.0.0] - 2026-06-10
 
 ### Added
