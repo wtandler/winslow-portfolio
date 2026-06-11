@@ -9,14 +9,14 @@ Tests let you move fast and ship with confidence. Without them, vibe coding is j
 ## Running tests
 
 ```bash
-npm test          # run once (vitest run)
-npx vitest        # watch mode
+pnpm test          # run once (vitest run)
+pnpm vitest        # watch mode
 ```
 
 ## Layers
 
 - **Unit tests** (`test/*.test.ts`): the content loaders in `lib/`. They run against the real `content/` directory and assert structural invariants (required frontmatter, sort order, linked PDFs exist), not specific entries — adding or editing content should never break them.
-- **Build**: `npm run build` is the second gate. The loaders throw at build time on missing or invalid frontmatter, naming the offending file.
+- **Build**: `pnpm build` is the second gate (CI runs it too). The loaders throw at build time on missing or invalid frontmatter, naming the offending file.
 
 ## Conventions
 
