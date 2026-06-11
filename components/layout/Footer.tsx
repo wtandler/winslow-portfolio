@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 const socialLinks = [
-  { href: "https://github.com/wtandler", label: "github" },
-  { href: "https://linkedin.com/in/wtandler", label: "linkedin" },
+  { href: "https://github.com/wtandler", label: "GitHub" },
+  { href: "https://linkedin.com/in/wtandler", label: "LinkedIn" },
 ];
 
 export function Footer() {
@@ -13,11 +13,8 @@ export function Footer() {
     >
       <div className="mx-auto max-w-4xl px-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p
-            className="text-sm"
-            style={{ color: "var(--text-muted)" }}
-          >
-            Winslow Tandler // built with ai
+          <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+            Winslow Tandler · built with AI
           </p>
 
           <div className="flex items-center gap-4">
@@ -27,7 +24,7 @@ export function Footer() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm transition-colors"
+                className="text-sm transition-colors hover:underline"
                 style={{ color: "var(--text-muted)" }}
               >
                 {link.label}

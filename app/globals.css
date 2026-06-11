@@ -1,34 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  /* Core palette - terminal dark */
-  --bg-primary: #0c0c0c;
-  --bg-secondary: #141414;
-  --bg-tertiary: #1a1a1a;
-  --bg-elevated: #222222;
+  /* Core palette - paper and ink */
+  --bg-primary: #fcfbf8;
+  --bg-secondary: #f4f2ec;
+  --bg-tertiary: #ece9e0;
+  --bg-elevated: #ffffff;
 
   /* Text hierarchy */
-  --text-primary: #e0e0e0;
-  --text-secondary: #a0a0a0;
-  /* Boosted for readability/contrast on dark background */
-  --text-tertiary: #8a8a8a;
-  --text-muted: #7d7d7d;
+  --text-primary: #20242c;
+  --text-secondary: #44484f;
+  --text-tertiary: #63676e;
+  /* Used for functional links and metadata; must hold 4.5:1 AA on --bg-elevated */
+  --text-muted: #6e7278;
 
-  /* Accent - terminal green, NO PURPLE */
-  --accent: #4ade80;
-  --accent-muted: rgba(74, 222, 128, 0.12);
-  --accent-glow: rgba(74, 222, 128, 0.2);
+  /* Accents - navy for links and emphasis, rust for small labels. Nothing else. */
+  --accent: #1f3a5f;
+  --accent-warm: #b25411;
 
-  /* Borders */
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-default: rgba(255, 255, 255, 0.12);
-  --border-strong: rgba(255, 255, 255, 0.18);
+  /* Borders and rules */
+  --border-subtle: #e7e4da;
+  --border-default: #d8d4c8;
+  --border-strong: #20242c;
 
   /* Depth - for focus states */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.6);
-  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.7);
-  --shadow-focus: 0 0 0 1px var(--accent), 0 2px 12px rgba(74, 222, 128, 0.15);
+  --shadow-sm: 0 1px 2px rgba(32, 36, 44, 0.06);
+  --shadow-md: 0 2px 8px rgba(32, 36, 44, 0.08);
+  --shadow-lg: 0 4px 16px rgba(32, 36, 44, 0.1);
+  --shadow-focus: 0 0 0 2px var(--accent);
 
   /* Spacing scale */
   --space-xs: 0.25rem;
@@ -39,9 +38,11 @@
   --space-2xl: 3rem;
   --space-3xl: 4rem;
 
-  /* Typography - monospace first */
-  --font-mono: var(--font-geist-mono), "JetBrains Mono", "Fira Code", monospace;
+  /* Typography - sans for reading, mono only for code */
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "JetBrains Mono", "Fira Code", monospace;
+  /* Tracking for small uppercase labels (status, contact); kickers use 0.08em */
+  --tracking-caps: 0.06em;
 
   /* Transitions */
   --transition-fast: 100ms ease;
@@ -51,7 +52,7 @@
 @theme inline {
   --color-background: var(--bg-primary);
   --color-foreground: var(--text-primary);
-  --font-sans: var(--font-mono);
+  --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
 }
 
@@ -78,9 +79,9 @@ html {
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: var(--font-mono);
-  font-size: 14px;
-  line-height: 1.6;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -91,9 +92,10 @@ body {
   color: var(--bg-primary);
 }
 
-/* Focus styles - with depth */
+/* Focus styles. The transparent outline becomes visible in Windows
+   forced-colors mode, where box-shadow is suppressed. */
 :focus-visible {
-  outline: none;
+  outline: 2px solid transparent;
   box-shadow: var(--shadow-focus);
 }
 
@@ -108,11 +110,11 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
+  background: var(--text-muted);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: var(--text-tertiary);
 }
 
 /* Typography utilities */
@@ -120,13 +122,28 @@ body {
   text-wrap: balance;
 }
 
-/* Code blocks - square */
+/* Small uppercase section label, briefing-style */
+.kicker {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+}
+
+/* Heavy top rule used to open major sections */
+.rule-strong {
+  border-top: 2px solid var(--border-strong);
+}
+
+/* Code blocks */
 code {
   font-family: var(--font-mono);
-  font-size: 0.9em;
-  background: var(--bg-tertiary);
+  font-size: 0.875em;
+  background: var(--bg-secondary);
   padding: 0.2em 0.4em;
   border: 1px solid var(--border-subtle);
+  border-radius: 2px;
 }
 
 pre {
@@ -158,7 +175,7 @@ pre code {
 .prose h4 {
   color: var(--prose-headings);
   font-weight: 600;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
 }
 
 .prose h1 {
@@ -192,7 +209,7 @@ pre code {
 }
 
 .prose a:hover {
-  color: var(--text-primary);
+  color: var(--accent-warm);
 }
 
 .prose ul,
@@ -207,19 +224,28 @@ pre code {
 }
 
 .prose li::marker {
-  color: var(--accent);
+  color: var(--text-muted);
 }
 
 .prose blockquote {
-  border-left: 2px solid var(--accent);
+  border-left: 2px solid var(--border-strong);
   padding-left: var(--space-lg);
   color: var(--text-tertiary);
   margin: var(--space-xl) 0;
 }
 
-/* Card component - blocky with depth on hover */
+/* Solid/bordered call-to-action buttons */
+.btn {
+  transition: box-shadow var(--transition-default);
+}
+
+.btn:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Card component - flat with a hairline border */
 .card {
-  background: var(--bg-secondary);
+  background: var(--bg-elevated);
   border: 1px solid var(--border-subtle);
   transition: box-shadow var(--transition-default), border-color var(--transition-default);
 }

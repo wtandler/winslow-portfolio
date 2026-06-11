@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Project } from "@/lib/mdx";
 import { STATUS_COLORS } from "@/lib/status";
+import { formatDate } from "@/lib/dates";
 
 interface ProjectCardProps {
   project: Project;
@@ -13,17 +14,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const { slug, frontmatter, readingTime } = project;
   const { title, summary, date, stack, status } = frontmatter;
 
-  const formattedDate = new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-  });
+  const formattedDate = formatDate(date, "monthYear");
 
   return (
     <Link href={`/projects/${slug}`}>
       <motion.article
         className="block p-5"
         style={{
-          background: "var(--bg-secondary)",
+          background: "var(--bg-elevated)",
           border: "1px solid var(--border-subtle)",
         }}
         whileHover={{
@@ -34,17 +32,20 @@ export function ProjectCard({ project }: ProjectCardProps) {
       >
         <div className="flex items-start justify-between gap-4 mb-2">
           <h2
-            className="text-base"
+            className="text-base font-medium"
             style={{ color: "var(--text-primary)" }}
           >
             {title}
           </h2>
           <span
             className="flex items-center gap-1.5 text-xs uppercase shrink-0"
-            style={{ color: STATUS_COLORS[status] }}
+            style={{
+              color: STATUS_COLORS[status],
+              letterSpacing: "var(--tracking-caps)",
+            }}
           >
             <span
-              className="w-1.5 h-1.5"
+              className="w-1.5 h-1.5 rounded-full"
               style={{ background: STATUS_COLORS[status] }}
             />
             {status}
@@ -62,8 +63,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 key={tech}
                 className="px-2 py-0.5 text-xs"
                 style={{
-                  background: "var(--bg-tertiary)",
-                  color: "var(--text-muted)",
+                  background: "var(--bg-secondary)",
+                  color: "var(--text-tertiary)",
                   border: "1px solid var(--border-subtle)",
                 }}
               >
@@ -85,7 +86,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             style={{ color: "var(--text-muted)" }}
           >
             <span>{formattedDate}</span>
-            <span>|</span>
+            <span aria-hidden="true">·</span>
             <span>{readingTime}</span>
           </div>
         </div>

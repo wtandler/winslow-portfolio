@@ -34,15 +34,6 @@ export default function ContactPage() {
         {/* Header */}
         <section>
           <StaggeredItem>
-            <p
-              className="text-sm mb-4"
-              style={{ color: "var(--accent)" }}
-            >
-              $ ./contact
-            </p>
-          </StaggeredItem>
-
-          <StaggeredItem>
             <h1
               className="text-2xl sm:text-3xl font-medium tracking-tight mb-4"
               style={{ color: "var(--text-primary)" }}
@@ -74,7 +65,7 @@ export default function ContactPage() {
                   }
                   className="block p-4"
                   style={{
-                    background: "var(--bg-secondary)",
+                    background: "var(--bg-elevated)",
                     border: "1px solid var(--border-subtle)",
                   }}
                   whileHover={{
@@ -87,7 +78,10 @@ export default function ContactPage() {
                     <div className="flex items-center gap-4">
                       <span
                         className="text-xs uppercase w-16"
-                        style={{ color: "var(--text-muted)" }}
+                        style={{
+                          color: "var(--text-muted)",
+                          letterSpacing: "var(--tracking-caps)",
+                        }}
                       >
                         {link.label}
                       </span>
@@ -103,8 +97,8 @@ export default function ContactPage() {
                         </p>
                       </div>
                     </div>
-                    <span style={{ color: "var(--text-muted)" }}>
-                      --&gt;
+                    <span style={{ color: "var(--text-muted)" }} aria-hidden="true">
+                      →
                     </span>
                   </div>
                 </motion.a>
