@@ -12,9 +12,6 @@ export default function ProjectsPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
       <div className="mb-10">
-        <p className="text-sm mb-4" style={{ color: "var(--accent)" }}>
-          $ ls ./projects
-        </p>
         <h1
           className="text-2xl sm:text-3xl font-medium tracking-tight mb-4"
           style={{ color: "var(--text-primary)" }}
@@ -28,10 +25,8 @@ export default function ProjectsPage() {
       </div>
 
       {projects.length > 0 ? (
-        <section>
-          <h2 className="text-sm mb-4" style={{ color: "var(--text-tertiary)" }}>
-            case studies
-          </h2>
+        <section className="rule-strong pt-5">
+          <h2 className="kicker mb-4">Case studies</h2>
           <div className="grid gap-4">
             {projects.map((project) => (
               <ProjectCard key={project.slug} project={project} />
@@ -47,10 +42,10 @@ export default function ProjectsPage() {
           }}
         >
           <p className="mb-3" style={{ color: "var(--text-secondary)" }}>
-            // no projects found
+            No projects found.
           </p>
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-            add mdx files to <code>content/projects/</code>
+            Add MDX files to <code>content/projects/</code>
           </p>
         </div>
       )}

@@ -5,7 +5,7 @@ export type ProjectStatus = "live" | "in-progress" | "archived";
 
 export const STATUS_COLORS: Record<ProjectStatus, string> = {
   live: "var(--accent)",
-  "in-progress": "#eab308",
+  "in-progress": "var(--accent-warm)",
   archived: "var(--text-muted)",
 };
 

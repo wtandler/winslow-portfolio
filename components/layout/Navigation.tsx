@@ -2,64 +2,53 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 
 const navItems = [
-  { href: "/", label: "home" },
-  { href: "/projects", label: "projects" },
-  { href: "/contact", label: "contact" },
+  { href: "/projects", label: "Projects" },
+  { href: "/writing", label: "Writing" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function Navigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
-      <div className="mx-auto max-w-4xl px-6 py-4">
-        <div
-          className="flex items-center justify-between px-4 py-2"
-          style={{
-            background: "var(--bg-secondary)",
-            border: "1px solid var(--border-subtle)",
-          }}
-        >
+    <nav
+      className="fixed top-0 left-0 right-0 z-50"
+      style={{
+        background: "var(--bg-primary)",
+        borderBottom: "1px solid var(--border-subtle)",
+      }}
+    >
+      <div className="mx-auto max-w-4xl px-6">
+        <div className="flex items-center justify-between py-4">
           <Link
             href="/"
-            className="text-sm"
-            style={{ color: "var(--accent)" }}
+            className="text-sm font-semibold uppercase transition-opacity hover:opacity-70"
+            style={{ color: "var(--text-primary)", letterSpacing: "0.14em" }}
           >
-            ~/wtandler
+            Winslow Tandler
           </Link>
 
-          <div className="flex items-center gap-0">
+          <div className="flex items-center gap-6">
             {navItems.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive =
+                pathname === item.href ||
+                pathname.startsWith(`${item.href}/`);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="relative px-3 py-1 text-sm transition-colors"
+                  className={`text-sm transition-colors ${
+                    isActive ? "underline" : "hover:underline"
+                  }`}
                   style={{
                     color: isActive
                       ? "var(--text-primary)"
-                      : "var(--text-muted)",
+                      : "var(--text-tertiary)",
+                    textUnderlineOffset: "6px",
                   }}
                 >
-                  {isActive && (
-                    <motion.div
-                      layoutId="nav-indicator"
-                      className="absolute inset-0 -z-10"
-                      style={{
-                        background: "var(--bg-tertiary)",
-                        border: "1px solid var(--border-default)",
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 30,
-                      }}
-                    />
-                  )}
                   {item.label}
                 </Link>
               );
