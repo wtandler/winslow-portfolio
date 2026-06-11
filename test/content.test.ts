@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { describe, it, expect, vi, afterEach } from "vitest";
+import { describe, it, expect, vi, beforeAll, afterEach } from "vitest";
 import { getAllProjects, getProjectBySlug } from "@/lib/mdx";
 import {
   getAllWriting,
@@ -11,6 +11,16 @@ import { VALID_STATUSES } from "@/lib/status";
 import sitemap from "@/app/sitemap";
 
 const writingDir = path.join(process.cwd(), "content/writing");
+
+// A crashed earlier run can strand a fixture file, which the build and
+// sitemap would then treat as real content. Purge before running.
+beforeAll(() => {
+  for (const file of fs.readdirSync(writingDir)) {
+    if (file.startsWith("__fixture-")) {
+      fs.rmSync(path.join(writingDir, file), { force: true });
+    }
+  }
+});
 
 // Drops a temporary .mdx fixture into content/writing, runs the assertion,
 // and always cleans up. Fixture tests live in this file (not a separate one)
@@ -130,6 +140,45 @@ describe("writing frontmatter edge cases", () => {
       () => {
         expect(() => getWritingBySlug("__fixture-bad-yaml__")).toThrow(
           /__fixture-bad-yaml__\.mdx has invalid frontmatter/
+        );
+      }
+    );
+  });
+
+  it("throws with the file name on an unparseable date", () => {
+    withFixture(
+      "__fixture-bad-date__",
+      `---\ntitle: "Bad date"\nsummary: "Date cannot parse."\ndate: "2026-13-45"\n---\n\nBody.\n`,
+      () => {
+        expect(() => getWritingBySlug("__fixture-bad-date__")).toThrow(
+          /__fixture-bad-date__\.mdx has an unparseable date/
+        );
+      }
+    );
+  });
+
+  it("normalizes unquoted YAML dates (Date objects) to ISO day strings", () => {
+    withFixture(
+      "__fixture-yaml-date__",
+      `---\ntitle: "YAML date"\nsummary: "Unquoted date."\ndate: 2020-06-15\n---\n\nBody.\n`,
+      () => {
+        const piece = getWritingBySlug("__fixture-yaml-date__");
+        expect(piece!.frontmatter.date).toBe("2020-06-15");
+      }
+    );
+  });
+
+  it("rejects path-shaped slugs", () => {
+    expect(getWritingBySlug("../projects/coachgpt")).toBeNull();
+  });
+
+  it("rejects pdf links that are not site-rooted or https", () => {
+    withFixture(
+      "__fixture-bad-pdf__",
+      `---\ntitle: "Bad pdf"\nsummary: "Unsafe scheme."\ndate: "2020-01-01"\npdf: "javascript:alert(1)"\n---\n\nBody.\n`,
+      () => {
+        expect(() => getWritingBySlug("__fixture-bad-pdf__")).toThrow(
+          /__fixture-bad-pdf__\.mdx has an invalid pdf link/
         );
       }
     );
