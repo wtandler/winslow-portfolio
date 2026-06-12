@@ -63,9 +63,9 @@ The old pattern was "build a Power BI report, refresh it weekly, hope someone us
 
 ## Building with AI
 
-Threadbase is my flagship build, and most of it is written with AI. The lesson that shaped how I work: AI doesn't make a system like this good. It makes you faster in whatever direction you were already pointed. If the direction is vague, you get vague output, just sooner. So the real work is less about prompting and more about building the discipline that keeps the speed aimed at the right thing.
+Threadbase is the largest thing I've built, and most of it is written with AI. By the time I started it, getting code generated quickly was no longer the problem. AI makes you faster in whatever direction you were already pointed, and if the direction is vague you get vague output, just sooner. Threadbase is where I stopped improvising prompts and built a repeatable workflow around the model instead.
 
-I do that with tuned skills and plugins. Instead of asking a model to "go fix this," I route the work through fixed procedures I've written for this project: one for scoping and planning a change, one for exploring the codebase before touching it, one for reviewing a diff, one for debugging. Each runs the same steps every time, so the quality doesn't ride on how I happened to phrase the request that day.
+Instead of asking a model to "go fix this," I route the work through fixed procedures I've written for this project: one for scoping and planning a change, one for exploring the codebase before touching it, one for reviewing a diff, one for debugging. Each runs the same steps every time, so the quality doesn't ride on how I happened to phrase the request that day.
 
 A few things hold it together:
 
@@ -75,11 +75,11 @@ A few things hold it together:
 * **Project rules that don't drift.** Naming, SQL, architecture, providers, deployment, testing gotchas: written down once, applied every time, by me or the model.
 * **Evals for the AI itself.** The extraction pipeline has its own labeled eval suites, including an LLM-as-judge layer, so a prompt change has to prove it didn't regress before it lands.
 
-The point of all of it is consistency. A model will happily build the wrong thing very fast. The skills and plugins are there to make sure speed doesn't come at the cost of building the wrong thing.
+The point of all of it is consistency. A model will happily build the wrong thing very fast, and the procedures are there to catch that before it compounds. The workflow didn't stay here either: it's how I've built every project since.
 
 ## What I learned
 
-* **Ease of use wins.** If it takes effort, it won't get adopted.
+* **Adoption depends on effort.** If using the tool takes work, people fall back to what they already do.
 * **Use the data people already create.** Don't ask for "one more update." Extract value from what already exists.
 * **A knowledge graph doesn't require a graph database.** The graph is the model that matters. Most of it can be handled with a solid relational model plus vector search, minus the operational drag.
-* **AI accelerates mistakes.** Speed is a trap if you're not disciplined. The bottleneck stops being typing and becomes knowing what you actually want.
+* **AI moves the bottleneck.** Once code generation is fast, the limiting factor is knowing exactly what you want built.

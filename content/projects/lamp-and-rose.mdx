@@ -38,17 +38,13 @@ I integrated Stripe Connect so donations and dues route directly to each chapter
 
 **Member dues:** Members pay through the portal. The system tracks payment history, sends renewal reminders, and flags overdue accounts. Admins see who's current at a glance without maintaining a separate ledger.
 
-There's no manual reconciliation and no spreadsheet handoff. Money flows where it should without someone in the middle making sure it got there.
+There's no manual reconciliation and no spreadsheet handoff at the end of the month.
 
 ## The Hard Part
 
-Multi-tenancy with payments. The hard part was layering it all: public chapter sites, subdomains, private member portals, chapter-level payments, plus a platform management layer on top. Every request needs explicit tenant context rather than guessing or falling back to a default. If context is missing, the system fails closed. That principle runs through routing, permissions, data access, and observability.
+Multi-tenancy with payments. Public chapter sites, subdomains, private member portals, chapter-level payments, and a platform management layer all rest on the same tenant boundary, and a donation landing in the wrong chapter's account is the one failure the platform cannot have. So every request carries explicit tenant context rather than guessing or falling back to a default, and if context is missing the system fails closed. That rule runs through routing, permissions, data access, and observability, and it was designed in from the start rather than bolted on later.
 
-Building a platform the right way means designing boundaries first. You do not bolt on multi-tenancy later without paying for it. You need clean separation of data, a consistent permission model, safe defaults, and a way to reason about failures when real money is involved. It is not glamorous work, but it is the difference between a demo and something you can trust.
-
-And doing that in an industry I knew nothing about was its own challenge. I had to learn the workflows, vocabulary, and edge cases before I could model the system correctly.
-
-A donation can't land in the wrong chapter's bucket. With real money moving between organizations, attribution has to be airtight. I built the tenant boundary as the architecture, not a layer on top.
+The other challenge was the domain itself. I knew nothing about this industry when I started, so I had to learn the workflows, vocabulary, and edge cases before I could model the system correctly.
 
 ## Tech Stack
 
@@ -62,12 +58,8 @@ A donation can't land in the wrong chapter's bucket. With real money moving betw
 
 ## How It Came Together
 
-I started with an anchor chapter, one group of chapter leaders who gave me a rough list of needs. Literally a picture of notes on a napkin. We worked closely throughout the build, with constant feedback loops as I shipped and refined features. I fed that early input into AI to break it down into feature sets, surface hidden assumptions, and generate clarifying questions before I wrote any code.
+This was the first thing I built for users who weren't me. I started with an anchor chapter, one group of chapter leaders who gave me a rough list of needs. Literally a picture of notes on a napkin. We worked closely throughout the build: they tested continuously as I shipped, and I adjusted based on what they found.
 
-I'm not directly involved with Nurse Honor Guard chapters, so I needed context fast. I used AI to research how chapters operate: their ceremonies, training requirements, membership structures, the vocabulary they use. That research shaped the domain model and helped me ask better questions when I validated with the client.
+It was also the first project where what I needed most from AI was domain knowledge rather than code. I'm not involved with Nurse Honor Guard chapters, so I used it to research how they operate: their ceremonies, training requirements, membership structures, the vocabulary they use. That research shaped the domain model and helped me ask the chapter leaders better questions when I validated against the real thing.
 
-They tested continuously as I shipped. I adjusted based on what they found.
-
-Originally I thought this would just be a platform for their chapter. But the more I learned about how Honor Guard chapters operate nationally, the more I realized the pain points weren't unique. Every chapter is dealing with the same spreadsheet juggling, the same email chains, the same manual payment tracking. The tooling gap is the norm, not a local problem.
-
-That's when the architecture shifted from single-tenant to multi-tenant. Build once, let any chapter spin up their own instance with full data isolation. The system grew without losing consistency because the foundation was designed to scale from the start.
+Originally I thought this would just be a platform for their chapter. But the more I learned about how Honor Guard chapters operate nationally, the more I realized the pain points weren't unique. Every chapter is dealing with the same spreadsheet juggling, the same email chains, the same manual payment tracking. That's when the architecture shifted from single-tenant to multi-tenant: build once, and let any chapter spin up their own instance with full data isolation.
