@@ -14,7 +14,7 @@ Paper-and-ink editorial look, modeled on a research briefing: warm paper backgro
 
 Plain, simple, straightforward. No pithy one-liners, no engineered punchlines, no em/en dashes, no self-promotion. The hero describes the site, not the author. Case studies are first person and honest about tradeoffs.
 
-Writing rules for all `content/` prose (modeled on Winslow's own writing: conclusion first, then enumerated reasons with numbers):
+Writing rules for all `content/` prose (modeled on Winslow's own writing: conclusion first, then enumerated reasons with numbers). WRITING.md is the full guide with before/after samples and the editing protocol; the rules below are the summary:
 
 - **Claim first.** State the conclusion in the first sentence of a section, then support it. No scene-setting, atmosphere, or rhetorical buildup before the point.
 - **No setup-and-reversal.** Never build a turn for effect ("I did X... That was a mistake.", "You'd think Y. Actually..."). State the fact and the reason once, in one pass.
