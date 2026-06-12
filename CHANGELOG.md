@@ -3,6 +3,16 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.2.1.0] - 2026-06-12
+
+### Changed
+- Rewrote all six case studies in a claim-first style: conclusions stated up front, reasons enumerated with their numbers, no rhetorical setups or reversals. Threadbase shrank from roughly 1,900 to 1,350 words with every concrete figure kept.
+- Tightened the Threadbase summary used in link previews and search results.
+
+### Added
+- Codified the case-study writing rules in CLAUDE.md (claim first, numbers over adjectives, no setup-and-reversal, length discipline) so future copy follows them.
+- A content invariant test that fails the build if any case study body exceeds 1,400 prose words.
+
 ## [0.2.0.0] - 2026-06-10
 
 ### Added

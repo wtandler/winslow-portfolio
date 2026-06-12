@@ -9,11 +9,7 @@ featured: true
 
 ## The Problem
 
-A central team manages all the swag for seller events at a company with more than 5,000 account managers and sellers. They average 90 events per quarter, or 7-8 per week, with an account team hosting customers somewhere between the C-suite and the technical staff. Each tier of attendee warrants a different level of swag, and every event draws against a single budget that has to last the whole period.
-
-The sellers requesting swag just want to describe an event and get a sensible package back. The ops team needs budget, inventory, allocation rules, and orders in one place instead of scattered across spreadsheets.
-
-There was also a hard constraint up front: it had to be built Power-Platform-first (Copilot Studio for the agent, Dataverse for the data) so it lived natively inside the org's existing tools, identity, and governance rather than as one more outside app to adopt and secure.
+A central team manages all the swag for seller events at a company with more than 5,000 account managers and sellers: 90 events per quarter, 7-8 per week, each hosted by an account team for customers somewhere between the C-suite and the technical staff. Each tier of attendee warrants a different level of swag, every event draws against a single budget that has to last the whole period, and the budget, inventory, allocation rules, and orders are tracked across scattered spreadsheets. One hard constraint applied from the start: it had to be built Power-Platform-first (Copilot Studio for the agent, Dataverse for the data) so it lived natively inside the org's existing tools, identity, and governance rather than as one more outside app to adopt and secure.
 
 ## The Insight
 
@@ -34,9 +30,9 @@ Same data underneath, two surfaces each tuned to a completely different user.
 
 Two things were genuinely hard, and both came partly from the Power-Platform-first constraint.
 
-First, budget-aware negotiation inside Copilot Studio. A Copilot Studio agent isn't a free-form LLM loop; you build within its topics, flows, and Power Fx. Getting it to propose a package, hold a budget constraint, and negotiate down without going off the rails meant pushing real optimization math into Power Fx and keeping the agent's state honest across the conversation, all inside those rails.
+First, budget-aware negotiation inside Copilot Studio. A Copilot Studio agent isn't a free-form LLM loop; you build within its topics, flows, and Power Fx. Getting it to propose a package, hold a budget constraint, and negotiate down meant pushing the optimization math into Power Fx and keeping the agent's state honest across the conversation.
 
-Second, personas-as-data. Those customer-attendee tiers (C-suite down to technical staff) started life hardcoded as a TypeScript union, which meant a code change and a deploy every time the program renamed or re-cut a tier. I tore that out and made personas editable data: rename a tier in settings and it propagates everywhere without a deploy. It sounds minor, but it's the difference between a tool the ops team owns and one they have to file tickets against.
+Second, personas-as-data. The customer-attendee tiers (C-suite down to technical staff) started life hardcoded as a TypeScript union, which meant a code change and a deploy every time the program renamed or re-cut a tier. I made personas editable data instead: rename a tier in settings and it propagates everywhere without a deploy. That's the difference between a tool the ops team owns and one they file tickets against.
 
 ## Building on the Microsoft Stack
 

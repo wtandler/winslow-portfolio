@@ -9,47 +9,38 @@ url: https://app.gocoachgpt.com
 
 ## Why I Built It
 
-I started CoachGPT in spring 2023, a couple months after ChatGPT launched. It was my first attempt at building anything substantial. I'm not a trained engineer, and building with AI was what made a real, end-to-end app possible for me in the first place. Around the same time, I hit a fitness plateau and kept leaning on my brother, a part-time CrossFit coach, for daily workouts. He was great for one-off WODs but not much help with long-term programming.
-
-When ChatGPT first came out, I started asking it for workouts and feeding it years of my training history. It was not perfect, but it was surprisingly solid. After some experimentation, it started producing genuinely creative sessions. That was the spark. CoachGPT became the project where I learned to build, and a test of whether an AI system could handle long-term programming without losing touch with real-world constraints.
-
+CoachGPT was my first substantial build, started in spring 2023, a couple of months after ChatGPT launched. I'm not a trained engineer; building with AI is what made an end-to-end app possible for me in the first place. The use case came from my own training: I had hit a plateau and was leaning on my brother, a part-time CrossFit coach, for daily workouts. He was good for one-off WODs, not long-term programming. ChatGPT, fed years of my training history, produced solid and sometimes genuinely creative sessions. CoachGPT became the project where I learned to build, and a test of whether an AI system could handle long-term programming without losing touch with real-world constraints.
 
 ## What CoachGPT Does
 
-CoachGPT builds workouts across CrossFit, running, biking, weightlifting, rowing, or any mix of them. You can train in two modes:
+CoachGPT builds workouts across CrossFit, running, biking, weightlifting, rowing, or any mix of them, in two modes:
 
-**Daily Mode:** A fresh workout each day based on your preferences, time, and equipment.
+**Daily Mode:** a fresh workout each day based on your preferences, time, and equipment.
 
-**Program Mode:** A structured plan with dates, goals, and a training strategy. It asks clarifying questions up front, then turns your answers into a schedule that progresses logically.
+**Program Mode:** a structured plan with dates, goals, and a training strategy. It asks clarifying questions up front, then turns your answers into a schedule that progresses logically.
 
-## How It Works
+Around those modes:
 
-Under the hood, CoachGPT is a chained pipeline: intake, strategy, scheduling, a human-readable phase plan, JSON parsing, then logging. That structure is why it holds together across long timelines and different training styles.
+**Structured workout logging:** from a simple 5K to a multi-part WOD, workouts parse into loggable components so your history stays usable.
+
+**Equipment-aware programming:** snap a photo of your gym setup and the workout adapts. Save configs for home, hotel, or commercial gyms and switch instantly.
+
+**Cross-discipline coverage:** one sport or hybrid plans, without forcing a single training template.
 
 ## The Hard Part
 
-Long programs are dense. Even GPT-4o could not fit a full program in one output context window. I had to scaffold the plan and serialize it in chunks: generate a section, save it, then feed the tail of the previous section plus all outputs so far into the next call. If a program needed three calls, they had to run in sequence. Parallel calls broke the plan because each model assumed it was writing the beginning.
+Under the hood, CoachGPT is a chained pipeline: intake, strategy, scheduling, a human-readable phase plan, JSON parsing, then logging. The hard part is that long programs exceed a single output context window, even on GPT-4o. I had to scaffold the plan and serialize it in chunks: generate a section, save it, then feed the tail of the previous section plus all outputs so far into the next call. The calls had to run in sequence; parallel calls broke the plan because each model assumed it was writing the beginning.
 
-So I built a status-driven pipeline of Supabase Edge Functions with explicit locks and idempotency. The program moves through states (definition, phase generation, JSON chunking, workout placeholders), each step triggered by a status update and guarded by compare-and-set locks. The database is the state machine, so each stage can retry safely and failures are visible in SQL.
+So I built a status-driven pipeline of Supabase Edge Functions with explicit locks and idempotency. A program moves through states (definition, phase generation, JSON chunking, workout placeholders), each step triggered by a status update and guarded by compare-and-set locks. The database is the state machine, so each stage retries safely and failures are visible in SQL.
 
-Creativity was another bottleneck. AI is not naturally inventive, so I built a variety engine around it: a database of 1,000 workouts as raw material, sampled for inspiration, plus the programming philosophies of five prominent coaches as creative guides. The result is consistent structure with variety that goes deeper than shuffling the same movements around.
+Creativity was the other bottleneck. AI is not naturally inventive, so I built a variety engine around it: a database of 1,000 workouts sampled as raw material, plus the programming philosophies of five prominent coaches as creative guides. The result is consistent structure with variety that goes deeper than shuffling the same movements around.
 
-## The UI Reality Check
-
-UI was harder than I expected. There were no vibe-coding tools to spit out interfaces, and I am not a designer. I had to iterate the old-fashioned way: lots of experiments, lots of wrong turns, and a pile of screens that got thrown away before the layout finally felt right.
-
-## Features
-
-**Structured workout logging:** From a simple 5K to a multi-part WOD, CoachGPT can parse the workout into loggable components so your history stays usable.
-
-**Equipment-aware programming:** Snap a photo of your gym setup and the workout adapts. Save different configs for home, hotel, or commercial gyms and switch instantly.
-
-**Cross-discipline coverage:** It handles one sport or hybrid plans without forcing you into a single training template.
+UI was a third problem. There were no vibe-coding tools to generate interfaces and I am not a designer, so the layout came from iteration: lots of experiments and a pile of discarded screens.
 
 ## The Stack
 
-The app is built with FlutterFlow and shipped as a mobile-first PWA. The backend runs on Supabase (Postgres, auth, Edge Functions). The AI layer uses multiple models with clear roles: GPT-4o and GPT-4o-mini for reliable structure, Claude 3.5 Sonnet for creative variety, o3-mini for focused reasoning, and Groq-hosted Llama 3.2 for high-speed formatting. This was the first project where I split work across models by what each one is good at, and that habit stuck in everything I built after it.
+Built with FlutterFlow, shipped as a mobile-first PWA, with Supabase (Postgres, auth, Edge Functions) as the backend. The AI layer splits work across models by role: GPT-4o and GPT-4o-mini for reliable structure, Claude 3.5 Sonnet for creative variety, o3-mini for focused reasoning, and Groq-hosted Llama 3.2 for high-speed formatting. This was the first project where I divided work across models by what each is good at, and the habit stuck in everything I built after it.
 
 ## Where It Stands
 
-CoachGPT is on pause. There are bugs I need to work through and I have moved on to other projects, but I will be back to it. It will be interesting to revisit this with newer models that have longer output context and stronger reasoning. I expect the programs and other elements to improve a lot.
+On pause. There are bugs to work through and other projects took priority, but I plan to return to it. Newer models with longer output context and stronger reasoning should improve the programs directly.

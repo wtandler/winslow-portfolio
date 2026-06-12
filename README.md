@@ -48,7 +48,8 @@ test/                 Vitest unit tests for the loaders and routes
 Drop a `.mdx` file in `content/projects/` with frontmatter (`title`, `summary`,
 `date`, `stack`, `status`, optional `url` / `github` / `featured` / `priority`).
 It renders as a card on the projects page and a full page at
-`/projects/<slug>`.
+`/projects/<slug>`. Keep the body under 1,400 words; the test suite enforces
+this.
 
 ## Adding a writing piece
 
