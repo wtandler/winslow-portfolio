@@ -3,6 +3,12 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.2.2.0] - 2026-06-12
+
+### Added
+- WRITING.md, the full prose style guide for case studies and writing entries: the claim-first source pattern, eight rules each with verified before/after samples from the v0.2.1.0 rewrite, an editing protocol, page anatomy, and a pre-ship checklist. CLAUDE.md and the README link to it.
+- A content invariant test that fails the build if any case study or writing body contains em/en dashes or setup-and-reversal phrasing ("That was a mistake," "Originally I thought," and similar).
+
 ## [0.2.1.0] - 2026-06-12
 
 ### Changed
