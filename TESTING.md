@@ -15,7 +15,7 @@ pnpm vitest        # watch mode
 
 ## Layers
 
-- **Unit tests** (`test/*.test.ts`): the content loaders in `lib/`. They run against the real `content/` directory and assert structural invariants (required frontmatter, sort order, linked PDFs exist), not specific entries — adding or editing content should never break them.
+- **Unit tests** (`test/*.test.ts`): the content loaders in `lib/`. They run against the real `content/` directory and assert structural invariants (required frontmatter, sort order, linked PDFs exist, case study bodies under 1,400 words), not specific entries — content that satisfies the invariants never breaks them.
 - **Build**: `pnpm build` is the second gate (CI runs it too). The loaders throw at build time on missing or invalid frontmatter, naming the offending file.
 
 ## Conventions
