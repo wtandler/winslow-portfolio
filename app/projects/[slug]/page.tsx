@@ -53,9 +53,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   const { frontmatter, content, readingTime } = project;
-  const { title, summary, date, stack, status, url, github } = frontmatter;
+  const { title, summary, date, updated, stack, status, url, github } =
+    frontmatter;
 
-  const formattedDate = formatDate(date, "monthYear");
+  const formattedDate = updated
+    ? `${formatDate(date, "monthYear")} · updated ${formatDate(updated, "monthYear")}`
+    : formatDate(date, "monthYear");
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">

@@ -1,8 +1,9 @@
 ---
 title: Threadbase
-summary: Portfolio intelligence that runs like a team of analysts. Agents read across the org, link everything into a knowledge graph, and surface conflicts, hidden dependencies, and risks before anyone thinks to ask.
+summary: Portfolio intelligence that runs like a team of analysts. Agents read everything the org produces, link it into a knowledge graph with full provenance, and surface conflicts, hidden dependencies, and risks before anyone thinks to ask. Every claim traces back to the exact region of the source page it came from.
 date: 2024-10
-stack: [Next.js, React 19, TypeScript, PostgreSQL, pgvector, Azure Content Understanding, OpenAI, Voyage AI, Tailwind, Radix UI]
+updated: 2026-06
+stack: [Next.js, React 19, TypeScript, PostgreSQL, pgvector, Azure Container Apps, Azure Content Understanding, OpenAI, Voyage AI, Vercel AI SDK, GraphRAG, Bicep]
 status: in-progress
 featured: true
 priority: 100
@@ -25,41 +26,57 @@ The fix is to stop waiting for the user to ask.
 
 Threadbase runs like a team of analysts that never stops reading. Agents work across the portfolio continuously, comparing what one team said against what another assumed, tracking how dependencies move, watching for assumptions that expired without anyone saying so out loud. Instead of answering questions, it asks them first, then puts what it found in front of you to confirm or act on.
 
-These are the questions it asks before you do:
-
-* What's going to miss, and what's the real reason?
-* Which dependencies are quietly getting bigger?
-* What assumptions have expired without anyone saying it out loud?
-
-To answer them, it has to read everything, in whatever form it shows up. A deck made by a human and a transcript of what people actually said are about as close to intent as you get: decisions, context, subtext, friction, the real blockers, the half-commitments. Threadbase takes those artifacts as-is, across teams that use different vocabularies and tools, and links them into one knowledge graph: initiatives, programs, owners, dependencies, risks, decisions, and how they all touch each other.
-
-Taxonomies tend to fall apart once real status updates start flowing, so the graph doesn't depend on them. It connects the work across orgs and across formats, then keeps those connections live as reality changes.
-
-The result is a picture of the portfolio that stays current instead of going stale.
+To do that credibly inside an organization, every claim has to survive scrutiny. So the core design rule is evidence-first: nothing enters the system's model of the world without a link back to the exact document, page, and region it came from, and nothing the AI asserts gets treated as truth until a person accepts it or it clears a configurable confidence bar.
 
 ## The Approach
 
 I started with a chat interface, because "AI product" basically implies chat. That was a mistake.
 
-The state of a portfolio can't sit behind a prompt. If someone has to ask the system what's going on, you've added the exact friction the system was meant to remove, and you're back to reactive. An insight only matters if it reaches you before you went looking for it.
+The state of a portfolio can't sit behind a prompt. If someone has to ask the system what's going on, you've added the exact friction the system was meant to remove. So Threadbase is built around a persistent model of the portfolio (initiatives, owners, dependencies, risks, decisions, and the facts that support them) with agents working against it in the background. When something changes, the knock-on effects show up early. When two things conflict, it flags the conflict, side by side, with both sources.
 
-So Threadbase is built around a persistent, always-visible model with agents working against it in the background: initiatives, programs, owners, dependencies, risks, and decisions. When something changes, the knock-on effects show up early. When two things conflict, it flags the conflict. Instead of letting the status meeting reveal the surprise, it surfaces the surprise while there's still time to do something about it.
+That product choice forced the real engineering: a document-understanding pipeline that survives corporate slides, retrieval that works across a knowledge graph rather than a pile of chunks, an agent layer with durable memory, and the evaluation and governance machinery that makes any of it trustworthy enough to act on.
 
-That product choice forced a few gnarly technical problems: extracting signal from corporate slides, retrieval that actually works in this domain, a relationship-aware model without operational drag, and dashboards that stay live as reality changes.
+## How It's Built
 
-## Technical Exploration
+Under the product is a six-stage evidence pipeline (ingest, chunk and embed, extract, verify, analyze, publish) running on Azure Container Apps against PostgreSQL. There's no ORM: raw parameterized SQL over 60+ versioned migrations, applied automatically on container boot and serialized across replicas with Postgres advisory locks. Around 2,000 unit and integration tests and eight independent eval suites gate changes.
 
-### Document ingestion
-I tried a pile of OCR/vision stacks. Corporate slides are brutal: dense layouts, tiny text, icons that matter, nested tables, "this one dot means red." Most open-source approaches fell apart on edge cases. Azure Content Understanding was the first thing that consistently handled the mess.
+### Document understanding with spatial provenance
 
-### Embeddings
-I tested ColPali, Voyage, and others. Voyage was the most reliable for retrieval quality in this domain.
+Corporate slides are brutal: dense layouts, nested tables, icons that matter, "this one dot means red." After burning through the open-source OCR stacks, I landed on Azure Content Understanding plus a multimodal vision pass. The vision path goes beyond transcription: it emits structured facts with bounding boxes on a normalized grid, so every extracted claim renders as a highlight on the actual source page. Tables are chunked as atomic units and routed through table-specific extraction prompts. A reviewer never has to take the AI's word for anything; the evidence is one click away, with the relevant region marked.
 
-### Graph structure
-The knowledge graph is the product, so I started with Neo4j. It worked, but the operational overhead wasn't worth it at this stage. I moved the graph into Postgres with pgvector: a relationship-aware model that gives most of the graph benefit with standard tooling and fewer moving parts. The graph structure is what matters, not the database it lives in.
+### The fact ledger
 
-### Dashboards
-The old pattern was "build a Power BI report, refresh it weekly, hope someone uses it." Threadbase generates dashboards at runtime from the live model instead. If the underlying truth changes, the dashboard changes with it.
+Extraction writes to a governed fact ledger: subject-predicate-object claims with confidence scores, qualifiers, temporal windows, and full lineage to their source chunk. The verify stage detects conflicts between new claims and accepted ones and routes them to the right owner by walking the entity graph. Reviewers accept, edit (with a required written reason), reject, escalate, or keep both sides of a conflict with explicit effective-date windows, and every mutation is audited. The auto-accept threshold is a runtime setting with an admin surface, so where the line sits between machine-accepted and human-reviewed is an operating policy an admin can move at any time.
+
+A self-bootstrapping classifier keeps the queue clean: when enough facts share a novel predicate, an LLM classifies it once, caches the result in a predicate registry, and structural noise like slide numbers and document dates stops reaching human reviewers. The classifier ships with a labeled eval suite and an 85% per-class accuracy gate.
+
+### Graph-augmented retrieval
+
+The knowledge graph is the core of the product, but it lives in Postgres with pgvector rather than a graph database. A relationship-aware relational model with vector indexes gets most of the benefit with far less operational drag. On top of it:
+
+* **Cross-document entity resolution.** The same initiative described three ways by three teams auto-merges above a similarity threshold, defers to human review in the gray zone, and keeps a full merge audit trail either way.
+* **Community detection.** Louvain clustering groups the graph into themes, and per-community reports feed a map-reduce global search for portfolio-wide questions.
+* **Multi-hop traversal tools.** The agent can walk relationships ("what depends on the thing this risk threatens?") instead of hoping similarity search stumbles onto the path.
+* **Triplet embeddings.** The facts themselves are indexed (HNSW) alongside the text chunks, so retrieval can match on relationships as well as wording.
+* **A query router.** Hard questions get decomposed into sub-questions, each routed to the retrieval mode that fits: literal lookup, vector search, graph traversal, or map-reduce.
+
+In chat, this becomes multi-step reasoning with tool use: the agent plans sub-questions, calls retrieval and graph-traversal tools, and answers with rendered components (fact tables, entity graphs, timelines, conflict pairs) when a structure answers better than prose. Every answer carries citations harvested from the actual tool results rather than from the model's memory.
+
+### The agent layer
+
+The newest piece reframes synthesis as an agent reasoning over the corpus instead of a pile of scheduled detectors. The agent has durable, versioned memory (beliefs it can recall, write, and supersede), and every conclusion carries a reasoning trace. After each upload, a reflective loop re-reads what changed, proposes belief updates, compiles per-entity briefs, and updates the recommendation queue that drives the daily briefing, behind a feature flag and with idempotency fingerprints so retries can't double-write. It shipped cautiously: shadow mode first, evals gating promotion, and a kill switch on the way out.
+
+### Determinism first, LLMs second
+
+The design rule I'd defend hardest in a review: LLM output is never load-bearing where a deterministic path can do the job. The prose explaining each pending fact to reviewers is composed by a deterministic template from structured anchors, so it cannot fabricate and it produces identical output every run. An optional LLM polish pass sits behind a flag, wrapped in a sentence-shape validator, a per-document circuit breaker, and a fallback to the template on any failure. The guardrails live in code: free-text user input that reaches a prompt is fenced against prompt injection, low-confidence classifications disable the commit button until a person looks, and every model sits behind an env-configured, OpenAI-compatible provider layer, so swapping or A/B-testing a model is a config change rather than a refactor. Model routing follows the same principle, with small models on triage and classification and the expensive calls reserved for synthesis.
+
+### Evals as the merge gate
+
+Eight eval suites cover extraction F1, retrieval quality (with an A/B mode), portfolio-level Q&A graded on answer quality rather than retrieval hits, agent behavior, predicate classification, and reviewer-facing prose, the last with an LLM-as-judge rubric layered over deterministic validators. Prompt and model changes land only when the suites say they didn't regress. The same harness ran an embedding-provider tournament and a reranking impact study before either touched production.
+
+### Production posture
+
+Infrastructure is defined in Bicep: Container Apps behind a VNet, managed identity everywhere instead of connection strings, Key Vault for the rest, and a production Postgres with public network access disabled. Operational scripts run as an allowlisted, manually triggered container job inside the VNet rather than from anyone's laptop. The pipeline emits structured telemetry at every stage, background jobs coordinate through advisory locks, and graceful shutdown handlers keep revision swaps from racing the connection pool. It's a side project, but it's operated like production software.
 
 ## Building with AI
 
@@ -71,15 +88,17 @@ A few things hold it together:
 
 * **A knowledge graph of the code.** Before any change, the workflow checks the blast radius and the cross-module connections I wouldn't have thought to look for. Nothing gets called "isolated" until the graph agrees. The index updates itself on every edit and commit.
 * **Planning before code.** Major features start as a written plan, and there are dozens of them now. Scoping happens on paper before anything gets built, and adjacent work gets logged instead of quietly absorbed.
-* **Tests from the acceptance criteria, not the implementation.** The rule is simple: if someone reimplemented this differently but correctly, the tests should still pass. Every task ships with a verification command and a self-check against each criterion before it can move to review.
+* **Tests from the acceptance criteria, not the implementation.** If someone reimplemented a feature differently but correctly, the tests should still pass. Every task ships with a verification command and a self-check against each criterion before it can move to review.
 * **Project rules that don't drift.** Naming, SQL, architecture, providers, deployment, testing gotchas: written down once, applied every time, by me or the model.
-* **Evals for the AI itself.** The extraction pipeline has its own labeled eval suites, including an LLM-as-judge layer, so a prompt change has to prove it didn't regress before it lands.
+
+The eval suites described above hold the AI's own output to the same bar: a prompt change proves it didn't regress before it lands, like any other code.
 
 The point of all of it is consistency. A model will happily build the wrong thing very fast, and the procedures are there to catch that before it compounds. The workflow didn't stay here either: it's how I've built every project since.
 
-## What I learned
+## What I Learned
 
 * **Adoption depends on effort.** If using the tool takes work, people fall back to what they already do.
 * **Use the data people already create.** Don't ask for "one more update." Extract value from what already exists.
 * **A knowledge graph doesn't require a graph database.** The graph is the model that matters. Most of it can be handled with a solid relational model plus vector search, minus the operational drag.
-* **AI moves the bottleneck.** Once code generation is fast, the limiting factor is knowing exactly what you want built.
+* **Provenance is what earns action.** Spatial citations, audit trails, deterministic fallbacks, and human review checkpoints are the reason anyone inside an org acts on what the system says.
+* **AI moves the bottleneck.** Once code generation is fast, the limiting factor is knowing exactly what you want built, and proving with evals that you got it.

@@ -74,6 +74,18 @@ describe("getAllProjects", () => {
   it("returns null for a slug that does not exist", () => {
     expect(getProjectBySlug("does-not-exist")).toBeNull();
   });
+
+  it("normalizes the optional updated date and keeps it at or after date", () => {
+    for (const project of getAllProjects()) {
+      const { date, updated } = project.frontmatter;
+      if (updated !== undefined) {
+        expect(Number.isNaN(new Date(updated).getTime())).toBe(false);
+        expect(new Date(updated).getTime()).toBeGreaterThanOrEqual(
+          new Date(date).getTime()
+        );
+      }
+    }
+  });
 });
 
 describe("getAllWriting", () => {
