@@ -10,6 +10,8 @@ export interface ProjectFrontmatter {
   title: string;
   summary: string;
   date: string;
+  // Optional "last updated" date, shown alongside the start date.
+  updated?: string;
   stack: string[];
   status: ProjectStatus;
   url?: string;
@@ -39,6 +41,9 @@ function normalizeFrontmatter(
     title: String(data.title),
     summary: String(data.summary),
     date: normalizeContentDate("content/projects", slug, data.date),
+    updated: data.updated
+      ? normalizeContentDate("content/projects", slug, data.updated)
+      : undefined,
     stack: Array.isArray(data.stack) ? (data.stack as string[]) : [],
     status,
     url: data.url ? String(data.url) : undefined,
