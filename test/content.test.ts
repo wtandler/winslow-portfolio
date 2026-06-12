@@ -98,6 +98,28 @@ describe("getAllProjects", () => {
       expect(words, project.slug).toBeLessThan(1400);
     }
   });
+
+  it("keeps banned characters and phrases out of content bodies", () => {
+    // Copy-voice rules from CLAUDE.md and WRITING.md: no em/en dashes, no
+    // setup-and-reversal phrasing.
+    const banned = [
+      "–",
+      "—",
+      "That was a mistake",
+      "It sounds minor",
+      "Originally I thought",
+      "You'd think",
+    ];
+    const entries = [...getAllProjects(), ...getAllWriting()];
+    for (const entry of entries) {
+      for (const pattern of banned) {
+        expect(
+          entry.content.includes(pattern),
+          `${entry.slug} contains banned pattern: ${pattern}`
+        ).toBe(false);
+      }
+    }
+  });
 });
 
 describe("getAllWriting", () => {
