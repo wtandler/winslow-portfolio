@@ -86,6 +86,18 @@ describe("getAllProjects", () => {
       }
     }
   });
+
+  it("keeps every case study body under 1,400 words", () => {
+    // Length discipline from the copy-voice rules in CLAUDE.md. Count prose
+    // words only: MDX comments and bare markdown markers are not words.
+    for (const project of getAllProjects()) {
+      const words = project.content
+        .replace(/\{\/\*[\s\S]*?\*\/\}/g, " ")
+        .split(/\s+/)
+        .filter((token) => /[A-Za-z0-9]/.test(token)).length;
+      expect(words, project.slug).toBeLessThan(1400);
+    }
+  });
 });
 
 describe("getAllWriting", () => {

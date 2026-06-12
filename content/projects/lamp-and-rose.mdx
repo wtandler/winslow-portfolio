@@ -10,9 +10,7 @@ url: https://nursehonorguardnova.org
 
 ## The Problem
 
-Nurse Honor Guard chapters are run by retired nurses. They spent decades in healthcare, not tech. Now they're managing volunteer organizations with paper sign-up sheets, email threads, cash donations, and spreadsheets on someone's personal laptop.
-
-I talked to chapter leaders who were tracking member dues in one spreadsheet, ceremony availability in another, and training certifications in a third, all while fielding emails about who could cover a service next Tuesday. It's a lot of work, and none of their tools were built for it. Most chapters make do.
+Nurse Honor Guard chapters are run by retired nurses. They spent decades in healthcare, not tech, and they're managing volunteer organizations with paper sign-up sheets, email threads, cash donations, and spreadsheets on someone's personal laptop. The chapter leaders I talked to tracked member dues in one spreadsheet, ceremony availability in another, and training certifications in a third, all while fielding emails about who could cover a service next Tuesday.
 
 ## What I Built
 
@@ -27,8 +25,6 @@ The admin console consolidates everything chapter leaders were juggling separate
 **Training & credentials:** Track who's completed what training and when certifications expire. Overdue credentials get flagged automatically, and leadership can pull compliance reports when they need them.
 
 **Communications:** Announcements, event reminders, dues notices. Templated messages pull in member data so no one's copy-pasting names into emails one at a time.
-
-The goal is for chapter leaders to spend their time running the chapter instead of managing spreadsheets.
 
 ## Payments
 
@@ -58,8 +54,8 @@ The other challenge was the domain itself. I knew nothing about this industry wh
 
 ## How It Came Together
 
-This is the first thing I built that's actually used outside work. I started with an anchor chapter, one group of chapter leaders who gave me a rough list of needs. Literally a picture of notes on a napkin. We worked closely throughout the build: they tested continuously as I shipped, and I adjusted based on what they found.
+This is the first thing I built that's actually used outside work. I started with an anchor chapter, one group of chapter leaders whose first requirements list was a photo of notes on a napkin. We worked closely throughout the build: they tested continuously as I shipped, and I adjusted based on what they found.
 
 It was also the first project where what I needed most from AI was domain knowledge rather than code. I'm not involved with Nurse Honor Guard chapters, so I used it to research how they operate: their ceremonies, training requirements, membership structures, the vocabulary they use. That research shaped the domain model and helped me ask the chapter leaders better questions when I validated against the real thing.
 
-Originally I thought this would just be a platform for their chapter. But the more I learned about how Honor Guard chapters operate nationally, the more I realized the pain points weren't unique. Every chapter is dealing with the same spreadsheet juggling, the same email chains, the same manual payment tracking. That's when the architecture shifted from single-tenant to multi-tenant: build once, and let any chapter spin up their own instance with full data isolation.
+The architecture moved from single-tenant to multi-tenant once it was clear the anchor chapter's pain points weren't unique: every chapter juggles the same spreadsheets, email chains, and manual payment tracking. Build once, and any chapter can spin up its own instance with full data isolation.
