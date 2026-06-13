@@ -1,6 +1,4 @@
 import { getAllProjects, getFeaturedProjects } from "@/lib/mdx";
-import { getAllWriting } from "@/lib/writing";
-import { formatDate } from "@/lib/dates";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import Link from "next/link";
 
@@ -17,7 +15,6 @@ export default function HomePage() {
   const featuredProjects = getFeaturedProjects();
   const projects =
     featuredProjects.length > 0 ? featuredProjects : getAllProjects();
-  const writing = getAllWriting().slice(0, 3);
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-8">
@@ -81,62 +78,6 @@ export default function HomePage() {
           </div>
         )}
       </section>
-
-      {/* Writing */}
-      {writing.length > 0 && (
-        <section className="mt-14 rule-strong pt-5">
-          <div className="flex items-baseline justify-between mb-4">
-            <h2 className="kicker">Writing</h2>
-            <Link
-              href="/writing"
-              className="text-sm hover:underline"
-              style={{ color: "var(--text-muted)" }}
-            >
-              All writing
-            </Link>
-          </div>
-
-          <div>
-            {writing.map((piece) => (
-              <Link
-                key={piece.slug}
-                href={`/writing/${piece.slug}`}
-                className="group block py-4"
-                style={{ borderBottom: "1px solid var(--border-subtle)" }}
-              >
-                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
-                  {piece.frontmatter.category && (
-                    <span className="kicker">
-                      {piece.frontmatter.category}
-                    </span>
-                  )}
-                  <span
-                    className="text-xs"
-                    style={{ color: "var(--text-muted)" }}
-                  >
-                    {formatDate(piece.frontmatter.date)}
-                  </span>
-                </div>
-                <h3
-                  className="text-base font-medium group-hover:underline"
-                  style={{
-                    color: "var(--text-primary)",
-                    textUnderlineOffset: "4px",
-                  }}
-                >
-                  {piece.frontmatter.title}
-                </h3>
-                <p
-                  className="text-sm mt-1 max-w-2xl"
-                  style={{ color: "var(--text-tertiary)" }}
-                >
-                  {piece.frontmatter.summary}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
 
       {/* Links */}
       <footer

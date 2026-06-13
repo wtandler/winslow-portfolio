@@ -12,7 +12,7 @@ export interface ContentEntry<F> {
 }
 
 interface LoaderOptions<F> {
-  // Directory relative to the repo root, e.g. "content/writing"
+  // Directory relative to the repo root, e.g. "content/projects"
   dir: string;
   // Validates + normalizes frontmatter; throws (naming the file) on bad input
   normalize: (slug: string, data: Record<string, unknown>) => F;
@@ -20,9 +20,9 @@ interface LoaderOptions<F> {
   compare: (a: ContentEntry<F>, b: ContentEntry<F>) => number;
 }
 
-// Shared MDX content loader. Each content type (projects, writing) supplies
-// its directory, frontmatter normalizer, and sort order; reading, parsing,
-// error naming, and reading time live here once.
+// Shared MDX content loader. Each content type supplies its directory,
+// frontmatter normalizer, and sort order; reading, parsing, error naming,
+// and reading time live here once.
 export function createContentLoader<F>({
   dir,
   normalize,
