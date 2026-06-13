@@ -1,6 +1,6 @@
 ---
 title: Second Order
-summary: An agent pipeline that produces a weekly client research briefing end to end. Every number is verified against primary sources, every chart is built from filed data, and the repo itself is the institutional memory that makes each issue cheaper than the last.
+summary: An agent pipeline that produces a weekly client research briefing end to end. Every number is verified against primary sources, every chart is built from data filed in the repo, and each run records what it learned so the next one is faster.
 date: 2026-06
 stack: [Anthropic Claude, Claude Agent Skills, Python, Matplotlib, ReportLab, Node.js, pptxgenjs, FRED, BLS]
 status: in-progress
@@ -17,7 +17,7 @@ Each issue is an 8 to 10 page PDF and a companion deck sharing 5 to 8 branded ex
 
 ## The Production System
 
-The build is the pipeline, not any single issue. One repo holds everything an issue needs (voice reference, brand module, templates, sourcebook, playbook calendar, data files), and an installable agent skill runs the full workflow from a single instruction like "draft Issue 03":
+One repo holds everything an issue needs (voice reference, brand module, templates, sourcebook, playbook calendar, data files), and an installable agent skill runs the full workflow from a single instruction like "draft Issue 03":
 
 1. **Research first.** The claim decomposes into 3 to 5 search angles. Every load-bearing number is verified against two independent sources or a direct fetch of the primary before any drafting starts.
 2. **Data acquisition under a three-tier policy.** Tier 1: root data exists, so download it and compute, with the raw CSVs, a SOURCES.md (URLs, retrieval date, vintage notes), and the compute script filed next to the chart. Tier 2: the data is proprietary or paywalled, so reproduce the source chart verbatim inside the exhibit frame, credited as reproduced, never redrawn as an imitation. Tier 3: neither exists, so plot only verified anchor points, or cut the chart and keep the claim as one cited sentence. No drawn curves through sparse data.
@@ -29,17 +29,17 @@ The build is the pipeline, not any single issue. One repo holds everything an is
 
 ## The Hard Part
 
-The hard part is making AI-produced research trustworthy enough to put a name on. The model is not the control; the procedure is. Contested evidence is presented as contested, single-sourced figures carry a visible caveat everywhere they appear, primary sources are cited over aggregators, and house analyses are labeled as our own calculations, kept descriptive rather than causal, with sensitivity disclosed when a methodological choice changes the answer.
+The hard part is making AI-produced research trustworthy enough to put a name on. The controls for that are procedural. Contested evidence is presented as contested. Single-sourced figures carry a visible caveat everywhere they appear. Primary sources are cited over aggregators. House analyses are labeled as our own calculations, kept descriptive rather than causal, with sensitivity disclosed when a methodological choice changes the answer.
 
 The hypothesis step is where this paid off. For Issue 03, three headline studies on AI and entry-level hiring appeared to conflict. The pipeline's hypothesis was that they only conflict if they measure the same thing: occupational stocks could grow while hiring flows freeze. Tested against BLS data, exposed occupational employment was up 10.4% while the hires rate sat at 2008 to 2013 levels, and that result became the issue's claim and three of its exhibits. A second cut found AI-exposed employment up 25.2% with real mean wages down 2.3% once office support is excluded, and it ran as one paragraph because that is all the result supported.
 
-## The Repo Is the Institution
+## Lessons Accumulate in the Repo
 
-Sessions are disposable; the repo is not. The skill requires every run to read DATA_ACCESS.md before fetching anything and to append what it learned afterward: which endpoints return clean text, which series IDs matter, which government tables truncate, and the workarounds (computing missing table rows as residuals from published totals turned a truncation problem into exact arithmetic). Acquisition time falls issue over issue because the lessons compound in files instead of evaporating with the session.
+Each run starts with no memory of the last, so the repo has to carry what they learn. The skill requires every run to read DATA_ACCESS.md before fetching anything and to append what it learned afterward: which endpoints return clean text, which series IDs matter, which government tables truncate, and the workarounds (computing missing table rows as residuals from published totals turned a truncation problem into exact arithmetic). Acquisition time falls issue over issue because those lessons live in files instead of disappearing with the session.
 
 ## What I Learned
 
-* **Codified procedure beats prompting.** The editorial standards, the data policy, and the QA loop live in the skill and run the same way every issue. Output quality stopped depending on how the request was phrased.
-* **Verification must be structural.** "Check your sources" does nothing; a tiered policy that forbids charts without filed data does everything.
-* **Hypothesis testing is the difference between aggregation and research.** The most valuable content in each issue is the claim no source stated, tested against public data with the method filed.
-* **Deterministic brand code beats generated design.** A Python module that owns the visual system produces identical output every run; asking a model to match a style does not.
+* **The procedure is written down once, in the skill.** The editorial standards, the data policy, and the QA loop run the same way every issue, so output quality stopped depending on how I phrased the request.
+* **Verification has to be a rule the process enforces.** The data policy refuses any chart whose source data and compute script are not filed beside it, so an untraceable number cannot reach the page.
+* **The tested hypothesis is the most valuable part of each issue.** It is the one claim no source stated, checked against public data with the method filed, so the conclusion is ours and defensible.
+* **The visual system is deterministic code.** A Python module owns the palette and exhibit anatomy, so every exhibit inherits the brand and renders the same way each run.
