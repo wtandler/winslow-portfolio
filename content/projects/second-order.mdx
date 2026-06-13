@@ -1,0 +1,45 @@
+---
+title: Second Order
+summary: An agent pipeline that produces a weekly client research briefing end to end. Every number is verified against primary sources, every chart is built from filed data, and the repo itself is the institutional memory that makes each issue cheaper than the last.
+date: 2026-06
+stack: [Anthropic Claude, Claude Agent Skills, Python, Matplotlib, ReportLab, Node.js, pptxgenjs, FRED, BLS]
+status: in-progress
+featured: true
+---
+
+## The Problem
+
+A weekly research product normally takes a team: researchers to read the tape, an analyst to test ideas against data, a designer to build exhibits, an editor to hold the voice, and production staff to assemble the report and deck. Second Order is a weekly briefing on AI's macro impact, published as Razor Research for operators at mid-market firms, and the build question was whether one person plus an agent pipeline can hold sell-side production standards: every number verified, every estimate flagged, every chart traceable to filed data.
+
+## What Ships Each Week
+
+Each issue is an 8 to 10 page PDF and a companion deck sharing 5 to 8 branded exhibits, on a fixed skeleton: one counterintuitive claim in the first 100 words with the five numbers that carry it, numbered evidence sections, a boxed second-order insight, an operator playbook, a dated watchlist with the indicator that would change our mind, and a scorecard grading consensus against the tape. Three issues have shipped against a 12-issue calendar. A finished issue, [Issue 02: The Wrong Denominator](/samples/second-order-issue-02-the-wrong-denominator.html), is included as a sample of the output.
+
+## The Production System
+
+The build is the pipeline, not any single issue. One repo holds everything an issue needs (voice reference, brand module, templates, sourcebook, playbook calendar, data files), and an installable agent skill runs the full workflow from a single instruction like "draft Issue 03":
+
+1. **Research first.** The claim decomposes into 3 to 5 search angles. Every load-bearing number is verified against two independent sources or a direct fetch of the primary before any drafting starts.
+2. **Data acquisition under a three-tier policy.** Tier 1: root data exists, so download it and compute, with the raw CSVs, a SOURCES.md (URLs, retrieval date, vintage notes), and the compute script filed next to the chart. Tier 2: the data is proprietary or paywalled, so reproduce the source chart verbatim inside the exhibit frame, credited as reproduced, never redrawn as an imitation. Tier 3: neither exists, so plot only verified anchor points, or cut the chart and keep the claim as one cited sentence. No drawn curves through sparse data.
+3. **Hypothesize before building.** After outlining, the agent writes 1 to 3 hypotheses the compiled material suggests but no single source states, then applies a three-part bar: counterintuitive, testable now with reachable data, and leading to a conclusion nothing else in the issue carries. Whatever clears the bar gets tested with real data and its own exhibit; whatever fails on testability gets parked with a named falsifier. The slate is saved as HYPOTHESES.md so the reasoning is auditable.
+4. **Exhibits from a brand module.** A Python module owns the palette, the double-rule motif, and the exhibit anatomy (eyebrow, claim-as-title, metric subtitle, note line flagging every estimate, source line). Series colors carry meaning: cobalt is evidence, amber is counterpoint, red is risk and appears at most once per exhibit.
+5. **Assembly.** ReportLab builds the flagship PDF, pptxgenjs builds the 16:9 deck, both from templates, and the deck's numbers must match the report's.
+6. **Render QA.** The PDF and deck convert to page images and a fresh-eyes subagent inspects them for collisions, clipped labels, and numbering errors, looping until a full pass finds nothing new. A text audit then greps the extracted prose for AI-vocabulary tells and dash characters outside verbatim quotes.
+7. **Ship with a commit.** Every run ends with a git commit, so the repo history is the audit trail of what each issue used and changed.
+
+## The Hard Part
+
+The hard part is making AI-produced research trustworthy enough to put a name on. The model is not the control; the procedure is. Contested evidence is presented as contested, single-sourced figures carry a visible caveat everywhere they appear, primary sources are cited over aggregators, and house analyses are labeled as our own calculations, kept descriptive rather than causal, with sensitivity disclosed when a methodological choice changes the answer.
+
+The hypothesis step is where this paid off. For Issue 03, three headline studies on AI and entry-level hiring appeared to conflict. The pipeline's hypothesis was that they only conflict if they measure the same thing: occupational stocks could grow while hiring flows freeze. Tested against BLS data, exposed occupational employment was up 10.4% while the hires rate sat at 2008 to 2013 levels, and that result became the issue's claim and three of its exhibits. A second cut found AI-exposed employment up 25.2% with real mean wages down 2.3% once office support is excluded, and it ran as one paragraph because that is all the result supported.
+
+## The Repo Is the Institution
+
+Sessions are disposable; the repo is not. The skill requires every run to read DATA_ACCESS.md before fetching anything and to append what it learned afterward: which endpoints return clean text, which series IDs matter, which government tables truncate, and the workarounds (computing missing table rows as residuals from published totals turned a truncation problem into exact arithmetic). Acquisition time falls issue over issue because the lessons compound in files instead of evaporating with the session.
+
+## What I Learned
+
+* **Codified procedure beats prompting.** The editorial standards, the data policy, and the QA loop live in the skill and run the same way every issue. Output quality stopped depending on how the request was phrased.
+* **Verification must be structural.** "Check your sources" does nothing; a tiered policy that forbids charts without filed data does everything.
+* **Hypothesis testing is the difference between aggregation and research.** The most valuable content in each issue is the claim no source stated, tested against public data with the method filed.
+* **Deterministic brand code beats generated design.** A Python module that owns the visual system produces identical output every run; asking a model to match a style does not.
