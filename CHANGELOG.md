@@ -3,6 +3,19 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.0.0] - 2026-06-13
+
+### Added
+- Second Order case study at `/projects/second-order`: an agent pipeline that produces a weekly client research briefing end to end, every number verified against primary sources and every chart built from filed data. Written for both business readers and technical recruiters, and featured on the homepage.
+- A sample of the finished product. The full "The Wrong Denominator" issue is hosted at `/samples/second-order-issue-02-the-wrong-denominator.html` and linked from the case study, framed with a site-themed header bar so the linked page ties back to the portfolio.
+
+### Removed
+- The Writing section (`/writing`, its index, and its lone entry). The Second Order work now lives in the case study, with the published issue linked as a sample.
+
+### Changed
+- Navigation, the homepage, and the sitemap no longer carry a Writing section.
+- Restored the shared content-loader guard tests (required frontmatter, invalid YAML, unparseable date, path-shaped slug) against the projects loader, so those error paths stay covered after the writing tests were removed.
+
 ## [0.2.1.0] - 2026-06-12
 
 ### Changed
