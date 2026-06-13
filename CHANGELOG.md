@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.0.1] - 2026-06-13
+
+### Changed
+- Plain-voice edit of the Second Order case study: removed engineered punchlines and antithesis ("the model is not the control; the procedure is", "does nothing / does everything", "X beats Y") in favor of stating each point plainly. Claim-first structure and every number kept.
+
 ## [0.3.0.0] - 2026-06-13
 
 ### Added
