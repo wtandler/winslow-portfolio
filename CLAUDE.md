@@ -1,6 +1,6 @@
 # winslow-portfolio
 
-Personal portfolio site for Winslow Tandler (winslowtandler.com). Next.js App Router + MDX content: case studies in `content/projects/`, research and commentary in `content/writing/`. Deployed on Vercel from `main` (direct commits, no PR flow).
+Personal portfolio site for Winslow Tandler (winslowtandler.com). Next.js App Router + MDX content: case studies in `content/projects/`. Standalone sample artifacts (e.g. a finished issue of a product) live in `public/samples/` and are linked from the relevant case study. Deployed on Vercel from `main`.
 
 ## Design
 
@@ -8,7 +8,7 @@ Paper-and-ink editorial look, modeled on a research briefing: warm paper backgro
 
 ## Testing
 
-`pnpm test` runs vitest over `test/*.test.ts` (this repo uses pnpm; the lockfile is pnpm-lock.yaml). See TESTING.md for conventions. Tests assert structural invariants on the content loaders (`lib/mdx.ts`, `lib/writing.ts`); new `lib/` logic gets a test, bug fixes get a regression test, and never commit code that fails existing tests.
+`pnpm test` runs vitest over `test/*.test.ts` (this repo uses pnpm; the lockfile is pnpm-lock.yaml). See TESTING.md for conventions. Tests assert structural invariants on the content loader (`lib/mdx.ts`, over the shared `lib/content.ts`); new `lib/` logic gets a test, bug fixes get a regression test, and never commit code that fails existing tests.
 
 ## Copy voice
 

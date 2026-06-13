@@ -30,16 +30,13 @@ pnpm lint       # eslint
 ## Structure
 
 ```
-app/                  Routes — home, projects, writing, contact
+app/                  Routes — home, projects, contact
   projects/[slug]/    Individual case study pages
-  writing/[slug]/     Individual writing pages
 content/projects/     MDX case studies (one file per project)
-content/writing/      MDX writing pieces (research and commentary)
-public/pdfs/          Full-issue PDFs linked from writing pieces
+public/samples/       Standalone sample artifacts linked from case studies
 components/           UI, layout, and project components
 lib/content.ts        Shared MDX loader (parsing, validation, reading time)
 lib/mdx.ts            Project loader + frontmatter schema
-lib/writing.ts        Writing loader + frontmatter schema
 test/                 Vitest unit tests for the loaders and routes
 ```
 
@@ -50,11 +47,3 @@ Drop a `.mdx` file in `content/projects/` with frontmatter (`title`, `summary`,
 It renders as a card on the projects page and a full page at
 `/projects/<slug>`. Keep the body under 1,400 words; the test suite enforces
 this.
-
-## Adding a writing piece
-
-Drop a `.mdx` file in `content/writing/` with frontmatter (`title`, `summary`,
-`date`, optional `category` / `pdf`). It appears on the writing index and a
-full page at `/writing/<slug>`. The `pdf` field must be a site-rooted path
-(e.g. `/pdfs/issue.pdf`, with the file in `public/pdfs/`) or an `https://`
-URL; anything else fails the build.

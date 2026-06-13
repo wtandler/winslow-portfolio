@@ -1,33 +1,32 @@
 import fs from "fs";
 import path from "path";
 import { describe, it, expect, vi, beforeAll, afterEach } from "vitest";
-import { getAllProjects, getProjectBySlug } from "@/lib/mdx";
 import {
-  getAllWriting,
-  getWritingBySlug,
-  getWritingSlugs,
-} from "@/lib/writing";
+  getAllProjects,
+  getProjectBySlug,
+  getProjectSlugs,
+} from "@/lib/mdx";
 import { VALID_STATUSES } from "@/lib/status";
 import sitemap from "@/app/sitemap";
 
-const writingDir = path.join(process.cwd(), "content/writing");
+const projectsDir = path.join(process.cwd(), "content/projects");
 
 // A crashed earlier run can strand a fixture file, which the build and
 // sitemap would then treat as real content. Purge before running.
 beforeAll(() => {
-  for (const file of fs.readdirSync(writingDir)) {
+  for (const file of fs.readdirSync(projectsDir)) {
     if (file.startsWith("__fixture-")) {
-      fs.rmSync(path.join(writingDir, file), { force: true });
+      fs.rmSync(path.join(projectsDir, file), { force: true });
     }
   }
 });
 
-// Drops a temporary .mdx fixture into content/writing, runs the assertion,
+// Drops a temporary .mdx fixture into content/projects, runs the assertion,
 // and always cleans up. Fixture tests live in this file (not a separate one)
 // because vitest runs files in parallel workers — a half-valid fixture left
 // on disk would race the invariant tests below.
 function withFixture(name: string, contents: string, run: () => void) {
-  const file = path.join(writingDir, `${name}.mdx`);
+  const file = path.join(projectsDir, `${name}.mdx`);
   fs.writeFileSync(file, contents);
   try {
     run();
@@ -100,47 +99,10 @@ describe("getAllProjects", () => {
   });
 });
 
-describe("getAllWriting", () => {
-  it("returns pieces with required frontmatter", () => {
-    const pieces = getAllWriting();
-    expect(pieces.length).toBeGreaterThan(0);
-    for (const piece of pieces) {
-      expect(piece.frontmatter.title).toBeTruthy();
-      expect(piece.frontmatter.summary).toBeTruthy();
-      expect(Number.isNaN(new Date(piece.frontmatter.date).getTime())).toBe(
-        false
-      );
-      expect(piece.readingTime).toMatch(/min read/);
-    }
-  });
-
-  it("sorts by date descending", () => {
-    const pieces = getAllWriting();
-    for (let i = 1; i < pieces.length; i++) {
-      expect(new Date(pieces[i - 1].frontmatter.date).getTime())
-        .toBeGreaterThanOrEqual(
-          new Date(pieces[i].frontmatter.date).getTime()
-        );
-    }
-  });
-
-  it("returns null for a slug that does not exist", () => {
-    expect(getWritingBySlug("does-not-exist")).toBeNull();
-  });
-
-  it("pdf links in frontmatter point at files that exist in public/", () => {
-    for (const piece of getAllWriting()) {
-      const pdf = piece.frontmatter.pdf;
-      if (pdf && pdf.startsWith("/")) {
-        expect(fs.existsSync(path.join(process.cwd(), "public", pdf))).toBe(
-          true
-        );
-      }
-    }
-  });
-});
-
-describe("writing frontmatter edge cases", () => {
+// These exercise the shared content loader's guard paths (lib/content.ts)
+// through the projects normalizer. They use throwaway fixtures so a malformed
+// entry never has to live in real content to prove the guard fires.
+describe("project frontmatter edge cases", () => {
   afterEach(() => {
     vi.restoreAllMocks();
   });
@@ -150,7 +112,7 @@ describe("writing frontmatter edge cases", () => {
       "__fixture-missing-keys__",
       `---\ntitle: "Only a title"\n---\n\nBody.\n`,
       () => {
-        expect(() => getWritingBySlug("__fixture-missing-keys__")).toThrow(
+        expect(() => getProjectBySlug("__fixture-missing-keys__")).toThrow(
           /__fixture-missing-keys__\.mdx is missing required frontmatter: summary, date/
         );
       }
@@ -162,7 +124,7 @@ describe("writing frontmatter edge cases", () => {
       "__fixture-bad-yaml__",
       `---\ntitle: [unclosed\n---\n\nBody.\n`,
       () => {
-        expect(() => getWritingBySlug("__fixture-bad-yaml__")).toThrow(
+        expect(() => getProjectBySlug("__fixture-bad-yaml__")).toThrow(
           /__fixture-bad-yaml__\.mdx has invalid frontmatter/
         );
       }
@@ -174,7 +136,7 @@ describe("writing frontmatter edge cases", () => {
       "__fixture-bad-date__",
       `---\ntitle: "Bad date"\nsummary: "Date cannot parse."\ndate: "2026-13-45"\n---\n\nBody.\n`,
       () => {
-        expect(() => getWritingBySlug("__fixture-bad-date__")).toThrow(
+        expect(() => getProjectBySlug("__fixture-bad-date__")).toThrow(
           /__fixture-bad-date__\.mdx has an unparseable date/
         );
       }
@@ -186,75 +148,43 @@ describe("writing frontmatter edge cases", () => {
       "__fixture-yaml-date__",
       `---\ntitle: "YAML date"\nsummary: "Unquoted date."\ndate: 2020-06-15\n---\n\nBody.\n`,
       () => {
-        const piece = getWritingBySlug("__fixture-yaml-date__");
-        expect(piece!.frontmatter.date).toBe("2020-06-15");
+        const project = getProjectBySlug("__fixture-yaml-date__");
+        expect(project!.frontmatter.date).toBe("2020-06-15");
       }
     );
   });
 
   it("rejects path-shaped slugs", () => {
-    expect(getWritingBySlug("../projects/coachgpt")).toBeNull();
+    expect(getProjectBySlug("../projects/coachgpt")).toBeNull();
   });
 
-  it("rejects pdf links that are not site-rooted or https", () => {
-    withFixture(
-      "__fixture-bad-pdf__",
-      `---\ntitle: "Bad pdf"\nsummary: "Unsafe scheme."\ndate: "2020-01-01"\npdf: "javascript:alert(1)"\n---\n\nBody.\n`,
-      () => {
-        expect(() => getWritingBySlug("__fixture-bad-pdf__")).toThrow(
-          /__fixture-bad-pdf__\.mdx has an invalid pdf link/
-        );
-      }
-    );
-  });
-
-  it("leaves category and pdf undefined when absent", () => {
+  it("defaults featured/priority and leaves optional links undefined when absent", () => {
     withFixture(
       "__fixture-minimal__",
       `---\ntitle: "Minimal"\nsummary: "Just the required fields."\ndate: "2020-01-01"\n---\n\nBody.\n`,
       () => {
-        const piece = getWritingBySlug("__fixture-minimal__");
-        expect(piece).not.toBeNull();
-        expect(piece!.frontmatter.category).toBeUndefined();
-        expect(piece!.frontmatter.pdf).toBeUndefined();
+        const project = getProjectBySlug("__fixture-minimal__");
+        expect(project).not.toBeNull();
+        expect(project!.frontmatter.featured).toBe(false);
+        expect(project!.frontmatter.priority).toBe(0);
+        expect(project!.frontmatter.url).toBeUndefined();
+        expect(project!.frontmatter.github).toBeUndefined();
+        expect(project!.frontmatter.updated).toBeUndefined();
       }
     );
   });
 
-  it("sorts newer entries before older ones", () => {
-    withFixture(
-      "__fixture-older__",
-      `---\ntitle: "Older"\nsummary: "Older entry."\ndate: "2000-01-02"\n---\n\nBody.\n`,
-      () => {
-        withFixture(
-          "__fixture-oldest__",
-          `---\ntitle: "Oldest"\nsummary: "Oldest entry."\ndate: "2000-01-01"\n---\n\nBody.\n`,
-          () => {
-            const slugs = getAllWriting().map((p) => p.slug);
-            const older = slugs.indexOf("__fixture-older__");
-            const oldest = slugs.indexOf("__fixture-oldest__");
-            expect(older).toBeGreaterThanOrEqual(0);
-            expect(oldest).toBeGreaterThanOrEqual(0);
-            expect(older).toBeLessThan(oldest);
-          }
-        );
-      }
-    );
-  });
-
-  it("returns no slugs when the writing directory does not exist", () => {
+  it("returns no slugs when the projects directory does not exist", () => {
     vi.spyOn(fs, "existsSync").mockReturnValue(false);
-    expect(getWritingSlugs()).toEqual([]);
+    expect(getProjectSlugs()).toEqual([]);
   });
 });
 
 describe("sitemap", () => {
-  it("includes the writing index and every writing entry", () => {
+  it("includes the static routes", () => {
     const urls = sitemap().map((entry) => entry.url);
-    expect(urls.some((url) => url.endsWith("/writing"))).toBe(true);
-    for (const slug of getWritingSlugs()) {
-      expect(urls.some((url) => url.endsWith(`/writing/${slug}`))).toBe(true);
-    }
+    expect(urls.some((url) => url.endsWith("/projects"))).toBe(true);
+    expect(urls.some((url) => url.endsWith("/contact"))).toBe(true);
   });
 
   it("includes every project entry", () => {
