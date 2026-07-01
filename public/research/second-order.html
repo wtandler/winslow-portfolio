@@ -4,90 +4,74 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Second Order &middot; Research notes</title>
-<meta name="description" content="Second Order is a weekly research briefing on AI's macro impact for operators at mid-market firms. Read the published issues and sidebars.">
+<meta name="description" content="Second Order is a weekly research briefing on AI's macro impact for operators at mid-market firms. Read the latest issue and browse the full archive.">
 <style>
-  :root{
-    --ink:#101D33; --cobalt:#1E5AA8; --amber:#C97B1D; --slate:#64748B;
-    --mist:#D9DFE8; --panel:#F4F6F9; --red:#A4262C;
-  }
+  :root{ --ink:#101D33; --cobalt:#1E5AA8; --amber:#C97B1D; --slate:#64748B; --mist:#D9DFE8; --panel:#F4F6F9; }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; background:#fff; color:var(--ink);
-    font-family:Helvetica,Arial,sans-serif; line-height:1.6;
-    font-size:17px; -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:720px; margin:0 auto; padding:0 22px 80px}
+  body{margin:0; background:#fff; color:var(--ink); font-family:Helvetica,Arial,sans-serif; line-height:1.6; font-size:17px; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:700px; margin:0 auto; padding:0 22px 84px}
   .rule{border:0; border-top:4px solid var(--ink); margin:0}
   .rule.thin{border-top:1px solid var(--ink); margin-top:2px}
+
   header.masthead{padding-top:28px}
   .brandrow{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px; padding:14px 0 4px}
   .wordmark{font-weight:700; letter-spacing:.42em; font-size:21px}
   .issue-meta{color:var(--slate); font-size:13px; letter-spacing:.06em; text-transform:uppercase}
   .tagrow{color:var(--slate); font-size:13px; letter-spacing:.04em; padding-bottom:14px}
-  h1{font-size:34px; line-height:1.12; margin:30px 0 8px; letter-spacing:-.01em}
-  .dek{font-style:italic; color:var(--slate); font-size:18px; margin:0 0 8px}
-  .eyebrow{color:var(--amber); font-weight:700; font-size:12.5px; letter-spacing:.13em; text-transform:uppercase; margin:38px 0 4px}
-  .teaser-eyebrow{margin-top:46px}
-  h2{font-size:23px; line-height:1.2; margin:2px 0 14px; letter-spacing:-.005em}
-  p{margin:0 0 16px}
-  b,strong{color:var(--ink)}
-  i,em{color:#26344a}
-  figure.ex{margin:22px 0 26px}
-  figure.ex img{width:100%; height:auto; display:block; border:0}
-  aside.box{
-    background:var(--panel); border-top:4px solid var(--amber);
-    padding:18px 20px 6px; margin:26px 0;
-  }
-  aside.box .boxhead{font-weight:700; font-size:13px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px}
-  aside.box p{font-size:15.5px; margin-bottom:12px}
-  aside.box ul{margin:0; padding-left:20px}
-  aside.box li{font-size:15.5px; margin-bottom:11px}
-  .sources{color:var(--slate); font-size:13px; line-height:1.55}
-  footer{margin-top:50px}
-  .footnote{color:var(--slate); font-size:12.5px; font-style:italic; padding:14px 0 0; line-height:1.5}
+
+  .dek{font-style:italic; color:var(--slate); font-size:18px; margin:26px 0 8px}
+  .lede{font-size:19px; line-height:1.5; margin:0 0 10px; color:var(--ink); max-width:600px}
+  .cadence{color:var(--slate); font-size:13px; letter-spacing:.05em; text-transform:uppercase; margin:0}
+
+  .eyebrow{color:var(--amber); font-weight:700; font-size:12.5px; letter-spacing:.13em; text-transform:uppercase}
+
+  .feature{background:var(--panel); border-top:4px solid var(--amber); padding:24px 26px 22px; margin:40px 0 0}
+  .feature .lbl{display:inline-block; color:var(--amber); font-weight:700; font-size:12px; letter-spacing:.14em; text-transform:uppercase; margin-bottom:12px}
+  .feature .meta{color:var(--slate); font-size:12px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px}
+  .feature h1{font-size:33px; line-height:1.14; letter-spacing:-.01em; margin:0 0 12px; font-weight:700}
+  .feature h1 a{color:var(--ink); text-decoration:none}
+  .feature h1 a:hover{color:var(--cobalt)}
+  .feature p{font-size:16.5px; line-height:1.5; color:#26344a; margin:0 0 18px; max-width:600px}
+  .actions{display:flex; align-items:center; gap:22px; flex-wrap:wrap}
+  .read{display:inline-flex; align-items:center; gap:8px; background:var(--cobalt); color:#fff; font-weight:700; font-size:14.5px; text-decoration:none; padding:11px 20px; letter-spacing:.01em}
+  .read:hover{background:var(--ink)}
+  .deck-top{color:var(--cobalt); font-weight:700; font-size:13.5px; text-decoration:none; border-bottom:2px solid var(--cobalt); padding-bottom:1px}
+  .deck-top:hover{color:var(--ink); border-color:var(--ink)}
+
+  .more-h{margin:56px 0 0; padding-bottom:12px; border-bottom:2px solid var(--ink)}
+  .row{padding:22px 0; border-bottom:1px solid var(--mist); display:grid; grid-template-columns:1fr auto; column-gap:24px; align-items:start}
+  .row .main{min-width:0}
+  .row h2{font-size:21px; line-height:1.22; letter-spacing:-.005em; margin:0 0 7px; font-weight:700}
+  .row h2 a{color:var(--ink); text-decoration:none}
+  .row h2 a:hover{color:var(--cobalt)}
+  .row p{font-size:15.5px; line-height:1.5; color:#26344a; margin:0; max-width:520px}
+  .row .side{text-align:right; white-space:nowrap; padding-top:3px}
+  .row .topic{color:var(--slate); font-size:11px; letter-spacing:.09em; text-transform:uppercase; display:block; margin-bottom:8px}
+  .row .date{color:var(--slate); font-size:12.5px; display:block; margin-bottom:8px}
+  .row .deck{color:var(--cobalt); font-size:12.5px; text-decoration:none; font-weight:700}
+  .row .deck:hover{color:var(--ink)}
+
+  .browse{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:28px; padding:20px 22px; background:var(--panel); border:1px solid var(--mist)}
+  .browse .lbl2{font-size:16px; font-weight:700; color:var(--ink)}
+  .browse .sub{color:var(--slate); font-size:13.5px; margin-top:2px}
+  .browse a.all{color:var(--cobalt); font-weight:700; font-size:14.5px; text-decoration:none; white-space:nowrap; border-bottom:2px solid var(--cobalt); padding-bottom:1px}
+  .browse a.all:hover{color:var(--ink); border-color:var(--ink)}
+
+  footer{margin-top:56px}
+  .footnote{color:var(--slate); font-size:12.5px; font-style:italic; padding:14px 0 0; line-height:1.5; border-top:1px solid var(--ink)}
   .footbar{color:var(--slate); font-size:12px; letter-spacing:.04em; padding-top:10px}
-  .deck-cta{margin:18px 0 2px}
-  .deck-cta a{
-    display:inline-flex; align-items:baseline; gap:7px;
-    color:var(--cobalt); font-weight:700; font-size:14.5px; letter-spacing:.01em;
-    text-decoration:none; border-bottom:2px solid var(--cobalt); padding-bottom:2px;
-  }
-  .deck-cta a:hover{color:var(--ink); border-color:var(--ink)}
-  .deck-cta .arr{font-weight:700}
-  .lede{font-size:19px; line-height:1.5; margin:30px 0 10px; color:var(--ink)}
-  .note-list{margin:6px 0 0}
-  .note-row{padding:20px 0; border-top:1px solid var(--mist)}
-  .note-row:last-child{border-bottom:1px solid var(--mist)}
-  .note-meta{color:var(--slate); font-size:12px; letter-spacing:.09em; text-transform:uppercase; margin-bottom:6px}
-  a.note-title{display:inline-block; font-size:22px; font-weight:700; line-height:1.18; color:var(--ink); text-decoration:none; margin-bottom:6px}
-  a.note-title:hover{color:var(--cobalt)}
-  .note-sum{color:#26344a; font-size:15.5px; line-height:1.5; margin-bottom:9px}
-  a.note-deck{font-size:13px; color:var(--cobalt); font-weight:700; letter-spacing:.01em; text-decoration:none; border-bottom:2px solid var(--cobalt); padding-bottom:1px}
-  a.note-deck:hover{color:var(--ink); border-color:var(--ink)}
-  a.wordmark-link{color:inherit; text-decoration:none}
-  a.wordmark-link:hover{color:var(--cobalt)}
-  .navlink{color:#6e7278; text-decoration:none; font-size:13px}
-  .navlink:hover{color:#20242c}
-  .feature{background:var(--panel); border-top:3px solid var(--amber); padding:20px 22px 16px; margin:12px 0 8px}
-  .feature .lbl{display:block; color:var(--amber); font-weight:700; font-size:12px; letter-spacing:.13em; text-transform:uppercase; margin-bottom:10px}
-  a.feature-title{display:inline-block; font-size:28px; font-weight:700; line-height:1.15; letter-spacing:-.01em; color:var(--ink); text-decoration:none; margin:2px 0 8px}
-  a.feature-title:hover{color:var(--cobalt)}
-  .feature .feature-sum{color:#26344a; font-size:16px; line-height:1.5; margin-bottom:12px}
-  @media (max-width:520px){
-    a.feature-title{font-size:23px}
-    body{font-size:16px}
-    h1{font-size:27px}
-    h2{font-size:20px}
-    .wordmark{letter-spacing:.28em; font-size:17px}
-  }
+
+  @media(max-width:560px){ .feature h1{font-size:27px} .wordmark{letter-spacing:.28em; font-size:17px} body{font-size:16px}
+    .row{grid-template-columns:1fr; row-gap:8px} .row .side{text-align:left} .row .date,.row .topic{display:inline; margin:0} .row .topic::after{content:" \00b7 "}
+    .browse{flex-direction:column; align-items:flex-start} }
 </style>
 </head>
 <body>
 <div style="background:#fcfbf8;border-bottom:1px solid #e7e4da;font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
-  <div style="max-width:720px;margin:0 auto;padding:11px 22px;display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+  <div style="max-width:700px;margin:0 auto;padding:11px 22px;display:flex;align-items:baseline;justify-content:space-between;gap:12px">
     <a href="/" style="color:#20242c;text-decoration:none;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase">Winslow Tandler</a>
-    <a href="/projects/second-order" class="navlink">&larr;&nbsp;Case study</a>
+    <a href="/projects/second-order" style="color:#6e7278;text-decoration:none;font-size:13px">&larr;&nbsp;Case study</a>
   </div>
 </div>
 
@@ -102,64 +86,50 @@
     <hr class="rule thin">
   </header>
 
-  <main>
-    <p class="dek">A weekly briefing on AI&rsquo;s macro impact.</p>
-    <p class="lede">Competitive shifts that once took decades now happen in weeks, and a technology shift this large almost always plays out in counterintuitive ways. Second Order looks for the second-order effects of the one happening in our lifetimes: what AI is doing to capital and work.</p>
+  <p class="dek">A weekly briefing on AI&rsquo;s macro impact.</p>
+  <p class="lede">Competitive shifts that once took decades now happen in weeks, and a shift this large almost always plays out in counterintuitive ways. Second Order looks for what AI is doing to capital and work.</p>
+  <p class="cadence">Published weekly since June 2026</p>
 
-    <div class="feature">
-      <span class="lbl">Latest</span>
-      <div class="note-meta">ISSUE 04 &middot; June 30, 2026</div>
-      <a class="feature-title" href="/research/second-order-issue-04-the-stack-splits.html">The Stack Splits</a>
-      <div class="feature-sum">In one June fortnight Washington restricted its best models and Beijing released its own as open weights. The binding constraint on the global AI standard moved from capability to diffusion.</div>
-      <a class="note-deck" href="/research/second-order-issue-04-deck.pdf">Companion deck (PDF)&nbsp;&rarr;</a>
+  <section class="feature">
+    <span class="lbl">The latest issue</span>
+    <div class="meta">Issue 04 &middot; June 30, 2026 &middot; Compute &amp; policy</div>
+    <h1><a href="/research/second-order-issue-04-the-stack-splits.html">The Stack Splits</a></h1>
+    <p>In one June fortnight Washington restricted its best models and Beijing released its own as open weights. The binding constraint on the global AI standard moved from capability to diffusion.</p>
+    <div class="actions">
+      <a class="read" href="/research/second-order-issue-04-the-stack-splits.html">Read the issue &rarr;</a>
+      <a class="deck-top" href="/research/second-order-issue-04-deck.pdf">Companion deck (PDF)</a>
     </div>
+  </section>
 
-    <div class="eyebrow">The AI economy</div>
-    <div class="note-list">
-    <div class="note-row">
-      <div class="note-meta">ISSUE 01 &middot; June 2, 2026</div>
-      <a class="note-title" href="/research/second-order-issue-01-from-doom-loop-to-abundance-path.html">From Doom Loop to Abundance Path</a>
-      <div class="note-sum">The AI doom-loop argument needs about five fragile assumptions to hold at once, and the brakes on it are already visible in the labor data.</div>
-      <a class="note-deck" href="/research/second-order-issue-01-deck.pdf">Companion deck (PDF)&nbsp;&rarr;</a>
+  <div class="more-h"><span class="eyebrow">Recent issues</span></div>
+  <div class="row">
+    <div class="main">
+      <h2><a href="/research/second-order-issue-03-the-entry-level-puzzle.html">The Entry-Level Puzzle</a></h2>
+      <p>Three studies blame three different causes for the entry-level squeeze. AI-exposed occupations kept growing while firms stopped hiring juniors into them.</p>
     </div>
-    <div class="note-row">
-      <div class="note-meta">ISSUE 02 &middot; June 12, 2026</div>
-      <a class="note-title" href="/research/second-order-issue-02-the-wrong-denominator.html">The Wrong Denominator</a>
-      <div class="note-sum">A token is priced by the seller, not a unit of value to the buyer. Measured per completed task, the cost of intelligence is collapsing even as the bills rise.</div>
-      <a class="note-deck" href="/research/second-order-issue-02-deck.pdf">Companion deck (PDF)&nbsp;&rarr;</a>
+    <div class="side"><span class="topic">Work &amp; labor</span><span class="date">Jun 16</span><a class="deck" href="/research/second-order-issue-03-deck.pdf">Deck (PDF)</a></div>
+  </div>
+  <div class="row">
+    <div class="main">
+      <h2><a href="/research/second-order-sidebar-the-seven-percent.html">The 7% Problem</a></h2>
+      <p>Companies spend about 93 cents of every AI dollar on technology and 7 on the people who turn it into output. That 7% is where the missing returns come from.</p>
     </div>
+    <div class="side"><span class="topic">Sidebar &middot; Capital</span><span class="date">Jun 15</span><a class="deck" href="/research/second-order-sidebar-deck.pdf">Deck (PDF)</a></div>
+  </div>
+  <div class="row">
+    <div class="main">
+      <h2><a href="/research/second-order-issue-02-the-wrong-denominator.html">The Wrong Denominator</a></h2>
+      <p>A token is priced by the seller, not a unit of value to the buyer. Measured per completed task, the cost of intelligence is collapsing even as the bills rise.</p>
     </div>
+    <div class="side"><span class="topic">The economics</span><span class="date">Jun 12</span><a class="deck" href="/research/second-order-issue-02-deck.pdf">Deck (PDF)</a></div>
+  </div>
 
-    <div class="eyebrow">Work &amp; labor</div>
-    <div class="note-list">
-    <div class="note-row">
-      <div class="note-meta">ISSUE 03 &middot; June 16, 2026</div>
-      <a class="note-title" href="/research/second-order-issue-03-the-entry-level-puzzle.html">The Entry-Level Puzzle</a>
-      <div class="note-sum">Three studies blame three different causes for the entry-level squeeze. The data reads that AI-exposed occupations kept growing while firms stopped hiring juniors into them.</div>
-      <a class="note-deck" href="/research/second-order-issue-03-deck.pdf">Companion deck (PDF)&nbsp;&rarr;</a>
-    </div>
-    <div class="note-row">
-      <div class="note-meta">SIDEBAR &middot; June 15, 2026</div>
-      <a class="note-title" href="/research/second-order-sidebar-the-seven-percent.html">The 7% Problem</a>
-      <div class="note-sum">Companies spend about 93 cents of every AI dollar on technology and 7 on the people who turn it into output. That 7% is where the missing returns come from.</div>
-      <a class="note-deck" href="/research/second-order-sidebar-deck.pdf">Companion deck (PDF)&nbsp;&rarr;</a>
-    </div>
-    </div>
-
-    <div class="eyebrow">Compute &amp; the stack</div>
-    <div class="note-list">
-    <div class="note-row">
-      <div class="note-meta">ISSUE 04 &middot; June 30, 2026</div>
-      <a class="note-title" href="/research/second-order-issue-04-the-stack-splits.html">The Stack Splits</a>
-      <div class="note-sum">In one June fortnight Washington restricted its best models and Beijing released its own as open weights. The binding constraint on the global AI standard moved from capability to diffusion.</div>
-      <a class="note-deck" href="/research/second-order-issue-04-deck.pdf">Companion deck (PDF)&nbsp;&rarr;</a>
-    </div>
-    </div>
-
-  </main>
+  <div class="browse">
+    <div><div class="lbl2">Browse the full archive</div><div class="sub">Every issue and sidebar, filter by topic</div></div>
+    <a class="all" href="/research/second-order-archive.html">All issues &rarr;</a>
+  </div>
 
   <footer>
-    <hr class="rule thin">
     <p class="footnote">Estimates are flagged where they appear; single-sourced figures carry a visible caveat. Second Order is provided for discussion purposes only and is not investment, legal, tax, or accounting advice. &copy; 2026 Second Order.</p>
     <div class="footbar">Second Order &middot; For discussion purposes only; not investment advice</div>
   </footer>

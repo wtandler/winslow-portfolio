@@ -3,6 +3,16 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.2.0] - 2026-07-01
+
+### Added
+- Filterable Second Order archive at `/research/second-order-archive.html`: every issue and sidebar, newest first, with topic filter chips (Compute & policy, The economics, Work & labor, Capital & returns) and a live count. Vanilla JS, no dependencies.
+
+### Changed
+- Redesigned the Second Order landing (`/research/second-order.html`) into a publication front page instead of a chronological list. The latest issue is now a featured block (contained panel, dominant title, primary read action) over three recent issues and a "Browse the full archive" link to the new archive page. Built to scale as issues accumulate: the landing stays hero + recent, the archive holds the full history.
+- Removed the earlier thematic-archive grouping (The AI economy, Work & labor, Compute & the stack) from the landing, which read as thin, confusing buckets at five pieces; topic grouping now lives as a filter on the archive page.
+- Both new pages use the Second Order issue theme (navy ink, cobalt links, amber kickers, the letterspaced `SECOND ORDER` masthead) so they read as one publication with the article pages.
+
 ## [0.3.1.1] - 2026-07-01
 
 ### Changed
