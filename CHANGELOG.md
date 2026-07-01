@@ -3,6 +3,20 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.1.0] - 2026-06-30
+
+### Added
+- Second Order research notes: five debranded pieces published as standalone HTML under `/research/` — Issue 01 (From Doom Loop to Abundance Path), Issue 02 (The Wrong Denominator), Issue 03 (The Entry-Level Puzzle), Issue 04 (The Stack Splits), and a desk sidebar (The 7% Problem). Each carries an inline link to its companion deck.
+- A Second Order landing page at `/research/second-order.html`: a featured latest issue over a thematic archive (The AI economy, Work & labor, Compute & the stack), linked from the case study. Issues carry previous/next navigation and a masthead link back to the index.
+- Companion deck PDFs for all five pieces, converted from the source decks.
+- `voice.md`: the research-writing standard for Second Order prose — plain declarative sentences, evidence inline, no engineered antithesis or punchlines — modeled on standard research-note convention and the Citadel Securities macro notes.
+
+### Changed
+- Moved standalone artifacts from `public/samples/` to `public/research/`; Issue 02 rewritten to its corrected version with new exhibits.
+- Voice pass across all five pieces: removed engineered punchlines, antithesis (in any punctuation), and homerun conclusions in favor of stating each point with its data.
+- Case study now links the research notes landing page and drops the "Razor Research" brand from the description.
+- CLAUDE.md and README.md reference `public/research/` for standalone research artifacts.
+
 ## [0.3.0.1] - 2026-06-13
 
 ### Changed
