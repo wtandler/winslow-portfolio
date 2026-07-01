@@ -1,92 +1,283 @@
 # Second Order voice guide
 
-One guide, one voice. Governs all prose in the series: report body, boxed segments, deck copy, chart titles and notes, and the research-notes pages on winslowtandler.com. The grammar is the winslowtandler.com case-study guide; the stance is the measured research-note register of the Citadel Securities "Macro Thoughts" desk. Where they conflict, the grammar wins.
+One guide, one voice. This governs the report body, boxed segments, deck copy, chart titles and notes, and the research pages on winslowtandler.com. The grammar comes from the winslowtandler.com case-study guide. The stance is the measured research-note register of the Citadel Securities Macro Thoughts desk. Where they conflict, the grammar wins.
 
-## 1. The voice in one paragraph
+## 1. Voice
 
-Plain, direct, and opinionated. We have a view on the tape and we say it, then the data carries it. The reader is an operator or investor deciding whether to act on our analysis; every sentence gives them a fact, a mechanism, or a position they can disagree with. No consultant vocabulary, no hedging into mush, no doom theater, no hype. Honest about what is contested, what is estimated, and what would prove us wrong. Write like a research analyst, not like an AI reaching for a memorable line.
+Plain, direct, and opinionated. We have a view and we state it early, but the data has to carry the weight. The reader is an operator or investor deciding whether to act on the analysis, so every paragraph needs a fact, a mechanism, a risk, or a position that can be tested.
 
-## 2. The one rule
+No consultant vocabulary, no hype, no doom theater, and no memorable line inserted for effect. The prose should read like institutional research: specific, sourced, and willing to be wrong in public.
 
-State the point once, plainly, and move on. Do not build a contrast, a reversal, or a closing line for effect. The rhetorical move is the problem in every form of punctuation, and swapping a period for a semicolon does not fix it. Most sentences just report a measurement and its source; the argument accumulates from the data. You do not need a memorable line, and reaching for one in every sentence is the failure mode.
+## 2. The controlling rule
 
-This supersedes the earlier guide's "kicker." That version allowed a closing observation that reframed a section. It does not anymore. End a section on its last piece of evidence, not on a line.
+State the point plainly and move on. Do not build a contrast, reversal, or closing line just to make the sentence land.
 
-## 3. The model to read
+The failure mode is rhetorical neatness. It can appear as a semicolon, a split sentence, a triad, a section-ending maxim, or a clipped punchline. Changing the punctuation does not fix the habit.
 
-Citadel Securities "Macro Thoughts" (e.g. *Too Much of a Good Thing?*). Long, flat, information-dense paragraphs; the thesis stated plainly up front; every claim carrying its number and source; hedged where the evidence is partial; a measured close, never a punchline. Three sentences that show the texture:
+Most sentences should report evidence, explain a mechanism, or state a bounded conclusion. The argument should accumulate from the data rather than from repeated verbal turns.
 
-- "Anthropic's ARR is reportedly approaching $50bn, while Dell's AI server revenues have increased more than 750% YoY."
-- "If the cost of deploying increasingly sophisticated AI systems rises faster than the value they create, adoption may prove more gradual and selective than current expectations imply."
-- "Today's labour market is not overheating, but it may be approaching an inflection point, with unemployment still low, layoffs historically subdued, and labour supply constrained."
+This supersedes the old "kicker" rule. Sections should end on the last relevant piece of evidence or the bounded implication from that evidence. They should not end on a line.
 
-Winslow's case-analysis pattern supplies the structure: answer first, then enumerated reasons, each carrying its data inline. "Yes, Chandler should allow Guardian to introduce the lightweight standard wheelchair for three reasons, provided some conditions are met." Conclusion first, never the reverse.
+## 3. Sentence rhythm
 
-## 4. Banned constructions
+Do not overcorrect into short, punchy prose. "Less slogan" does not mean "shorter." The target is normal research-sentence length, with enough qualification to sound like a person weighing evidence.
 
-All the same habit. Cut them or flatten them. Most restate the sentence before them, and the fix is usually to delete the line.
+Use subordinate clauses where they help precision. Let some sentences carry friction. Institutional prose does not need every sentence to resolve cleanly.
 
-- Antithesis or reversal, in any punctuation: "X is not Y. It is Z." and "X is not Y; it is Z." are identical. A semicolon joining two balanced clauses for effect is the tell.
-- "X, not Y" / "not X but Y" used to land a point.
+Avoid this rhythm:
+
+> US frontier models remain ahead. That still matters. June changed the access picture. Buyers noticed.
+
+Use this rhythm:
+
+> US frontier models still lead most public benchmarks, and that remains the right starting point for any discussion of model competition. The development in June was that access to those systems became a more visible part of the risk calculus, particularly for buyers outside the US or for teams building workflows that cannot tolerate an unexpected model withdrawal.
+
+The second version reads as less artificial because the qualification does actual work.
+
+## 4. The model to read
+
+Use Citadel Securities Macro Thoughts as the reference point. The texture is information-dense and measured: the thesis appears early, claims carry numbers, uncertainty is placed near the evidence, and paragraphs close without theatrics.
+
+The target is a senior analyst writing for readers who already understand markets and do not need the prose to perform intelligence.
+
+Winslow's case-analysis pattern supplies the structure: answer first, then reasons, with data inline.
+
+Example:
+
+> Yes, Chandler should allow Guardian to introduce the lightweight standard wheelchair for three reasons, provided some conditions are met.
+
+Conclusion first, then evidence. Do not reverse the order for suspense.
+
+## 5. Banned constructions
+
+These are variations of the same habit. Cut them or flatten them.
+
+- Antithesis or reversal in any punctuation: "X is not Y. It is Z." and "X is not Y; it is Z." are the same tell.
+- "X, not Y" and "not X but Y" constructions used to land a point.
+- "Less X than Y," "the question is no longer," "the real issue is," and similar reveal structures.
 - Standalone fragments for emphasis: "Someone is measuring wrong." "The duration is the signal."
-- Soft reveals: "and that is the model that sets the standard," "which is the real story," "the X is the point."
-- Crafted triads with parallel articles: "a flow, a mechanism, and a stock." Write the plain plural: "flows, mechanisms, and stocks."
-- Dramatic verbs where a flat one is true: "differ" or "do not line up," not "clash" or "collide."
-- Two-group contrasts that draw the conclusion for the reader: "firms that buy it succeed; firms that skip it fail." Report what the data shows and let the reader draw the line.
-- "X beats Y," "X is the difference between Y and Z," "no X, no Y" parallelism.
-- Kickers, section-ending zingers, aphoristic maxims, and aphoristic headings. A heading states the section's conclusion plainly ("Enterprises ration without retreating"), not as an aphorism ("Attribution is a choice").
-- "But actually," "It sounds minor," "The real question is," "Let's dive in."
-- Em and en dashes outside verbatim quotations (quotes are never altered). Hyphenated ranges are data and are fine ("$600-805B").
+- Soft reveals: "which is the real story," "that is the point," "and that is what sets the standard."
+- Crafted triads used for rhythm. Lists are allowed only when each item is analytically necessary.
+- Repeated abstract nouns that create conceptual fog: frontier, stack, layer, ecosystem, diffusion, capability, compounding.
+- Dramatic verbs where a flat verb is accurate. Prefer "differ," "diverge," or "do not line up" over "clash" or "collide."
+- Two-group contrasts that draw the conclusion for the reader. Report the evidence and let the implication sit.
+- Parallel slogans: "X beats Y," "no X, no Y," "X is the difference between Y and Z."
+- Kickers, zingers, aphoristic maxims, and aphoristic headings.
+- "But actually," "it sounds minor," "let's dive in," and other newsletter transitions.
+- Em dashes and en dashes outside verbatim quotations. Hyphenated ranges are fine when they are data, such as "$600-805B."
 
-## 5. The rules
+## 6. Core rules
 
-**Rule 1: Claim first.** Every section's first sentence states its conclusion. No scene-setting, no withheld reveals. The heading states that conclusion plainly.
+### Rule 1: Claim first
 
-**Rule 2: Commentary carries receipts.** A view with no number under it is a tweet; a chart with no view attached is filler. Every position gets its evidence in the same paragraph or the adjacent exhibit, and every chart says what we think it means and what would change our reading.
+Every section's first sentence states the conclusion. No scene-setting and no withheld reveal. The heading should also state the section's claim plainly.
 
-**Rule 3: Numbers over adjectives.** If a count, percentage, date, or dollar figure exists, use it. "Massive capex" is "$600 to $805 billion guided for 2026." When editing, every concrete number survives or is cut on purpose.
+Use:
 
-**Rule 4: Enumerate with data inline.** Multiple reasons, conditions, or actions become a list, each item carrying its own number or mechanism. No burying three reasons in connective tissue.
+> Enterprises are adopting AI faster than their governance systems are adapting.
 
-**Rule 5: Cut restatement.** No sentence re-says the previous one. No section ends by summarizing itself. The boxed segments (Claim, Playbook, Watchlist, Scorecard) are the designated summaries; body prose never duplicates them.
+Avoid:
 
-**Rule 6: First person plural, with skin in the game.** The series voice is "we": "we call it the capital swap," "what would change our mind." Failed calls are stated as fact in the Scorecard, ours included. Falsifiability is the credibility engine: every issue says what evidence would kill its own thesis.
+> The AI adoption story is no longer about whether workers use the tools.
 
-**Rule 7: Honest uncertainty, precisely placed.** Contested evidence is presented as contested, with the strongest opposing read given its best shot. Estimates are flagged where they appear. Single-sourced figures carry the caveat every time. Say what is not known instead of writing around it.
+### Rule 2: Receipts near the claim
 
-**Rule 8: Hedge when the evidence is partial.** "likely," "appears," "on current evidence," "remains to be seen." State conclusions as probabilities and risks. Do not over-hedge into mush.
+A view with no number under it reads like a tweet. A chart with no view attached is filler. Every position needs its evidence in the same paragraph or adjacent exhibit.
 
-**Rule 9: Mechanics.** Bold is rationed: at most one bold phrase per paragraph, reserved for the load-bearing claim; headings and box labels carry the rest of the emphasis. No aphorisms, even true ones. No emoji, no title case in headings.
+### Rule 3: Numbers over adjectives
 
-## 6. Fixing the bad lines (data-driven, undramatic)
+Use the count, percentage, date, or dollar figure where it exists. "Massive capex" becomes "$600 to $805 billion guided for 2026." When editing, every concrete number survives unless it is cut deliberately.
 
-- BAD: "The curve only turns up for firms that buy the complementary capital. For the rest, the dip is not a phase. It is the destination."
-  - FIX: "The J-curve only turns up after the complementary investment is made, and the 93/7 split shows most firms have not made it."
-- BAD: "Three studies blame three causes. Someone is measuring wrong."
-  - FIX: "The three studies measure different things: Stanford a flow of young hires, the NY Fed a remote-work mechanism, Yale the stock of occupations."
-- BAD: "Withholding training does not slow adoption. It relocates it."
-  - FIX: "KPMG finds 87% of workers using AI weekly and 44% using it against policy, so the use continues without training and outside any oversight."
+### Rule 4: Enumerate when it clarifies
 
-## 7. The editing protocol
+Multiple reasons, risks, or actions can become a list, but each item should carry its own number, source, or mechanism. Do not bury the actual reasons in connective tissue.
 
-1. **Diff the facts.** Before restyling, enumerate every concrete claim (numbers, named sources, dates, mechanisms). After, verify each survives or was dropped deliberately. Style edits have no license to change what the issue asserts.
-2. **Watch merge drift.** Combined sentences must assert exactly what the originals asserted, no presuppositions smuggled in.
-3. **Run the humanizer pass.** Full loop (draft, list remaining tells, rewrite) on all prose. The humanizer's hard rules stack on top of this guide.
-4. **Mechanical checks.** Grep the final text for em and en dashes (only verbatim quotes may hit) and for the banned moves in section 4.
+### Rule 5: Cut restatement
 
-## 8. Surface notes
+No sentence should repeat the previous sentence in stronger language. No section should summarize itself at the end. The boxed segments are the designated summaries.
 
-Report body: full register, commentary plus data, 8 to 10 pages. Boxes: compressed, scannable, claim-led bullets. Deck copy: terser still; SO WHAT rails are three claim-first bullets with numbers, no orphaned commentary. Chart titles: claims, not descriptions. Chart notes: the honesty layer; every estimate and interpolation named. winslowtandler.com research pages: the same voice; the dek and landing copy state what the series is without selling it.
+### Rule 6: Use "we" with accountability
 
-## 9. Checklist before shipping
+The series voice is "we": "we estimate," "we would watch," "what would change our mind." Failed calls are stated directly in the Scorecard, including ours. Falsifiability is part of the product.
 
-- First sentence of every section states its conclusion; the heading is a plain claim, not an aphorism
-- Every view has a number under it; every chart has a view attached
-- Intensifiers replaced by figures; all pre-existing numbers retained
-- No antithesis, reversal, fragment, soft reveal, crafted triad, or kicker, in any punctuation
-- Lists carry data inline; no reason buried in prose
-- No restatement; boxes are the only summaries
-- "We" voice; Scorecard includes our own misses when they exist
-- Contested evidence shown as contested; estimates and single sources flagged
-- No em/en dashes outside quotes; bold rationed
-- Humanizer pass complete; fact-diff complete
+### Rule 7: Place uncertainty precisely
+
+Contested evidence is presented as contested. Estimates are flagged where they appear. Single-sourced figures carry the caveat every time. Say what is not known instead of writing around it.
+
+Use:
+
+> vendor estimate; unverified
+
+Avoid:
+
+> We flag this as vendor-originated and treat it as scale rather than truth.
+
+### Rule 8: Hedge without hiding
+
+Use "likely," "appears," "on current evidence," and "remains to be seen" when the evidence is partial. Do not hedge every sentence until the view disappears.
+
+### Rule 9: Ration emphasis
+
+Bold is reserved for numbers, dates, entities, or the actual call. Do not bold slogans. Headings and box labels carry most of the visual hierarchy.
+
+## 7. Headings
+
+Headings should describe the conclusion, not market the idea.
+
+Use:
+
+> Enterprises ration AI access as governance lags adoption
+
+Avoid:
+
+> The Shadow Stack Moves
+
+Use:
+
+> Chinese open-weight models gain from US access risk
+
+Avoid:
+
+> The Base Layer Moves East
+
+Use:
+
+> Memory supply is the binding constraint in 2027 capex plans
+
+Avoid:
+
+> The Capex Economy Hits the Wall
+
+A heading can be interesting, but it cannot be aphoristic.
+
+## 8. Fixing bad lines
+
+Bad:
+
+> The curve only turns up for firms that buy the complementary capital. For the rest, the dip is not a phase. It is the destination.
+
+Fix:
+
+> The J-curve only turns up after the complementary investment is made, and the 93/7 split shows most firms have not made it.
+
+Bad:
+
+> Three studies blame three causes. Someone is measuring wrong.
+
+Fix:
+
+> The three studies measure different things: Stanford measures a flow of young hires, the NY Fed measures a remote-work mechanism, and Yale measures the stock of occupations.
+
+Bad:
+
+> Withholding training does not slow adoption. It relocates it.
+
+Fix:
+
+> KPMG finds 87% of workers using AI weekly and 44% using it against policy, so the use continues without training and outside formal oversight.
+
+Bad:
+
+> This is not a model race. It is a distribution problem.
+
+Fix:
+
+> Distribution and access terms now affect architecture decisions more directly than they did a year ago, even though the US still leads the top benchmark tier.
+
+Bad:
+
+> The risk is not that China wins the frontier. It is that China sets the base layer.
+
+Fix:
+
+> More downstream tooling may form around Chinese open-weight families if buyers treat access to US frontier models as less predictable.
+
+## 9. Editing protocol
+
+### 1. Diff the facts
+
+Before restyling, list every concrete claim: numbers, named sources, dates, mechanisms, and caveats. After editing, verify that each survives or was cut deliberately. Style edits cannot change what the issue asserts.
+
+### 2. Check for merge drift
+
+Combined sentences must assert exactly what the originals asserted. Do not smuggle in causality, certainty, or scope.
+
+### 3. Run the style audit
+
+Audit every paragraph for:
+
+- antithesis
+- triads
+- paragraph-ending maxims
+- clipped punchline rhythm
+- fake steelman pivots
+- caveat self-narration
+- abstract noun stacking
+- overly tidy conceptual architecture
+- short-sentence clusters that sound engineered for punch
+
+### 4. Rewrite locally
+
+Fix the offending sentences and paragraphs only. Do not re-polish the whole piece, because global polish usually reintroduces the same tells.
+
+### 5. Mechanical checks
+
+Search the final text for em dashes, en dashes, banned reveal phrases, and repeated abstract nouns. Only verbatim quotations may preserve banned punctuation or phrasing.
+
+## 10. Surface notes
+
+### Report body
+
+Full register. Commentary plus data. Usually 8 to 10 pages. Paragraphs can be moderately long when the evidence requires it.
+
+### Boxes
+
+Compressed and scannable. Bullets should be claim-first and should carry numbers or mechanisms.
+
+### Deck copy
+
+Terser than the report, but not slogan-driven. SO WHAT rails should be claim-first bullets with numbers.
+
+### Chart titles
+
+Claim titles, not descriptions.
+
+Use:
+
+> AI server revenue growth remains concentrated in the infrastructure layer
+
+Avoid:
+
+> AI servers keep climbing
+
+### Chart notes
+
+The honesty layer. Every estimate, interpolation, definition, and single-source dependency is named.
+
+### winslowtandler.com research pages
+
+Same voice as the report. The dek and landing copy should explain the issue without selling it.
+
+## 11. Checklist before shipping
+
+- The first sentence of every section states the conclusion.
+- The heading is a plain claim, not an aphorism.
+- Every view has a number, source, mechanism, or exhibit under it.
+- Every chart has a view attached.
+- Intensifiers have been replaced by figures where figures exist.
+- All pre-existing numbers were retained or cut deliberately.
+- No antithesis, reversal, fragment, soft reveal, crafted triad, or kicker remains.
+- No overcorrection into clipped, punchy sentence clusters remains.
+- Lists carry data or mechanisms inline.
+- Body prose does not summarize itself.
+- "We" voice is used where judgment or accountability is needed.
+- Contested evidence is shown as contested.
+- Estimates and single-sourced figures are flagged near the claim.
+- Bold is rationed.
+- Em dashes and en dashes appear only inside verbatim quotations.
+- Fact-diff is complete.
+- Style audit is complete.
+
+## 12. House standard
+
+The prose should be measured, specific, and a little resistant to easy rhythm. It should not sound polished in the way a marketing essay sounds polished. It should sound like a person who has done the work, knows what would change the view, and does not need the sentence to wink at the reader.
