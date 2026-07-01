@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.1.1] - 2026-07-01
+
+### Changed
+- Unified `voice.md` to the single strict research-note standard, byte-identical to the canonical Second Order `VOICE.md`. Removed the "kicker" allowance and the aphoristic-heading endorsement, added the explicit banned constructions (antithesis in any punctuation, soft reveals, crafted triads, two-group contrasts), and kept the we-voice, falsifiability, editing protocol, surface notes, and shipping checklist. One voice across the portfolio and the Second Order repo.
+
 ## [0.3.1.0] - 2026-06-30
 
 ### Added
