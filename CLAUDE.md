@@ -1,6 +1,6 @@
 # winslow-portfolio
 
-Personal portfolio site for Winslow Tandler (winslowtandler.com). Next.js App Router + MDX content: case studies in `content/projects/`. Standalone sample artifacts (e.g. a finished issue of a product) live in `public/samples/` and are linked from the relevant case study. Deployed on Vercel from `main`.
+Personal portfolio site for Winslow Tandler (winslowtandler.com). Next.js App Router + MDX content: case studies in `content/projects/`. Standalone artifacts (e.g. a finished issue of a research product) live in `public/research/` and are linked from the relevant case study. Deployed on Vercel from `main`.
 
 ## Design
 

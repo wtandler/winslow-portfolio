@@ -33,7 +33,7 @@ pnpm lint       # eslint
 app/                  Routes — home, projects, contact
   projects/[slug]/    Individual case study pages
 content/projects/     MDX case studies (one file per project)
-public/samples/       Standalone sample artifacts linked from case studies
+public/research/      Standalone research artifacts (finished issues) linked from case studies
 components/           UI, layout, and project components
 lib/content.ts        Shared MDX loader (parsing, validation, reading time)
 lib/mdx.ts            Project loader + frontmatter schema
