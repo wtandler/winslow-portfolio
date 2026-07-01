@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second Order &middot; All issues</title>
+<meta name="description" content="Every issue and sidebar of Second Order, a weekly research briefing on AI's macro impact. Filter the archive by topic.">
+<style>
+  :root{ --ink:#101D33; --cobalt:#1E5AA8; --amber:#C97B1D; --slate:#64748B; --mist:#D9DFE8; --panel:#F4F6F9; }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0; background:#fff; color:var(--ink); font-family:Helvetica,Arial,sans-serif; line-height:1.6; font-size:17px; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:700px; margin:0 auto; padding:0 22px 84px}
+  .rule{border:0; border-top:4px solid var(--ink); margin:0}
+  .rule.thin{border-top:1px solid var(--ink); margin-top:2px}
+
+  header.masthead{padding-top:28px}
+  .brandrow{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px; padding:14px 0 4px}
+  .wordmark{font-weight:700; letter-spacing:.42em; font-size:21px}
+  .wordmark a{color:inherit; text-decoration:none}
+  .wordmark a:hover{color:var(--cobalt)}
+  .issue-meta{color:var(--slate); font-size:13px; letter-spacing:.06em; text-transform:uppercase}
+  .tagrow{color:var(--slate); font-size:13px; letter-spacing:.04em; padding-bottom:14px}
+
+  .h1{font-size:32px; line-height:1.15; letter-spacing:-.01em; margin:30px 0 6px; font-weight:700}
+  .sub{color:var(--slate); font-size:15px; margin:0}
+
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin:26px 0 4px}
+  .chip{font-size:13px; padding:6px 14px; border:1px solid #cfd6e0; color:var(--slate); cursor:pointer; background:#fff; user-select:none}
+  .chip:hover{border-color:var(--cobalt); color:var(--ink)}
+  .chip.active{background:var(--ink); color:#fff; border-color:var(--ink)}
+  .count{color:var(--slate); font-size:13px; letter-spacing:.04em; margin:14px 0 0}
+
+  .list{border-top:2px solid var(--ink); margin-top:8px}
+  .arow{display:grid; grid-template-columns:1fr auto auto; gap:18px; align-items:baseline; padding:15px 0; border-bottom:1px solid var(--mist)}
+  .arow a.t{font-size:19px; font-weight:700; letter-spacing:-.005em; color:var(--ink); text-decoration:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .arow a.t:hover{color:var(--cobalt)}
+  .arow .tp{color:var(--slate); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap}
+  .arow .dt{color:var(--slate); font-size:13px; white-space:nowrap; width:58px; text-align:right}
+  .arow.side a.t::after{content:" \00b7 Sidebar"; color:#9aa6b6; font-weight:500; font-size:13.5px}
+  .arow.hide{display:none}
+
+  footer{margin-top:52px}
+  .footnote{color:var(--slate); font-size:12.5px; font-style:italic; padding:14px 0 0; line-height:1.5; border-top:1px solid var(--ink)}
+  .footbar{color:var(--slate); font-size:12px; letter-spacing:.04em; padding-top:10px}
+
+  @media(max-width:560px){ .h1{font-size:26px} .wordmark{letter-spacing:.28em; font-size:17px} body{font-size:16px} .arow{grid-template-columns:1fr auto} .arow .tp{display:none} }
+</style>
+</head>
+<body>
+<div style="background:#fcfbf8;border-bottom:1px solid #e7e4da;font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+  <div style="max-width:700px;margin:0 auto;padding:11px 22px;display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+    <a href="/" style="color:#20242c;text-decoration:none;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase">Winslow Tandler</a>
+    <a href="/research/second-order.html" style="color:#6e7278;text-decoration:none;font-size:13px">&larr;&nbsp;Second Order</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="masthead">
+    <hr class="rule"><hr class="rule thin">
+    <div class="brandrow">
+      <div class="wordmark"><a href="/research/second-order.html">SECOND ORDER</a></div>
+      <div class="issue-meta">Research notes</div>
+    </div>
+    <div class="tagrow">AI, Capital &amp; Work</div>
+    <hr class="rule thin">
+  </header>
+
+  <div class="h1">All issues</div>
+  <p class="sub">Every issue and sidebar, newest first. Filter by topic.</p>
+
+  <div class="chips">
+    <span class="chip active" data-f="all">All</span>
+    <span class="chip" data-f="compute">Compute &amp; policy</span>
+    <span class="chip" data-f="economics">The economics</span>
+    <span class="chip" data-f="work">Work &amp; labor</span>
+    <span class="chip" data-f="capital">Capital &amp; returns</span>
+  </div>
+  <p class="count" id="count"></p>
+
+  <div class="list" id="list">
+    <div class="arow" data-topic="compute"><a class="t" href="/research/second-order-issue-04-the-stack-splits.html">The Stack Splits</a><span class="tp">Compute &amp; policy</span><span class="dt">Jun 30</span></div>
+    <div class="arow" data-topic="work"><a class="t" href="/research/second-order-issue-03-the-entry-level-puzzle.html">The Entry-Level Puzzle</a><span class="tp">Work &amp; labor</span><span class="dt">Jun 16</span></div>
+    <div class="arow side" data-topic="capital"><a class="t" href="/research/second-order-sidebar-the-seven-percent.html">The 7% Problem</a><span class="tp">Capital &amp; returns</span><span class="dt">Jun 15</span></div>
+    <div class="arow" data-topic="economics"><a class="t" href="/research/second-order-issue-02-the-wrong-denominator.html">The Wrong Denominator</a><span class="tp">The economics</span><span class="dt">Jun 12</span></div>
+    <div class="arow" data-topic="economics"><a class="t" href="/research/second-order-issue-01-from-doom-loop-to-abundance-path.html">From Doom Loop to Abundance Path</a><span class="tp">The economics</span><span class="dt">Jun 2</span></div>
+  </div>
+
+  <footer>
+    <p class="footnote">Estimates are flagged where they appear; single-sourced figures carry a visible caveat. Second Order is provided for discussion purposes only and is not investment, legal, tax, or accounting advice. &copy; 2026 Second Order.</p>
+    <div class="footbar">Second Order &middot; For discussion purposes only; not investment advice</div>
+  </footer>
+</div>
+<script>
+  (function(){
+    var chips=document.querySelectorAll('.chip'),
+        rows=document.querySelectorAll('#list .arow'),
+        count=document.getElementById('count');
+    function apply(f){
+      var n=0;
+      rows.forEach(function(r){
+        var show = f==='all' || r.getAttribute('data-topic')===f;
+        r.classList.toggle('hide', !show);
+        if(show) n++;
+      });
+      count.textContent = n + (n===1?' issue':' issues') + (f==='all'?'':' in this topic');
+    }
+    chips.forEach(function(c){
+      c.addEventListener('click',function(){
+        chips.forEach(function(x){x.classList.remove('active')});
+        c.classList.add('active');
+        apply(c.getAttribute('data-f'));
+      });
+    });
+    apply('all');
+  })();
+</script>
+</body>
+</html>
