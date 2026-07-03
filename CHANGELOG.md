@@ -13,6 +13,7 @@ Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 - Rebuilt all seven research notes from the current editorial source: refreshed the note body text for Issues 01-04 and the desk sidebar, kept the side-by-side exhibits throughout, and slightly widened the reading column (720px to 780px) so the charts have more room. Re-exported the Issue 01/02/03/sidebar decks; Issue 04's deck was unchanged.
 - Updated the Second Order case study count to five issues, a desk sidebar, and a research addendum.
 - Editorial voicing pass across all seven notes: removed recycled punchlines, drama clefts, and balanced-antithesis constructions in favor of plain analyst sentences with ordinary connectives, and rewrote every meta description (fixing two that broke the content attribute with raw quotes).
+- Regenerated the Issue 01/02/05 and sidebar companion deck PDFs so their shared claim and standfirst lines carry the same voicing as the notes. Issue 03 and 04 decks were already clean and left unchanged.
 
 ## [0.3.2.0] - 2026-07-01
 
