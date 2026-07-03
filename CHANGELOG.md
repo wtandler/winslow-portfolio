@@ -12,6 +12,7 @@ Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 - Featured Issue 05 on the Second Order landing (`/research/second-order.html`) and added the addendum to Recent issues; extended the archive to seven pieces with Issue 05 under Capital & returns and a new "· Addendum" badge.
 - Rebuilt all seven research notes from the current editorial source: refreshed the note body text for Issues 01-04 and the desk sidebar, kept the side-by-side exhibits throughout, and slightly widened the reading column (720px to 780px) so the charts have more room. Re-exported the Issue 01/02/03/sidebar decks; Issue 04's deck was unchanged.
 - Updated the Second Order case study count to five issues, a desk sidebar, and a research addendum.
+- Editorial voicing pass across all seven notes: removed recycled punchlines, drama clefts, and balanced-antithesis constructions in favor of plain analyst sentences with ordinary connectives, and rewrote every meta description (fixing two that broke the content attribute with raw quotes).
 
 ## [0.3.2.0] - 2026-07-01
 
