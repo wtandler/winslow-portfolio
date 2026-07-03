@@ -3,6 +3,18 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.3.0] - 2026-07-02
+
+### Added
+- Second Order Issue 05, "Memory Is the Capex Constraint" (`/research/second-order-issue-05-memory-is-the-capex-constraint.html`), with its companion deck, and the desk addendum "The Entry-Level Puzzle, Revisited" (`/research/second-order-addendum-the-entry-level-revisit.html`), a research addendum to Issue 03. Both follow the established research-note template with exhibits embedded.
+
+### Changed
+- Featured Issue 05 on the Second Order landing (`/research/second-order.html`) and added the addendum to Recent issues; extended the archive to seven pieces with Issue 05 under Capital & returns and a new "· Addendum" badge.
+- Rebuilt all seven research notes from the current editorial source: refreshed the note body text for Issues 01-04 and the desk sidebar, kept the side-by-side exhibits throughout, and slightly widened the reading column (720px to 780px) so the charts have more room. Re-exported the Issue 01/02/03/sidebar decks; Issue 04's deck was unchanged.
+- Updated the Second Order case study count to five issues, a desk sidebar, and a research addendum.
+- Editorial voicing pass across all seven notes: removed recycled punchlines, drama clefts, and balanced-antithesis constructions in favor of plain analyst sentences with ordinary connectives, and rewrote every meta description (fixing two that broke the content attribute with raw quotes).
+- Regenerated the Issue 01/02/05 and sidebar companion deck PDFs so their shared claim and standfirst lines carry the same voicing as the notes. Issue 03 and 04 decks were already clean and left unchanged.
+
 ## [0.3.2.0] - 2026-07-01
 
 ### Added
