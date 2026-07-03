@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.3.1] - 2026-07-03
+
+### Fixed
+- Redrew Exhibit 3 in Second Order Issue 05 (`/research/second-order-issue-05-memory-is-the-capex-constraint.html`). The Q2 2024 share markers were wrong: the SK Hynix row carried a stray second dot (a mislaid legend swatch that read as a data point), and the y-axis vendor labels ("SK Hynix", "Samsung") were clipped at the left edge. The chart now shows one dot per vendor, each centered on its bar, with a clean leader line to the "Q2 2024 share" label and comfortable left margin. Underlying data unchanged; styling matches the Exhibit 4 template.
+
 ## [0.3.3.0] - 2026-07-02
 
 ### Added
