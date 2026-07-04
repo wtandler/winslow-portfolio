@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.3.2] - 2026-07-03
+
+### Changed
+- Expanded `voice.md` to make the anti-AI-voicing pass repeatable: added the piece-level rule (the counterintuitive reframe lives only in the claim box and second-order box, not in every sentence), Cembalest's "Eye on the Market" as a second model with two live source links and a "fetch before editing" instruction, five illustrative new tells (drama clefts, authority lead-ins, jingle appositives, recycled punchlines) with the caveat that the list is illustrative not exhaustive, a "repair moves" section (delete > fold > restate > move force into facts, never shorten-or-pivot) plus a "leave these alone" guardrail, and model-read/dedup steps in the editing protocol and checklist.
+
 ## [0.3.3.1] - 2026-07-03
 
 ### Fixed
