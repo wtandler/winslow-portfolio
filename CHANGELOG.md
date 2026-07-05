@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.3.2] - 2026-07-05
+
+### Removed
+- Deleted `voice.md`. It was the Second Order research product's internal voice guide (report register, boxed segments, deck copy, chart notes), which belongs in the private `second-order` repo, not the public portfolio. The finished issues in `public/research/` and the Second Order case study are unchanged; only the production methodology moves. The guide is now canonical in `second-order/VOICE.md`, where the issue generator reads it. No application code referenced this file.
+
 ## [0.3.3.1] - 2026-07-03
 
 ### Fixed
