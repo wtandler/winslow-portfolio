@@ -12,6 +12,7 @@ Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 ### Changed
 - Second Order landing page now features Issue 06 and demotes Issue 05 into Recent issues.
 - Second Order case study updated to reflect six issues shipped (the latest in two parts).
+- House style for dollar figures is now the `$` form site-wide (e.g. `$635 billion`, `$14 to $37 a month`), matching Issue 02. Converted the spelled-out "N billion dollars" form in Issues 05 and 06, the sidebar, and the landing page. Generic word-uses ("per dollar", inflation-adjusted "2024 dollars") and cents are unchanged.
 
 ## [0.3.3.2] - 2026-07-05
 
