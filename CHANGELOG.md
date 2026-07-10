@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.4.7] - 2026-07-10
+
+### Fixed
+- Second Order Issue 06 and its Part II companion had two shaded boxes the source document does not use. Un-boxed the "Summary" section (now a plain "Summary · The read" section heading over prose) and folded the "What would change our mind" watchlist paragraph into the "Second-order effect" box as its second paragraph. Each page now shows exactly two shaded boxes, The Claim and The Second-order Effect, matching the document.
+
 ## [0.3.4.6] - 2026-07-10
 
 ### Changed
