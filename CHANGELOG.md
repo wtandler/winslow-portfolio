@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.4.5] - 2026-07-10
+
+### Changed
+- Republished Second Order Issue 06 from the latest source (voicing pass + aligned deck). Exhibit 1 is now indexed to 2001 = 100 against the CPI (the high-regulation states run well ahead of inflation; the top data-center states roughly keep pace). Prose revoiced across sections 01, 02, and 04 (Rutgers and EPRI consolidated, paragraph openings varied, section 02 tightened) and the companion deck re-exported and linearized to match. Part II is unchanged.
+
 ## [0.3.4.4] - 2026-07-09
 
 ### Changed
