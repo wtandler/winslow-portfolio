@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.4.3] - 2026-07-09
+
+### Changed
+- Republished Second Order Issue 06, "The Wrong Kind of Scarcity," from the updated source: rebuilt the reading page and companion deck. New content adds a delivery-versus-production exhibit (now 9 exhibits, up from 8) with current EIA utility-account data (real generation spending down about 24 percent 2003 to 2023, transmission nearly tripled, distribution up 160 percent to a record $50.9 billion), simplifies the prose, and renumbers/interleaves the exhibits. Deck re-exported and linearized. Part II is unchanged.
+
 ## [0.3.4.2] - 2026-07-09
 
 ### Changed
