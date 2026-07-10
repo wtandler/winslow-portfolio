@@ -29,7 +29,7 @@
   .feature{background:var(--panel); border-top:4px solid var(--amber); padding:24px 26px 22px; margin:40px 0 0}
   .feature .lbl{display:inline-block; color:var(--amber); font-weight:700; font-size:12px; letter-spacing:.14em; text-transform:uppercase; margin-bottom:12px}
   .feature .meta{color:var(--slate); font-size:12px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px}
-  .feature h1{font-size:33px; line-height:1.14; letter-spacing:-.01em; margin:0 0 12px; font-weight:700}
+  .feature h1{font-size:33px; line-height:1.14; letter-spacing:-.01em; margin:2px 0 18px; font-weight:700}
   .feature h1 a{color:var(--ink); text-decoration:none}
   .feature h1 a:hover{color:var(--cobalt)}
   .feature p{font-size:16.5px; line-height:1.5; color:#26344a; margin:0 0 18px; max-width:600px}
@@ -38,6 +38,13 @@
   .read:hover{background:var(--ink)}
   .deck-top{color:var(--cobalt); font-weight:700; font-size:13.5px; text-decoration:none; border-bottom:2px solid var(--cobalt); padding-bottom:1px}
   .deck-top:hover{color:var(--ink); border-color:var(--ink)}
+  .parts{margin-top:2px}
+  .part .plbl{display:inline-block; color:var(--amber); font-weight:700; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; margin:0 0 6px}
+  .part h2{font-size:26px; line-height:1.16; letter-spacing:-.01em; margin:0 0 10px; font-weight:700}
+  .part h2 a{color:var(--ink); text-decoration:none}
+  .part h2 a:hover{color:var(--cobalt)}
+  .part p{font-size:16px; line-height:1.5; color:#26344a; margin:0 0 16px; max-width:600px}
+  .pdiv{width:40px; height:0; border:0; border-top:2px solid var(--ink); margin:26px 0}
 
   .more-h{margin:56px 0 0; padding-bottom:12px; border-bottom:2px solid var(--ink)}
   .row{padding:22px 0; border-bottom:1px solid var(--mist); display:grid; grid-template-columns:1fr auto; column-gap:24px; align-items:start}
@@ -92,29 +99,45 @@
 
   <section class="feature">
     <span class="lbl">The latest issue</span>
-    <div class="meta">Issue 06 &middot; July 14, 2026 &middot; Energy &amp; grid</div>
-    <h1><a href="/research/second-order-issue-06-the-wrong-kind-of-scarcity.html">The Wrong Kind of Scarcity</a></h1>
-    <p>Residential electricity prices jumped about a third in five years, but the data center is not why. The decade's increase is delivery cost on an aging grid; the real data-center effect is a recent capacity charge in the PJM belt and a modest forward charge as the net-new build is recovered. A two-part issue.</p>
-    <div class="actions">
-      <a class="read" href="/research/second-order-issue-06-the-wrong-kind-of-scarcity.html">Read the issue &rarr;</a>
-      <a class="deck-top" href="/research/second-order-issue-06-deck.pdf">Companion deck (PDF)</a>
+    <div class="meta">Issue 06 &middot; July 14, 2026 &middot; Energy &amp; grid &middot; In two parts</div>
+    <h1>AI and the Electricity Bill</h1>
+    <div class="parts">
+      <div class="part">
+        <span class="plbl">Part I</span>
+        <h2><a href="/research/second-order-issue-06-the-wrong-kind-of-scarcity.html">The Wrong Kind of Scarcity</a></h2>
+        <p>Residential electricity prices jumped about a third in five years, but the data center is not why. The decade's increase is delivery cost on an aging grid; the real data-center effect is a recent capacity charge in the PJM belt and a modest forward charge as the net-new build is recovered.</p>
+        <div class="actions">
+          <a class="read" href="/research/second-order-issue-06-the-wrong-kind-of-scarcity.html">Read Part I &rarr;</a>
+          <a class="deck-top" href="/research/second-order-issue-06-deck.pdf">Companion deck (PDF)</a>
+        </div>
+      </div>
+      <hr class="pdiv">
+      <div class="part">
+        <span class="plbl">Part II</span>
+        <h2><a href="/research/second-order-issue-06b-who-pays-for-the-buildout.html">Who Pays for the Buildout</a></h2>
+        <p>The net load that will connect is a fraction of the gross queue, the binding near-term constraint is the gas turbine, and the stranding risk sorts by ownership: ratepayers under regulation, equity and credit in the merchant world.</p>
+        <div class="actions">
+          <a class="read" href="/research/second-order-issue-06b-who-pays-for-the-buildout.html">Read Part II &rarr;</a>
+          <a class="deck-top" href="/research/second-order-issue-06b-deck.pdf">Companion deck (PDF)</a>
+        </div>
+      </div>
     </div>
   </section>
 
   <div class="more-h"><span class="eyebrow">Recent issues</span></div>
   <div class="row">
     <div class="main">
-      <h2><a href="/research/second-order-issue-06b-who-pays-for-the-buildout.html">Who Pays for the Buildout</a></h2>
-      <p>Part II. The net load that will connect is a fraction of the gross queue, the binding near-term constraint is the gas turbine, and the stranding risk sorts by ownership: ratepayers under regulation, equity and credit in the merchant world.</p>
-    </div>
-    <div class="side"><span class="topic">Energy &amp; grid &middot; Part II</span><span class="date">Jul 14</span><a class="deck" href="/research/second-order-issue-06b-deck.pdf">Deck (PDF)</a></div>
-  </div>
-  <div class="row">
-    <div class="main">
       <h2><a href="/research/second-order-issue-05-memory-is-the-capex-constraint.html">Memory Is the Capex Constraint</a></h2>
       <p>Hyperscaler capital spending is guided toward $635 billion in 2026, and a rising share of that number is memory price, which buys no added capacity. The three firms that supply high-bandwidth memory sit at the center of the AI trade, and two of them are Korean.</p>
     </div>
     <div class="side"><span class="topic">Capital &amp; returns</span><span class="date">Jul 7</span><a class="deck" href="/research/second-order-issue-05-deck.pdf">Deck (PDF)</a></div>
+  </div>
+  <div class="row">
+    <div class="main">
+      <h2><a href="/research/second-order-addendum-the-entry-level-revisit.html">The Entry-Level Puzzle, Revisited</a></h2>
+      <p>A firm-level study of 21,559 firms looks at first like a refutation of Issue 03. On the contested point it is the opposite: the heaviest AI adopters grew entry-level headcount and tilted toward juniors.</p>
+    </div>
+    <div class="side"><span class="topic">Addendum &middot; Work</span><span class="date">Jun 30</span></div>
   </div>
   <div class="row">
     <div class="main">
