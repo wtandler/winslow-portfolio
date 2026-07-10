@@ -16,18 +16,6 @@
 
 ## Writing
 
-### Compress issue PDFs before committing
-
-**What:** Run each issue PDF through a compressor/linearizer (e.g. ghostscript `/ebook` preset) before adding it to `public/pdfs/`.
-
-**Why:** Each issue commits ~1.3MB of binary into git history forever; compression typically halves it and enables fast web view (first page renders before the full download).
-
-**Context:** Flagged in the v0.2.0.0 review and deferred because re-encoding the published artifact needs an eyeball pass on output quality. Applies to future issues as much as the existing one.
-
-**Effort:** S
-**Priority:** P4
-**Depends on:** None
-
 ### Extract a shared WritingListItem component
 
 **What:** Merge the duplicated writing list-row markup in `app/page.tsx` (home teaser) and `app/writing/page.tsx` (index) into one component with a density variant.
@@ -55,3 +43,11 @@
 **Depends on:** None
 
 ## Completed
+
+### Compress issue PDFs before committing
+
+**What:** Linearized and recompressed all 8 Second Order deck PDFs in `public/research/` with `qpdf --linearize --object-streams=generate --recompress-flate` (lossless). Total 6.3MB → 5.74MB (-8.9%, 549KB) and every deck now renders progressively (fast web view / first page before full download).
+
+**Note:** Used qpdf lossless rather than ghostscript `/ebook`. Ghostscript isn't installed here, and its downsampling is lossy — a real risk for the chart-heavy exhibit slides. Lossless captures the fast-web-view goal with zero quality loss; deeper size cuts would need a legibility pass on downsampled charts. Future deck exports should run the same qpdf pass (recorded in the publish-workflow memory).
+
+**Completed:** v0.3.4.2 (2026-07-09)
