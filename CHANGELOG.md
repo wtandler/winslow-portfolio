@@ -3,6 +3,17 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.4.0] - 2026-07-09
+
+### Added
+- Second Order Issue 06, "The Wrong Kind of Scarcity" (`/research/second-order-issue-06-the-wrong-kind-of-scarcity.html`), and its Part II companion, "Who Pays for the Buildout" (`/research/second-order-issue-06b-who-pays-for-the-buildout.html`), each with its companion deck. Both follow the established research-note template with exhibits embedded (8 and 4 respectively). Issue 06 argues the decade's residential electricity-price increase is delivery cost, not data centers; the companion prices the net load that will actually connect and traces the stranding risk to ratepayers under regulation and to equity and credit in the merchant world.
+- New "Energy & grid" topic filter on the archive, and a "Part II" row treatment for two-part issues.
+
+### Changed
+- Second Order landing page now features Issue 06 and demotes Issue 05 into Recent issues.
+- Second Order case study updated to reflect six issues shipped (the latest in two parts).
+- House style for dollar figures is now the `$` form site-wide (e.g. `$635 billion`, `$14 to $37 a month`), matching Issue 02. Converted the spelled-out "N billion dollars" form in Issues 05 and 06, the sidebar, and the landing page. Generic word-uses ("per dollar", inflation-adjusted "2024 dollars") and cents are unchanged.
+
 ## [0.3.3.2] - 2026-07-05
 
 ### Removed

@@ -39,6 +39,7 @@
   .arow .dt{color:var(--slate); font-size:13px; white-space:nowrap; width:58px; text-align:right}
   .arow.side a.t::after{content:" \00b7 Sidebar"; color:#9aa6b6; font-weight:500; font-size:13.5px}
   .arow.add a.t::after{content:" \00b7 Addendum"; color:#9aa6b6; font-weight:500; font-size:13.5px}
+  .arow.part a.t::after{content:" \00b7 Part II"; color:#9aa6b6; font-weight:500; font-size:13.5px}
   .arow.hide{display:none}
 
   footer{margin-top:52px}
@@ -76,10 +77,13 @@
     <span class="chip" data-f="economics">The economics</span>
     <span class="chip" data-f="work">Work &amp; labor</span>
     <span class="chip" data-f="capital">Capital &amp; returns</span>
+    <span class="chip" data-f="energy">Energy &amp; grid</span>
   </div>
   <p class="count" id="count"></p>
 
   <div class="list" id="list">
+    <div class="arow" data-topic="energy"><a class="t" href="/research/second-order-issue-06-the-wrong-kind-of-scarcity.html">The Wrong Kind of Scarcity</a><span class="tp">Energy &amp; grid</span><span class="dt">Jul 14</span></div>
+    <div class="arow part" data-topic="energy"><a class="t" href="/research/second-order-issue-06b-who-pays-for-the-buildout.html">Who Pays for the Buildout</a><span class="tp">Energy &amp; grid</span><span class="dt">Jul 14</span></div>
     <div class="arow" data-topic="capital"><a class="t" href="/research/second-order-issue-05-memory-is-the-capex-constraint.html">Memory Is the Capex Constraint</a><span class="tp">Capital &amp; returns</span><span class="dt">Jul 7</span></div>
     <div class="arow" data-topic="compute"><a class="t" href="/research/second-order-issue-04-the-stack-splits.html">The Stack Splits</a><span class="tp">Compute &amp; policy</span><span class="dt">Jun 30</span></div>
     <div class="arow add" data-topic="work"><a class="t" href="/research/second-order-addendum-the-entry-level-revisit.html">The Entry-Level Puzzle, Revisited</a><span class="tp">Work &amp; labor</span><span class="dt">Jun 30</span></div>
