@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.4.1] - 2026-07-09
+
+### Changed
+- Second Order landing page now presents Issue 06 as a single two-part issue instead of one featured issue plus a demoted companion. The feature panel gains an umbrella title ("AI and the Electricity Bill") over co-equal Part I ("The Wrong Kind of Scarcity") and Part II ("Who Pays for the Buildout") blocks, each with its own read button and companion deck, separated by a small rule. "Who Pays for the Buildout" is no longer listed under Recent issues (it now lives in the feature); the Entry-Level addendum returns as the third recent row.
+
 ## [0.3.4.0] - 2026-07-09
 
 ### Added
