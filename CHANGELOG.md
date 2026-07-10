@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.4.4] - 2026-07-09
+
+### Changed
+- Second Order Issue 06 and its Part II companion now render the "Scope & method" section as a lightweight editorial note (small slate label plus muted text) instead of a highlighted slate box, matching the source document where only THE CLAIM is boxed.
+
 ## [0.3.4.3] - 2026-07-09
 
 ### Changed
