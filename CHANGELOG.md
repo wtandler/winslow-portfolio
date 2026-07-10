@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.4.8] - 2026-07-10
+
+### Changed
+- Republished Second Order Issue 06 with the updated Exhibit 4: the belt price-change chart now carries CPI (+3.3%) and U.S.-average (+8.6%) reference lines so a state's distance past the national line reads as the belt-specific increase, not general inflation. Section 02 gains the matching real-terms framing (national bill up about 5 percent after inflation; the belt's leaders from Virginia near 11 percent to D.C. near 19). Companion deck re-exported and linearized.
+
 ## [0.3.4.7] - 2026-07-10
 
 ### Fixed
