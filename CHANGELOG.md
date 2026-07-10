@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.4.6] - 2026-07-10
+
+### Changed
+- Republished Second Order Issue 06 Part II ("Who Pays for the Buildout") with a §05 prose edit: the duration mismatch is explained plainly and the ~3-year commitment is grounded in AEP Ohio's minimum-charge and exit terms (about three years of minimum charges on a contract that runs at most twelve), and the SECOND-ORDER box sentence is reworded to match. Exhibits and companion deck unchanged.
+
 ## [0.3.4.5] - 2026-07-10
 
 ### Changed
