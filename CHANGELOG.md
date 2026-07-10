@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.4.2] - 2026-07-09
+
+### Changed
+- Linearized and losslessly recompressed all 8 Second Order deck PDFs in `public/research/` (`qpdf --linearize --object-streams=generate --recompress-flate`). Total 6.3MB to 5.74MB (-8.9%, 549KB), and every deck now renders progressively (first page before the full download). No image downsampling, so exhibit-slide charts are pixel-identical. Closes the "Compress issue PDFs" backlog item; future deck exports should run the same qpdf pass.
+
 ## [0.3.4.1] - 2026-07-09
 
 ### Changed
