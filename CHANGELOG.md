@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.5.1] - 2026-07-15
+
+### Fixed
+- Second Order Issue 07: the three closing exhibits (DDTL terms, aircraft-finance layers, counterparty recurrence) were stacked in a row after the Second-Order Effect box. They now sit inside the box, each directly under the paragraph that cites it, matching the source document. These exhibits are rendered with the box's panel background (#F4F6F9), so they read as titled sections of the box rather than loose charts.
+
 ## [0.3.5.0] - 2026-07-15
 
 ### Added
