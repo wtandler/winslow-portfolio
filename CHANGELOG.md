@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.5.3] - 2026-07-15
+
+### Changed
+- Second Order Issue 07: reverted the closing box to its shaded panel with the exhibits unchanged (as in the PDF), and instead framed the whole Second-Order Effect section in a border. The border sits wider than the text column (negative side margins outdent it ~26px past the body text on each side), so the prose and exhibits sit inset with a margin inside the border. Supersedes the white-background treatment in 0.3.5.2.
+
 ## [0.3.5.2] - 2026-07-15
 
 ### Changed
