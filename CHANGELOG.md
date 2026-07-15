@@ -3,6 +3,12 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.5.0] - 2026-07-15
+
+### Added
+- Published Second Order Issue 07, "The Ten-Year GPU" (Capital & returns). The issue tests the claim that disaggregated inference can extend a deployed GPU's economic life toward ten to fifteen years: the architecture is being built, but across five public operators debt still ends by year six, and only IREN cleanly ties asset, customer, and debt to one five-year clock. New standalone page (`second-order-issue-07-the-ten-year-gpu.html`) with six embedded V7 exhibits and a companion deck (`second-order-issue-07-deck.pdf`).
+- Wired the new issue into navigation: it becomes the featured latest issue on the Second Order landing page (Issue 06's two parts move into Recent issues), heads the archive under Capital & returns, and is linked forward from Issue 06 Part II. Case-study copy updated to seven shipped issues.
+
 ## [0.3.4.8] - 2026-07-10
 
 ### Changed
