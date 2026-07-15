@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.5.2] - 2026-07-15
+
+### Changed
+- Second Order Issue 07: the closing Second-Order Effect box is now bordered rather than shaded. The filled `#F4F6F9` panel made the box and its three panel-backed exhibits (DDTL terms, aircraft-finance layers, counterparty recurrence) read as one flat grey slab with no separation. It now uses a white background, a 4px cobalt top rule, and a 1px hairline border, so each exhibit reads as a distinct card on white; prose is inset and the exhibits run full-width to the border. The top Claim box stays shaded (compact prose callout, consistent with issues 01-06).
+
 ## [0.3.5.1] - 2026-07-15
 
 ### Fixed
