@@ -3,6 +3,14 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.5.5] - 2026-07-15
+
+### Added
+- Second Order Issue 07: tap-to-enlarge for exhibits on phones. The exhibits are wide charts that shrink to illegibility at phone width, so each one now opens full-screen on tap (a "Tap to enlarge" hint shows on screens <=640px). The enlarged view renders the chart at ~2x the viewport width (roughly the same scale it reads at full-width on a desktop) and pans horizontally; tap anywhere or press Escape to close. Dependency-free inline CSS/JS; desktop is unchanged apart from a zoom-in cursor.
+
+### Changed
+- Republished Issue 07 from source.
+
 ## [0.3.5.4] - 2026-07-15
 
 ### Changed
