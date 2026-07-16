@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.5.6] - 2026-07-15
+
+### Reverted
+- Removed the Issue 07 tap-to-enlarge exhibit lightbox added in 0.3.5.5: the enlarged view rendered too large on phones. To be revisited. The exhibits, prose, and bordered closing box are otherwise unchanged from 0.3.5.5.
+
 ## [0.3.5.5] - 2026-07-15
 
 ### Added
