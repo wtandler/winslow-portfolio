@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.5.4] - 2026-07-15
+
+### Changed
+- Second Order Issue 07: dropped the shaded fill on the closing Second-Order Effect box (white background) while keeping the exhibits exactly as in the source files (their own panel backgrounds, inset by the box padding). The section stays framed by the border that sits wider than the text column, so each exhibit now reads as a card on white inside the wider frame. Completes the closing-box design started in 0.3.5.2-0.3.5.3.
+
 ## [0.3.5.3] - 2026-07-15
 
 ### Changed
