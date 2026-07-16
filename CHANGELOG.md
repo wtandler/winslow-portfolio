@@ -3,6 +3,12 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.5.7] - 2026-07-16
+
+### Changed
+- Republished Second Order Issue 07 from the updated source. Prose revised in six paragraphs (subtitle, scope note, claim box, sections 02 and 04, sources), and the companion deck re-exported and linearized from the rebuilt pptx.
+- Exhibits are now responsive, using the web exhibit set authored in the second-order repo: Exhibits 1 and 5 render as native HTML tables that reflow into labeled rows on phones, and Exhibits 2, 3, 4, and 6 are picture elements serving a 1040px portrait redraw under 640px and the 1794px print chart above it. Page weight drops from 2.58MB to 733KB (quantized web PNGs plus native tables). This replaces the print-exhibit-only rendering and resolves the mobile-legibility problem the reverted 0.3.5.5 lightbox had aimed at.
+
 ## [0.3.5.6] - 2026-07-15
 
 ### Reverted
