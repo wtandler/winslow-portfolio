@@ -7,6 +7,7 @@ Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
 ### Changed
 - Republished Second Order Issue 07 from a clean-room rewrite of the source. New title ("How Long Can an AI Chip Earn?"), new claim, and new five-section prose built from the revised apparatus; the exhibit set is now three charts (throughput evidence, the power-bound B200/H100 hurdle, and the operator debt clocks) instead of six. Landing page and archive entries updated to match. Companion deck re-exported from the rebuilt pptx and linearized.
+- Issue 07's selected-sources list now renders one citation per line instead of a middot-joined paragraph.
 
 ## [0.3.5.7] - 2026-07-16
 
