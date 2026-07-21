@@ -6,8 +6,9 @@ Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 ## [0.3.5.8] - 2026-07-20
 
 ### Changed
-- Republished Second Order Issue 07 from a clean-room rewrite of the source. New title ("How Long Can an AI Chip Earn?"), new claim, and new five-section prose built from the revised apparatus; the exhibit set is now three charts (throughput evidence, the power-bound B200/H100 hurdle, and the operator debt clocks) instead of six. Landing page and archive entries updated to match. Companion deck re-exported from the rebuilt pptx and linearized.
-- Issue 07's selected-sources list now renders one citation per line instead of a middot-joined paragraph.
+- Republished Second Order Issue 07 from the clean-room final sources. New title ("How Long Can an AI Chip Earn?"), new claim box, seven numbered evidence sections typeset verbatim from the evidence-run file, a closing summary, and the Second-Order box. Six V10 exhibits, quantized to 256-color palette PNGs (2.9MB to 699KB across desktop and mobile variants), each a responsive picture element serving a 900px crop under 640px. Issue date moved to July 20 to match the source; landing page and archive entries updated. Companion deck re-exported from the rebuilt pptx and linearized.
+- Issue 07's selected-sources list now renders one citation per line, with linked URLs, instead of a middot-joined paragraph.
+- The web page includes the aircraft-finance exhibit (Exhibit 5) at the ILFC paragraph. The source repo's PDF builder anchors that exhibit to a string that does not appear in the final prose, so the canonical PDF silently dropped it; the web build corrects the anchor.
 
 ## [0.3.5.7] - 2026-07-16
 
