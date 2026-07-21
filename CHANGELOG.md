@@ -3,6 +3,21 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.5.8] - 2026-07-20
+
+### Changed
+- Republished Second Order Issue 07 from the clean-room final sources. New title ("How Long Can an AI Chip Earn?"), new claim box, seven numbered evidence sections typeset verbatim from the evidence-run file, a closing summary, and the Second-Order box, all six exhibits in place. Issue date is July 20, 2026 on the page, the landing feature, the archive row, and the deck cover. Companion deck re-exported and linearized.
+- Exhibits now use the treatment the pre-rewrite issue had. Exhibits 1 and 5 are tables, so they ship as native HTML that reflows into labeled cards on phones rather than shrinking to unreadable raster; each card reads name, then the prefill/decode pair on one line, then the system detail, then the finding set off by an accent rule, so a restacked row scans in one beat instead of five same-weight lines. Exhibits 2, 3, 4, and 6 are charts and serve a 1040px portrait redraw under 640px, regenerated from the clean-room captions. The page is 767KB, 34KB more than 0.3.5.7: it carries six exhibits rather than four, with a second responsive variant for each of the four charts, offset by Exhibits 1 and 5 becoming text instead of images.
+- Selected sources render one citation per line with linked URLs, and the list grew from 11 entries to 15. Four sources the prose leaned on were unlisted, including the claim the issue exists to test (Gavin Baker, Invest Like the Best 473), the DeepSeek $0.28 output anchor carried in both the claim box and the summary, the Silicon Data token index behind the $1.75 print, and the AIMultiple index behind the 41.7% A100 decline. Exhibit 5's aircraft-finance sequence is now cited as well.
+- The price anchor reads "the June 2026 Silicon Data token index" rather than "the June 2026 SDLLMTK index". SDLLMTK is the index's real code, but the bare acronym was undecodable on the page and Exhibit 2's own source line already used the plain name; the code now appears only in Selected Sources, defined and linked.
+- Added a revision note at the foot of the issue recording that the text was edited for readability after first publication, with the conclusion, data, and sources unchanged.
+
+### Fixed
+- Exhibit tables are reachable by assistive technology: exhibit titles are headings rather than styled paragraphs, each table is named by its title, the visually blank verdict column has an accessible name, and the columns whose meaning the layout carries visually (the prefill/decode pair, the finding) carry a label that is announced only once the table restacks, so desktop does not announce each header twice.
+- Exhibit images declare their intrinsic width and height, so an exhibit no longer collapses to zero height and shoves the following prose down as it decodes.
+- Tinted exhibit rows sat 10px left of the text column on phones; the row was over-constrained, so the background bled into the left gutter and stopped short on the right.
+- Long source URLs wrap at overflow instead of breaking at arbitrary characters.
+
 ## [0.3.5.7] - 2026-07-16
 
 ### Changed

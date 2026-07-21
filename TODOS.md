@@ -14,6 +14,44 @@
 **Priority:** P3
 **Depends on:** None
 
+## Research site
+
+### Darken the rust accent for text use (WCAG AA)
+
+**What:** `--amber` (#C97B1D) on white measures 3.32:1, below the 4.5:1 AA minimum for normal text. It is used for every exhibit column header, section kicker, exhibit eyebrow, and the Partial/Absent verdicts. On the highlighted-row background (#FBF1E2) it drops to 2.97:1. Introduce a darker `--amber-text` (roughly #A25E0F, about 4.6:1) for text, keeping the current value for rules and chip borders where contrast rules do not apply.
+
+**Why:** Small bold uppercase type is the hardest case to read, and this is the color the design system uses for exactly that. Slate (4.76:1) and cobalt (6.81:1) already pass, so rust is the only failing token.
+
+**Context:** Flagged by the design specialist during the v0.3.5.8 Issue 07 ship. Applies to every Second Order issue page, not just Issue 07, so it is a palette decision rather than a one-page fix, and it should land in the second-order brand module (`brand/so_brand.py`) at the same time so exhibits and pages stay in step.
+
+**Effort:** M
+**Priority:** P2
+**Depends on:** None
+
+### Serve issue exhibits as files instead of inline base64
+
+**What:** Each issue page inlines every exhibit as a base64 data URI, including both responsive variants. The `<picture>` media query therefore saves nothing: every reader downloads all variants. On Issue 07 that is ~721KB of base64, 94% of the document, of which roughly half is never rendered on any given device.
+
+**Why:** Extracting the PNGs to `public/research/` would let the browser fetch one variant per viewport, make the images cacheable across the archive, and allow `loading="lazy"` on below-fold exhibits.
+
+**Context:** The single-file artifact is a deliberate convention (an issue page is self-contained and portable). Changing it is a publish-workflow decision, not a bug fix. Flagged by the performance specialist during the v0.3.5.8 ship.
+
+**Effort:** M
+**Priority:** P3
+**Depends on:** None
+
+### Test the cross-file invariants of published issues
+
+**What:** Each published issue repeats its title and date in three places: the article `<title>`/masthead, the feature block in `second-order.html`, and the row in `second-order-archive.html`. Nothing checks they agree. Add a vitest that globs `public/research/second-order-issue-*.html`, extracts each title and dateline, asserts the archive row and (for the newest issue) the landing feature match, and asserts every internal `href` in `public/research/*.html` resolves to a file that exists.
+
+**Why:** A republish touches all three files by hand. A missed edit ships silently, which happened during the Issue 07 work: the page said July 20 while the landing and archive still said July 15.
+
+**Context:** The existing suite only covers `lib/` and never reads `public/research/`. Flagged by the testing specialist during the v0.3.5.8 ship.
+
+**Effort:** S
+**Priority:** P3
+**Depends on:** None
+
 ## Writing
 
 ### Extract a shared WritingListItem component
