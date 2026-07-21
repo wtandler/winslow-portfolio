@@ -6,10 +6,16 @@ Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 ## [0.3.5.8] - 2026-07-20
 
 ### Changed
-- Republished Second Order Issue 07 from the clean-room final sources. New title ("How Long Can an AI Chip Earn?"), new claim box, seven numbered evidence sections typeset verbatim from the evidence-run file, a closing summary, and the Second-Order box. Six V10 exhibits, quantized to 256-color palette PNGs (2.9MB to 699KB across desktop and mobile variants), each a responsive picture element serving a 900px crop under 640px. Issue date moved to July 20 to match the source; landing page and archive entries updated. Companion deck re-exported from the rebuilt pptx and linearized.
-- Issue 07's selected-sources list now renders one citation per line, with linked URLs, instead of a middot-joined paragraph.
-- Restored the mobile exhibit treatment used before the rewrite. Exhibits 1 and 5 are tables, so they ship as native HTML that reflows into labeled cards on phones instead of shrinking to unreadable raster; each card carries a hierarchy (name, the prefill/decode pair on one line, the system detail, then the finding set off by an accent rule) so a restacked row scans in one beat rather than reading as five same-weight lines. Exhibits 2, 3, 4, and 6 are charts and serve a 1040px portrait redraw under 640px, regenerated from the clean-room captions. Page weight 999KB to 747KB.
-- The web page includes the aircraft-finance exhibit (Exhibit 5) at the ILFC paragraph. The source repo's PDF builder anchors that exhibit to a string that does not appear in the final prose, so the canonical PDF silently dropped it; the web build corrects the anchor.
+- Republished Second Order Issue 07 from the clean-room final sources. New title ("How Long Can an AI Chip Earn?"), new claim box, seven numbered evidence sections typeset verbatim from the evidence-run file, a closing summary, and the Second-Order box, all six exhibits in place. Issue date is July 20, 2026 on the page, the landing feature, the archive row, and the deck cover. Companion deck re-exported and linearized.
+- Exhibits now use the treatment the pre-rewrite issue had. Exhibits 1 and 5 are tables, so they ship as native HTML that reflows into labeled cards on phones rather than shrinking to unreadable raster; each card reads name, then the prefill/decode pair on one line, then the system detail, then the finding set off by an accent rule, so a restacked row scans in one beat instead of five same-weight lines. Exhibits 2, 3, 4, and 6 are charts and serve a 1040px portrait redraw under 640px, regenerated from the clean-room captions. Page weight 1.98MB to 767KB.
+- Selected sources render one citation per line with linked URLs instead of a middot-joined paragraph.
+- Added a revision note at the foot of the issue recording that the text was edited for readability after first publication, with the conclusion, data, and sources unchanged.
+
+### Fixed
+- Exhibit tables are reachable by assistive technology: exhibit titles are headings rather than styled paragraphs, each table is named by its title, the visually blank verdict column has an accessible name, and the columns whose meaning the layout carries visually (the prefill/decode pair, the finding) carry a label that is announced only once the table restacks, so desktop does not announce each header twice.
+- Exhibit images declare their intrinsic width and height, so an exhibit no longer collapses to zero height and shoves the following prose down as it decodes.
+- Tinted exhibit rows sat 10px left of the text column on phones; the row was over-constrained, so the background bled into the left gutter and stopped short on the right.
+- Long source URLs wrap at overflow instead of breaking at arbitrary characters.
 
 ## [0.3.5.7] - 2026-07-16
 
