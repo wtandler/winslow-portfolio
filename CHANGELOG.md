@@ -7,6 +7,7 @@ Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
 ### Added
 - Pathfinder case study: the change-management command center on Dataverse and Power Platform built and run at Microsoft from launch in 2020 through 2023, used by about 1,000 change managers, program managers, and sponsors across 14 divisions. First use of the completed status; it renders fifth in the enterprise group.
+- Pathfinder and the Azure DevOps Portfolio Extensions now cross-link: the extensions build on Pathfinder, which is still in production across the same 14 divisions two years after the ownership handoff. The extensions case study gains the resume-level mechanics: Azure AI Foundry drafting against the live governed taxonomy with atomic Dataverse saves, source links, and drift detection; a Resources roster tab and project-level Capacity hub with peak staffing analysis.
 
 ### Changed
 - Second Order card summary says "independent weekly research briefing" instead of "weekly client research briefing"; the product is independent research, not client work.
