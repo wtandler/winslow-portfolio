@@ -2,13 +2,6 @@ import { getProjectsByCategory } from "@/lib/mdx";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import Link from "next/link";
 
-const focusAreas = [
-  "Enterprise change and program management",
-  "Microsoft-native AI products",
-  "Portfolio intelligence",
-  "Human-governed agentic workflows",
-];
-
 const workSteps = [
   {
     title: "Start with the work.",
@@ -31,7 +24,7 @@ export default function HomePage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-8">
       {/* Hero */}
-      <header className="mb-14">
+      <header className="mb-10">
         <p className="kicker mb-3">AI Systems Architect and Product Builder</p>
         <h1
           className="text-2xl sm:text-3xl font-medium tracking-tight mb-3"
@@ -50,20 +43,58 @@ export default function HomePage() {
           software while retaining responsibility for system design, quality,
           release decisions, and ongoing operations.
         </p>
-
-        {/* Focus strip */}
-        <div
-          className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm"
-          style={{ color: "var(--text-muted)" }}
-        >
-          {focusAreas.map((area, i) => (
-            <span key={area} className="flex items-center gap-2">
-              {i > 0 && <span aria-hidden="true">·</span>}
-              {area}
-            </span>
-          ))}
-        </div>
       </header>
+
+      {/* Front matter: collapsible method and platform notes */}
+      <section
+        className="mb-10"
+        style={{ borderTop: "1px solid var(--border-subtle)" }}
+      >
+        <details className="disclosure">
+          <summary>
+            <span className="kicker">How I work</span>
+          </summary>
+          <div className="disclosure-body">
+            <ol className="grid gap-4 sm:grid-cols-3">
+              {workSteps.map((step, i) => (
+                <li key={step.title}>
+                  <p
+                    className="text-sm font-medium mb-1"
+                    style={{ color: "var(--text-primary)" }}
+                  >
+                    {i + 1}. {step.title}
+                  </p>
+                  <p
+                    className="text-sm"
+                    style={{ color: "var(--text-tertiary)" }}
+                  >
+                    {step.body}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </details>
+
+        <details className="disclosure">
+          <summary>
+            <span className="kicker">Microsoft ecosystem</span>
+          </summary>
+          <div className="disclosure-body">
+            <p
+              className="max-w-2xl text-sm"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              Most of my enterprise work lives in the Microsoft ecosystem. I
+              build with Power Platform, Power Apps canvas, model-driven and
+              code apps, Dataverse, Copilot Studio, Power Automate, Azure,
+              Azure DevOps Boards and work items, Microsoft Fabric, Azure AI
+              Foundry, Azure OpenAI, Azure AI Search, Microsoft Graph, and
+              Entra ID.
+            </p>
+          </div>
+        </details>
+      </section>
 
       {/* Enterprise work */}
       <section className="rule-strong pt-5">
@@ -83,38 +114,6 @@ export default function HomePage() {
             <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
-      </section>
-
-      {/* How I work */}
-      <section className="mt-12 rule-strong pt-5">
-        <h2 className="kicker mb-4">How I work</h2>
-        <ol className="grid gap-4 sm:grid-cols-3">
-          {workSteps.map((step, i) => (
-            <li key={step.title}>
-              <p
-                className="text-sm font-medium mb-1"
-                style={{ color: "var(--text-primary)" }}
-              >
-                {i + 1}. {step.title}
-              </p>
-              <p className="text-sm" style={{ color: "var(--text-tertiary)" }}>
-                {step.body}
-              </p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      {/* Microsoft ecosystem */}
-      <section className="mt-12 rule-strong pt-5">
-        <h2 className="kicker mb-4">Microsoft ecosystem</h2>
-        <p className="max-w-2xl text-sm" style={{ color: "var(--text-secondary)" }}>
-          Most of my enterprise work lives in the Microsoft ecosystem. I build
-          with Power Platform, Power Apps canvas, model-driven and code apps,
-          Dataverse, Copilot Studio, Power Automate, Azure, Azure DevOps
-          Boards and work items, Microsoft Fabric, Azure AI Foundry, Azure
-          OpenAI, Azure AI Search, Microsoft Graph, and Entra ID.
-        </p>
       </section>
 
       {/* Independent work */}

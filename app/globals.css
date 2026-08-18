@@ -136,6 +136,47 @@ body {
   border-top: 2px solid var(--border-strong);
 }
 
+/* Collapsible front-matter row, briefing-style: a hairline-ruled disclosure
+   whose summary reads like a kicker with a plus that rotates to an x when
+   open. Native details/summary, so it works without JavaScript. */
+.disclosure {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.disclosure > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 0;
+}
+
+.disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.disclosure > summary::after {
+  content: "+";
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--text-muted);
+  transition: transform 0.15s ease;
+}
+
+.disclosure[open] > summary::after {
+  transform: rotate(45deg);
+}
+
+.disclosure > summary:hover .kicker {
+  color: var(--accent);
+}
+
+.disclosure-body {
+  padding: 0.25rem 0 1.125rem;
+}
+
 /* Code blocks */
 code {
   font-family: var(--font-mono);
