@@ -1,6 +1,5 @@
 import { getProjectsByCategory } from "@/lib/mdx";
 import { ProjectCard } from "@/components/projects/ProjectCard";
-import { STATUS_COLORS } from "@/lib/status";
 import Link from "next/link";
 
 const focusAreas = [
@@ -120,39 +119,17 @@ export default function HomePage() {
 
       {/* Independent work */}
       <section className="mt-12 rule-strong pt-5">
-        <h2 className="kicker mb-4">Independent products and research</h2>
-        <div className="grid gap-2">
+        <h2 className="kicker mb-3">Independent products and research</h2>
+        <p
+          className="max-w-2xl mb-4 text-sm"
+          style={{ color: "var(--text-tertiary)" }}
+        >
+          Products I build and run on my own, applying the same approach in
+          markets, research, and community operations.
+        </p>
+        <div className="grid gap-3">
           {independentProjects.map((project) => (
-            <Link
-              key={project.slug}
-              href={`/projects/${project.slug}`}
-              className="flex items-baseline justify-between gap-4 py-2 group"
-              style={{ borderBottom: "1px solid var(--border-subtle)" }}
-            >
-              <div className="min-w-0 flex items-baseline gap-2">
-                <span
-                  className="text-sm font-medium shrink-0 group-hover:underline"
-                  style={{ color: "var(--text-primary)" }}
-                >
-                  {project.frontmatter.title}
-                </span>
-                <span
-                  className="text-sm hidden sm:inline truncate"
-                  style={{ color: "var(--text-tertiary)" }}
-                >
-                  {project.frontmatter.summary}
-                </span>
-              </div>
-              <span
-                className="text-xs uppercase shrink-0"
-                style={{
-                  color: STATUS_COLORS[project.frontmatter.status],
-                  letterSpacing: "var(--tracking-caps)",
-                }}
-              >
-                {project.frontmatter.status}
-              </span>
-            </Link>
+            <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
       </section>
