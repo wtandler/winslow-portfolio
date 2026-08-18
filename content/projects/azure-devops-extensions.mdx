@@ -3,8 +3,8 @@ title: Azure DevOps Portfolio Extensions
 summary: "Two Azure DevOps Boards extensions used across 14 divisions: an AI-assisted change assessment that saves 150-200 hours of monthly data entry and a 12-month resource and capacity planning product."
 date: 2026-06
 updated: 2026-08
-platforms: [Azure DevOps Boards, Work item extensions, AI-assisted workflows]
-stack: [Azure DevOps Boards, Azure DevOps work items]
+platforms: [Azure DevOps Boards, Azure AI Foundry, Dataverse, Work item extensions]
+stack: [Azure DevOps Boards, Azure DevOps work items, Azure AI Foundry, Dataverse]
 status: live
 category: enterprise
 ownership: "Product discovery through production ownership"
@@ -18,7 +18,7 @@ Change and program leaders across 14 divisions run their portfolios on Azure Dev
 
 ## What I Noticed
 
-Neither problem had a product request attached to it. The assessment burden was distributed across many people, so no single team felt it enough to escalate, and the capacity question was answered with spreadsheets rebuilt for each planning cycle. Both problems lived inside Boards, where the data already was, so the answer was to extend the tool leaders were already in rather than stand up anything new.
+Neither problem had a product request attached to it. The assessment burden was distributed across many people, so no single team felt it enough to escalate, and the capacity question was answered with spreadsheets rebuilt for each planning cycle. I knew where the manual effort lived because I built the platform it lived in: both extensions build on [Pathfinder](/projects/pathfinder), the change-management command center I built and ran at Microsoft from 2020 through 2023. Pathfinder also taught me its own limit: a single system forces every team into one taxonomy when data goes in. The extensions invert that. Teams work in Azure DevOps, where they already want to be, in their own terms, and AI interprets their work into the governed taxonomy reporting needs.
 
 ## What I Owned
 
@@ -26,9 +26,9 @@ I found the business problems with change and program leaders, proposed both pro
 
 ## What Shipped
 
-**Change assessment extension.** AI drafts a standardized change assessment from the work items a program already maintains, and a person reviews and approves it. Creation time dropped to under a minute per assessment, saving roughly 150-200 hours of monthly data entry across the 14 divisions. Built in about a week in June 2026 and live in July.
+**Change assessment extension.** Azure AI Foundry drafts each work item's change classification against the live governed taxonomy, a person reviews and approves it, and the plan saves atomically to Dataverse with source links and drift detection. Creation time dropped to under a minute per assessment, saving roughly 150-200 hours of monthly data entry across the 14 divisions. Built in about a week in June 2026 and live in July.
 
-**Resource and capacity extension.** Leaders get a 12-month staffing view by person, program, and portfolio, with over-allocation and peak staffing needs flagged. Planning conversations start from a shared, current view instead of a stale spreadsheet. Built in about a week in July 2026, with all surfaces live in early August.
+**Resource and capacity extension.** A Resources roster tab on Program work items and a project-level Capacity hub, both on one shared Dataverse model. Leaders get person, program, and portfolio views of 12-month allocation, with over-allocation and peak staffing needs flagged, so planning conversations start from a shared, current view instead of a stale spreadsheet. Built in about a week in July 2026, with all surfaces live in early August.
 
 ## Microsoft Ecosystem Fit
 
