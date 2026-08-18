@@ -1,0 +1,43 @@
+---
+title: Azure DevOps Portfolio Extensions
+summary: "Two Azure DevOps Boards extensions used across 14 divisions: an AI-assisted change assessment that saves 150-200 hours of monthly data entry and a 12-month resource and capacity planning product."
+date: 2026-06
+updated: 2026-08
+platforms: [Azure DevOps Boards, Work item extensions, AI-assisted workflows]
+stack: [Azure DevOps Boards, Azure DevOps work items]
+status: live
+category: enterprise
+ownership: "Product discovery through production ownership"
+role: "Stakeholder discovery · Product strategy · System design · AI-native delivery · Governance · Production support"
+priority: 80
+---
+
+## The Problem
+
+Change and program leaders across 14 divisions run their portfolios on Azure DevOps Boards, and two jobs consumed disproportionate manual effort. Writing a standardized change assessment meant re-entering information that already existed in work items, roughly 150-200 hours of data entry across the organization every month. And no view answered the staffing question leaders kept asking: who is committed to what, over the next 12 months, across programs.
+
+## What I Noticed
+
+Neither problem had a product request attached to it. The assessment burden was distributed across many people, so no single team felt it enough to escalate, and the capacity question was answered with spreadsheets rebuilt for each planning cycle. Both problems lived inside Boards, where the data already was, so the answer was to extend the tool leaders were already in rather than stand up anything new.
+
+## What I Owned
+
+I found the business problems with change and program leaders, proposed both products, designed the workflows, directed implementation, launched the extensions, and continue to own compliance, support, maintenance, and product changes.
+
+## What Shipped
+
+**Change assessment extension.** AI drafts a standardized change assessment from the work items a program already maintains, and a person reviews and approves it. Creation time dropped to under a minute per assessment, saving roughly 150-200 hours of monthly data entry across the 14 divisions. Built in about a week in June 2026 and live in July.
+
+**Resource and capacity extension.** Leaders get a 12-month staffing view by person, program, and portfolio, with over-allocation and peak staffing needs flagged. Planning conversations start from a shared, current view instead of a stale spreadsheet. Built in about a week in July 2026, with all surfaces live in early August.
+
+## Microsoft Ecosystem Fit
+
+Both products are Boards work-item extensions, so they inherit the organization's existing identity, permissions, and governance. There is no separate application to adopt, secure, or train on; the products appear inside the workflow their users already run every day.
+
+## AI-Native Delivery
+
+I own product direction, architecture, requirements, acceptance criteria, testing, release decisions, and operations. Coding agents implement and maintain the software under that direction. That is what made the one-week build cycles possible: each extension went from proposal to working product in about a week, with my time spent on the workflow design, the review gates, and the release decision rather than on writing code.
+
+## Ongoing Ownership
+
+Both extensions are in production across the 14 divisions. I own support, compliance, maintenance, and the product roadmap, and changes ship through the same review-and-approval workflow the extensions themselves enforce.

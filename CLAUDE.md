@@ -2,6 +2,10 @@
 
 Personal portfolio site for Winslow Tandler (winslowtandler.com). Next.js App Router + MDX content: case studies in `content/projects/`. Standalone artifacts (e.g. a finished issue of a research product) live in `public/research/` and are linked from the relevant case study. Deployed on Vercel from `main`.
 
+## Positioning
+
+The site positions Winslow as "AI Systems Architect and Product Builder" for enterprise change and program management, per the August 2026 resume alignment brief. Enterprise work leads everywhere; independent markets/research work is labeled and grouped separately. Projects carry `category` (enterprise | independent | earlier), `platforms` (product-level tags shown on cards), `ownership` (one-line role label), and `stack` (implementation detail, shown only inside the case study under "Technology used in this product"). Statuses are live | in-progress | completed | archived, and they must reflect current reality. Programming languages never appear as personal skills or on card previews. Azure DevOps claims are limited to Boards, work items, and extensions. Threadbase is the public product name; never expose internal codenames from source repos. No internal acronym (e.g. the old CSS prefix) appears without plain-language context.
+
 ## Design
 
 Paper-and-ink editorial look, modeled on a research briefing: warm paper background, near-black ink, hairline rules with a heavy 2px rule opening major sections, small uppercase rust kickers (`.kicker`), navy for links and emphasis. Limited palette: ink, navy (`--accent`), rust (`--accent-warm`), nothing else. Sans for reading, mono only for code. No terminal artifacts (shell prompts, `-->` arrows, `//` comments).
@@ -12,7 +16,7 @@ Paper-and-ink editorial look, modeled on a research briefing: warm paper backgro
 
 ## Copy voice
 
-Plain, simple, straightforward. No pithy one-liners, no engineered punchlines, no em/en dashes, no self-promotion. The hero describes the site, not the author. Case studies are first person and honest about tradeoffs.
+Plain, simple, straightforward. No pithy one-liners, no engineered punchlines, no em/en dashes, no consultant cliches. The hero states the professional positioning in first person (who Winslow works with, what he owns), per the alignment brief; it does not describe the site. Case studies are first person and honest about tradeoffs. Enterprise case studies follow a standard reader journey: problem, what I noticed, product decision, what I owned, what shipped, results, Microsoft ecosystem fit, AI-native delivery, ongoing ownership.
 
 Writing rules for all `content/` prose (modeled on Winslow's own writing: conclusion first, then enumerated reasons with numbers):
 

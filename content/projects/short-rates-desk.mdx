@@ -1,10 +1,14 @@
 ---
 title: Short Rates Desk
-summary: Real-time AI research synthesis for hedge-fund rates PMs. It compares what markets, dealers, the Street, and the data say, then flags where they disagree.
+summary: An independent AI research project for U.S. rates that publishes morning and close notes from public market data, prediction markets, dealer surveys, and Street commentary.
 date: 2026-05
+updated: 2026-08
+platforms: [Independent research, AI synthesis, U.S. rates, Cross-model review]
 stack: [Python, Next.js, TypeScript, PostgreSQL, Neon, Anthropic Claude, OpenAI, GitHub Actions, Vercel, Resend]
 status: live
-featured: true
+category: independent
+ownership: "Independent build"
+priority: 40
 url: https://shortratesdesk.com
 ---
 
@@ -37,6 +41,10 @@ A product that surfaces the gaps between them, using only public data, replaces 
 The interesting problem is trustworthy ingestion and synthesis over messy public sources, not the UI. Pulling structured signal from DTCC, OFR, FINRA TRACE, NY Fed percentiles, prediction-market APIs, and free-form sell-side commentary means a custom adapter per source and a clustering step to dedupe the same idea showing up in ten places.
 
 Then synthesis has to be defensible. A rates PM will not trust a number they can't trace. So every synthesized claim carries attribution back to its source, and the LLM work runs in tiers with a cross-model check: Claude Haiku for fast, event-driven Tier 1 synthesis, Claude Opus for the scheduled morning/close notes and position extraction, and a GPT pass as cross-model confirmation on Tier 1 outputs before anything publishes.
+
+## Current Work
+
+I am extending the review process beyond fact checking with a senior trader critique that challenges each note's market view, trade logic, risks, supporting evidence, and what would change the conclusion.
 
 ## The Architecture
 

@@ -1,0 +1,49 @@
+---
+title: Agentic Intake
+summary: "AI-assisted program intake for a portfolio office handling about 60 programs per quarter. It reduces charter, readiness, risk, and routing preparation from 6-10 hours to about 10 minutes while keeping the final decision with a person."
+date: 2026-03
+updated: 2026-08
+platforms: [Dataverse, Microsoft AI services, Agentic workflows, Human governance]
+stack: [Dataverse, Microsoft AI services]
+status: live
+category: enterprise
+ownership: "Product discovery through production ownership"
+role: "Stakeholder discovery · Product strategy · System design · AI-native delivery · Governance · Production support"
+priority: 90
+---
+
+## The Problem
+
+Program intake required 6-10 hours of manual work to prepare a charter, assess readiness and risk, and decide where the program should route. The portfolio office handles about 60 programs each quarter, so the same research and document preparation repeated at scale. Almost all of that time went to gathering context and formatting documents, not to the judgment call the reviewer is actually there to make.
+
+## What I Noticed
+
+Nobody had asked for this product. The intake process was accepted as the cost of doing business, and the requests that did surface were for more reviewer capacity. Working with the portfolio stakeholders, I saw that the bottleneck was research, not judgment. When AI can do the reading and preparation, the division of labor flips: AI analyzes and prepares, a person judges and decides.
+
+## The Product Decision
+
+I proposed a workspace in which AI prepares the material and a person makes the decision. Six specialist agents assemble source context, draft the charter, complete the readiness and risk review, and recommend routing. Each output carries source links, confidence indicators, version history, validation checks, and a human approval step. The obvious alternative was a form with an AI summary bolted on; it would have saved minutes, not hours, because the research burden would have stayed with the reviewer.
+
+## What I Owned
+
+I identified the opportunity with portfolio stakeholders, defined the product, designed the agent workflow and human controls, directed the build, launched it, and continue to own support, governance, compliance, and product changes.
+
+## What Shipped
+
+A user brings an outcome and supporting documents. The workspace returns a draft program charter, a readiness and risk review, and a routing recommendation, each traceable to its sources. The reviewer edits or accepts, and nothing is submitted without human approval. Hard cases arrive flagged, so reviewer attention goes where it is needed.
+
+## Results
+
+The combined process fell from 6-10 hours to about 10 minutes per program, with human approval before submission. The product is live as a v1 with all core functionality in production. It has been demonstrated to the VP leadership group, and rollout follow-ups are scheduled across 4 divisions.
+
+## Microsoft Ecosystem Fit
+
+The six agents run across Dataverse and Microsoft AI services, inside the organization's existing identity, data, and security controls. The product reads the same systems the portfolio office already uses, so there is no separate data store to govern and no new tool to secure.
+
+## AI-Native Delivery
+
+I own product direction, architecture, requirements, acceptance criteria, testing, release decisions, and operations. Coding agents implement and maintain the software under that direction.
+
+## Ongoing Ownership
+
+I support the production system, manage governance and compliance, and run the division rollouts. Product changes ship under the same requirements-and-approval discipline the product itself enforces on intake.

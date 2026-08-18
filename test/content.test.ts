@@ -5,8 +5,9 @@ import {
   getAllProjects,
   getProjectBySlug,
   getProjectSlugs,
+  getProjectsByCategory,
 } from "@/lib/mdx";
-import { VALID_STATUSES } from "@/lib/status";
+import { VALID_CATEGORIES, VALID_STATUSES } from "@/lib/status";
 import sitemap from "@/app/sitemap";
 
 const projectsDir = path.join(process.cwd(), "content/projects");
@@ -50,7 +51,56 @@ describe("getAllProjects", () => {
         false
       );
       expect(VALID_STATUSES).toContain(project.frontmatter.status);
+      expect(VALID_CATEGORIES).toContain(project.frontmatter.category);
+      expect(Array.isArray(project.frontmatter.platforms)).toBe(true);
       expect(project.readingTime).toMatch(/min read/);
+    }
+  });
+
+  it("gives every real project card-level platform tags", () => {
+    // Cards render platforms, not stack; an entry without them would show an
+    // empty tag row. This applies to real content only, not fixtures.
+    for (const project of getAllProjects()) {
+      expect(
+        project.frontmatter.platforms.length,
+        project.slug
+      ).toBeGreaterThan(0);
+      for (const tag of project.frontmatter.platforms) {
+        expect(typeof tag, project.slug).toBe("string");
+      }
+      for (const tech of project.frontmatter.stack) {
+        expect(typeof tech, project.slug).toBe("string");
+      }
+    }
+  });
+
+  it("gives every enterprise and independent project an ownership label", () => {
+    // Cards and case pages render the role line only when present; a missing
+    // label silently drops it. Only "earlier" work may omit it.
+    for (const project of getAllProjects()) {
+      if (project.frontmatter.category !== "earlier") {
+        expect(project.frontmatter.ownership, project.slug).toBeTruthy();
+      }
+    }
+  });
+
+  it("partitions all projects across the valid categories in sort order", () => {
+    const all = getAllProjects();
+    const grouped = VALID_CATEGORIES.flatMap((category) =>
+      getProjectsByCategory(category)
+    );
+    expect(grouped.length).toBe(all.length);
+    expect(new Set(grouped.map((p) => p.slug)).size).toBe(all.length);
+    for (const category of VALID_CATEGORIES) {
+      const group = getProjectsByCategory(category);
+      for (const project of group) {
+        expect(project.frontmatter.category).toBe(category);
+      }
+      // Within-group order preserves the global sort.
+      const globalOrder = all
+        .filter((p) => p.frontmatter.category === category)
+        .map((p) => p.slug);
+      expect(group.map((p) => p.slug)).toEqual(globalOrder);
     }
   });
 
@@ -165,11 +215,52 @@ describe("project frontmatter edge cases", () => {
       () => {
         const project = getProjectBySlug("__fixture-minimal__");
         expect(project).not.toBeNull();
-        expect(project!.frontmatter.featured).toBe(false);
         expect(project!.frontmatter.priority).toBe(0);
         expect(project!.frontmatter.url).toBeUndefined();
         expect(project!.frontmatter.github).toBeUndefined();
         expect(project!.frontmatter.updated).toBeUndefined();
+        expect(project!.frontmatter.category).toBe("independent");
+        expect(project!.frontmatter.platforms).toEqual([]);
+        expect(project!.frontmatter.stack).toEqual([]);
+        expect(project!.frontmatter.ownership).toBeUndefined();
+      }
+    );
+  });
+
+  it("throws with the file name on an invalid status", () => {
+    // A silent fallback would misclassify a case study; statuses must
+    // reflect current reality, so a typo fails the build loudly.
+    withFixture(
+      "__fixture-bad-status__",
+      `---\ntitle: "Bad status"\nsummary: "Typo'd status."\ndate: "2026-01-01"\nstatus: "shipped"\n---\n\nBody.\n`,
+      () => {
+        expect(() => getProjectBySlug("__fixture-bad-status__")).toThrow(
+          /__fixture-bad-status__\.mdx has an invalid status: shipped/
+        );
+      }
+    );
+  });
+
+  it("throws with the file name on an invalid category", () => {
+    withFixture(
+      "__fixture-bad-category__",
+      `---\ntitle: "Bad category"\nsummary: "Typo'd category."\ndate: "2026-01-01"\ncategory: "Enterprise"\n---\n\nBody.\n`,
+      () => {
+        expect(() => getProjectBySlug("__fixture-bad-category__")).toThrow(
+          /__fixture-bad-category__\.mdx has an invalid category: Enterprise/
+        );
+      }
+    );
+  });
+
+  it("accepts the completed status and every valid category", () => {
+    withFixture(
+      "__fixture-completed__",
+      `---\ntitle: "Completed"\nsummary: "Prior shipped product."\ndate: "2026-01-01"\nstatus: "completed"\ncategory: "earlier"\n---\n\nBody.\n`,
+      () => {
+        const project = getProjectBySlug("__fixture-completed__");
+        expect(project!.frontmatter.status).toBe("completed");
+        expect(project!.frontmatter.category).toBe("earlier");
       }
     );
   });
@@ -177,6 +268,23 @@ describe("project frontmatter edge cases", () => {
   it("returns no slugs when the projects directory does not exist", () => {
     vi.spyOn(fs, "existsSync").mockReturnValue(false);
     expect(getProjectSlugs()).toEqual([]);
+  });
+});
+
+describe("renamed slugs", () => {
+  it("redirects the old css-agentic-intake slug to agentic-intake", async () => {
+    // The prototype page was replaced by the launched product under a new
+    // slug; the published URL must keep resolving.
+    const config = (await import("../next.config")).default;
+    const redirects = await config.redirects!();
+    expect(redirects).toContainEqual(
+      expect.objectContaining({
+        source: "/projects/css-agentic-intake",
+        destination: "/projects/agentic-intake",
+        permanent: true,
+      })
+    );
+    expect(getProjectBySlug("css-agentic-intake")).toBeNull();
   });
 });
 

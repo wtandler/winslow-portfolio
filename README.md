@@ -43,8 +43,11 @@ test/                 Vitest unit tests for the loaders and routes
 ## Adding a case study
 
 Drop a `.mdx` file in `content/projects/` with frontmatter. Required: `title`,
-`summary`, `date`. Optional: `updated`, `stack`, `status`, `url`, `github`,
-`featured`, `priority`.
+`summary`, `date`, and `platforms` (product-level card tags; the test suite
+requires at least one). Optional: `updated`, `stack` (implementation detail,
+shown only inside the case study), `status` (live | in-progress | completed |
+archived), `category` (enterprise | independent | earlier, defaults to
+independent), `ownership` (one-line role label), `url`, `github`, `priority`.
 It renders as a card on the projects page and a full page at
 `/projects/<slug>`. Keep the body under 1,400 words; the test suite enforces
 this.

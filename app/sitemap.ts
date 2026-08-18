@@ -14,7 +14,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // the build date teaches crawlers to ignore the field.
   const projectRoutes = getAllProjects().map((project) => ({
     url: `${siteUrl}/projects/${project.slug}`,
-    lastModified: new Date(project.frontmatter.date),
+    lastModified: new Date(
+      project.frontmatter.updated ?? project.frontmatter.date
+    ),
   }));
 
   return [...staticRoutes, ...projectRoutes];

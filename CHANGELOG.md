@@ -3,6 +3,18 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.6.0] - 2026-08-18
+
+### Changed
+- Repositioned the site around one professional identity per the August 2026 resume alignment brief: AI Systems Architect and Product Builder for enterprise change and program management. New hero (kicker, first-person value proposition, AI-native delivery line); the six-domain list is gone. "How I work" and "Microsoft ecosystem" sit between the hero and the cards as collapsed briefing-style disclosure rows (native details/summary, no JavaScript), so enterprise cards and then independent cards follow directly for a reader scanning the work.
+- Replaced the Agentic Intake prototype case study with the launched product: live as a v1, 60 programs per quarter, preparation down from 6-10 hours to about 10 minutes with human approval, demonstrated to VP leadership with rollout follow-ups scheduled across 4 divisions. The page moved from `/projects/css-agentic-intake` to `/projects/agentic-intake` with a permanent redirect (the old slug carried an internal acronym).
+- Added a combined case study for two Azure DevOps Boards extensions used across 14 divisions: an AI-assisted change assessment (under a minute per assessment, roughly 150-200 hours of monthly data entry saved) and a 12-month resource and capacity planning product.
+- Rewrote Threadbase against the current product build: proactive portfolio intelligence with source-linked findings, human governance, explicit uncertainty, and the deployed core Azure workflow, with executive briefings and deeper cross-portfolio analysis in progress.
+- Updated Event Swag Agent with ownership, scale, and the estimated $250K annual savings; the product is in final testing with the operations group.
+- Added a category model (enterprise, independent, earlier) with a "completed" status, product-level platform card tags, and one-line ownership labels. Implementation stacks moved into a "Technology used in this product" section on each case page. The homepage and project index group enterprise work first; Short Rates Desk, Second Order, and Lamp & Rose are labeled independent and unfeatured; CoachGPT files under earlier work.
+- Updated shared copy: contact page ("Work with me"), footer line, site metadata, and the Open Graph card now carry the professional title and enterprise focus.
+- Short Rates Desk notes the senior trader critique now being added to the review workflow.
+
 ## [0.3.5.8] - 2026-07-20
 
 ### Changed

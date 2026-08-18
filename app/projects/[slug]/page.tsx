@@ -4,6 +4,7 @@ import { getProjectBySlug, getProjectSlugs } from "@/lib/mdx";
 import { STATUS_COLORS } from "@/lib/status";
 import { formatDate } from "@/lib/dates";
 import { MDXContent } from "@/components/projects/MDXContent";
+import { TagList } from "@/components/projects/TagList";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -53,8 +54,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   const { frontmatter, content, readingTime } = project;
-  const { title, summary, date, updated, stack, status, url, github } =
-    frontmatter;
+  const {
+    title,
+    summary,
+    date,
+    updated,
+    platforms,
+    stack,
+    status,
+    ownership,
+    role,
+    url,
+    github,
+  } = frontmatter;
+
+  // The case-study header shows the full role strip when the frontmatter
+  // declares one, otherwise the one-line ownership label. Both come from the
+  // content file so an independent build never inherits an enterprise claim.
+  const roleLine = role ?? ownership;
 
   const formattedDate = updated
     ? `${formatDate(date, "monthYear")} · updated ${formatDate(updated, "monthYear")}`
@@ -108,26 +125,29 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           {title}
         </h1>
 
-        <p className="mb-6" style={{ color: "var(--text-secondary)" }}>
+        <p className="mb-4" style={{ color: "var(--text-secondary)" }}>
           {summary}
         </p>
 
-        {/* Tech stack */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          {stack.map((tech) => (
+        {/* Role strip */}
+        {roleLine && (
+          <p className="mb-4 text-sm" style={{ color: "var(--text-muted)" }}>
             <span
-              key={tech}
-              className="px-2 py-0.5 text-xs"
-              style={{
-                background: "var(--bg-secondary)",
-                color: "var(--text-tertiary)",
-                border: "1px solid var(--border-subtle)",
-              }}
+              className="text-xs uppercase mr-2"
+              style={{ letterSpacing: "var(--tracking-caps)" }}
             >
-              {tech}
+              My role
             </span>
-          ))}
-        </div>
+            {roleLine}
+          </p>
+        )}
+
+        {/* Platforms */}
+        {platforms.length > 0 && (
+          <div className="mb-6">
+            <TagList tags={platforms} />
+          </div>
+        )}
 
         {/* Links */}
         {(url || github) && (
@@ -169,6 +189,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <div className="prose">
         <MDXContent source={content} />
       </div>
+
+      {/* Technology used in this product */}
+      {stack.length > 0 && (
+        <section
+          className="mt-12 pt-6"
+          style={{ borderTop: "1px solid var(--border-subtle)" }}
+        >
+          <h2 className="kicker mb-3">Technology used in this product</h2>
+          <TagList tags={stack} />
+        </section>
+      )}
 
       {/* Footer */}
       <footer
