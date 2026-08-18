@@ -1,7 +1,7 @@
 ---
 title: Pathfinder
 summary: "A change-management command center on Dataverse and Power Platform used by about 1,000 change managers, program managers, and sponsors across 14 divisions, with reporting that fed executive planning."
-date: 2020-01
+date: 2020-02
 updated: 2023-12
 platforms: [Dataverse, Power Platform, Change management, Executive reporting]
 stack: [Dataverse, Power Platform]
@@ -14,33 +14,31 @@ priority: 50
 
 ## The Problem
 
-Change management across 14 divisions had no shared system. Business units ran the work on their own processes and trackers, so the same question answered differently depending on who was asked, and leadership had no comparable view across divisions for planning.
+The program management office ran a roughly 500-person organization's work out of Project Web App on SharePoint, and the tool could not describe the work. PWA held everything at one level, a customized form per record type, with no hierarchy connecting programs to the projects under them. Across 100 to 150 projects there were no schedules, change management lived in a separate system, and leadership had no view of what was going on in the organization.
 
-## The Product Decision
+## What I Noticed
 
-I built Pathfinder, a change-management command center on Dataverse and Power Platform, and got the organization onto it as the one system of record. The product decision had two parts:
+Nobody asked for a new system; the office was used to working around the old one. In February 2020 Microsoft released Project for the Web on Power Platform, and tinkering with it showed me that Dataverse could model what PWA could not: a full hierarchy of entities, with programs, projects, and change work connected in one place. I built a proof of concept, showed it to my boss, and he let me run with it.
 
-1. **One system, three operating processes.** Rather than force 10 business units onto a single process or let each keep its own, I aligned them on three operating processes the command center supported natively. Enough standardization to make reporting comparable, enough flexibility that units adopted it.
-2. **Reporting designed to run on one analyst.** The reporting model was built so a single analyst could operate it rather than a reporting team, and its output fed C-suite planning directly.
+## The Build
 
-## What I Owned
+This was before AI-assisted coding, and I am a program manager, not a trained engineer. I taught myself model-driven Power Platform customization from thin documentation, configured the security roles by hand for each user role, and built the system stage by stage. It launched for one team and spread because it worked, eventually reaching roughly 1,000 change managers, program managers, and sponsors across 14 divisions. I managed the seven-person vendor team that scaled the delivery and designed the reporting model to run on a single analyst rather than a team, with its output feeding C-suite planning.
 
-I built Pathfinder and ran it from launch in 2020 through 2023 as its product owner while at Microsoft. I managed the seven-person vendor team that delivered it, built the governance model, aligned the 10 business units on the three operating processes, and designed the reporting.
+## Governance Was the Hard Part
 
-## What Shipped
-
-A command center used by roughly 1,000 change managers, program managers, and sponsors across 14 divisions. Change work lived in one governed system: the operating processes ran inside it, and the reporting it produced was the input to executive planning.
+One system means one taxonomy, and every team wanted its own. I had no corporate mandate to force a single way of working, so I did not try. I built a governance team with a defined governance role, let the teams argue out what the shared processes should be, and got out of the way. That process aligned 10 business units on three operating processes the platform supported natively: enough standardization to make reporting comparable, enough ownership that the teams kept using it. The teams that invested most went furthest; one built its entire change-management process on the platform, and that process is what still runs today.
 
 ## Results
 
-1. About 1,000 users across 14 divisions ran their change work through the product.
-2. 10 business units aligned on three operating processes, replacing per-unit tracking.
+1. About 1,000 users across 14 divisions ran program and change work through one governed system, replacing a flat PWA site and per-team trackers.
+2. 10 business units aligned on three operating processes through a governance model the teams themselves ran.
 3. The reporting model ran on one analyst instead of a reporting team, and its output fed C-suite planning.
+4. The platform outlived my ownership: I handed it off in January 2024 and it remains in production today.
 
 ## Microsoft Ecosystem Fit
 
-Pathfinder ran on Dataverse and Power Platform inside the organization's existing identity, security, and governance. Users worked in the tools they already had, which is a large part of why adoption held across 14 divisions.
+Pathfinder ran on Dataverse and Power Platform inside the organization's existing identity, security, and governance. Users worked in the tools they already had, which is a large part of why adoption held.
 
-## Completion and What Came After
+## What Pathfinder Taught Me
 
-I ran the product through 2023 and handed it off when I left Microsoft in January 2024. The product outlived my ownership: Pathfinder is still in production across the same 14 divisions, and in 2026 I shipped the two [Azure DevOps Portfolio Extensions](/projects/azure-devops-extensions) that extend it with AI-assisted change assessment and resource planning. Pathfinder predates my AI-native build approach; it is the enterprise product ownership that approach now sits on top of.
+Pathfinder's one real limitation became the design brief for what came after. A single system forces every team into one taxonomy at the moment data goes in, and teams resist that even when the system is good. The two [Azure DevOps Portfolio Extensions](/projects/azure-devops-extensions) I shipped in 2026 invert the model: teams work in Azure DevOps, in their own terms, and AI interprets their work into the governed taxonomy reporting needs. [Threadbase](/projects/threadbase) takes the same idea further, needing only the documents teams already produce. Three generations of one problem, and Pathfinder is where I learned it.
