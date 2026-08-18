@@ -1,85 +1,52 @@
 ---
 title: Threadbase
-summary: Agents read everything a portfolio produces, link it into a knowledge graph with full provenance, and surface conflicts, dependencies, and risks before anyone asks. Every claim traces to the exact region of the source page it came from.
+summary: "A proactive portfolio-intelligence platform for enterprise change leaders. It reads the reports, presentations, assessments, and transcripts teams already produce and surfaces changes, risks, dependencies, and conflicting accounts with every finding tied to its evidence."
 date: 2025-08
-updated: 2026-06
-stack: [Next.js, React 19, TypeScript, PostgreSQL, pgvector, Azure Container Apps, Azure Content Understanding, OpenAI, Voyage AI, Vercel AI SDK, GraphRAG, Bicep]
+updated: 2026-08
+platforms: [Portfolio intelligence, Azure, Evidence pipelines, Human governance]
+stack: [Azure Container Apps, Azure Blob Storage, PostgreSQL, pgvector, Azure AI Content Understanding, Microsoft Entra, Bicep, TypeScript]
 status: in-progress
+category: enterprise
+ownership: "Independent build for enterprise change portfolios"
 featured: true
-priority: 100
+priority: 70
 url: https://threadbase.co
 ---
 
 ## The Problem
 
-Portfolio failures usually trace back to information nobody connected: two teams running on contradictory assumptions, a dependency growing while everyone treats it as settled, a risk split across three orgs so no one sees the whole of it. Status tools don't catch this because they only answer questions, and the dangerous question is the one nobody knows to ask. The signal exists, scattered across decks, meetings, and a few long-tenured people.
+Enterprise change leaders receive fragmented, contradictory, and stale reporting across their programs. The signal exists in the decks, assessments, and meeting transcripts their teams already produce, but no one reads all of it, and status tools only answer the questions someone knows to ask. The dangerous question is the one nobody asks.
 
-## The Approach
+## The Product Decision
 
-Threadbase asks the questions first. Agents read everything the portfolio produces, compare what one team said against what another assumed, and surface conflicts, dependency drift, and expired assumptions before anyone asks.
+Threadbase speaks first. Instead of waiting for a user to query it, the product reads everything the portfolio produces, reconciles it into one governed portfolio view, and surfaces what changed, what needs judgment, and where programs conflict. Two rules govern the design:
 
-Two rules govern the design:
+1. **Evidence first.** Every material finding links to the source page it came from. Incomplete evidence is shown as incomplete rather than presented as fact, and a true all-clear is distinguished from missing or stale information. The product never renders a failure as a zero.
+2. **Human governance.** Disputed or incomplete findings route to people for judgment. Reviewers accept, edit, or reject with recorded reasons, and every decision remains auditable.
 
-1. **Evidence first.** No claim enters the system without a link to the exact document, page, and region it came from. Nothing the AI asserts is treated as truth until a person accepts it or it clears a configurable confidence threshold.
-2. **A persistent model, not a chat session.** The first version was a chat interface. It failed because asking the system what's going on reintroduces the friction the system exists to remove. The product is built around a standing model of the portfolio (initiatives, owners, dependencies, risks, decisions, and the facts that support them) with agents working against it continuously. When something changes, the knock-on effects surface early; when two things conflict, both sources appear side by side.
+## What I Owned
 
-## How It's Built
+Threadbase is an independent build, designed for the enterprise change portfolios I work in professionally. I own the product vision, the system design, the specification, the build direction, and the deployment.
 
-A six-stage evidence pipeline (ingest, chunk and embed, extract, verify, analyze, publish) runs on Azure Container Apps against PostgreSQL. There is no ORM: raw parameterized SQL over 60+ versioned migrations, applied automatically on container boot and serialized across replicas with Postgres advisory locks. Around 2,000 unit and integration tests and eight independent eval suites gate every change.
+## What Is Built
 
-### Document understanding with spatial provenance
+I have built and deployed the core Azure workflow that turns portfolio materials into source-linked findings, routes disputed or incomplete information for human review, and reconciles approved findings into one governed portfolio view. That covers the full chain in production: document ingestion with malware and credential scanning, extraction of claims with page-level provenance, a governed review queue with deterministic ranking, publication gates with evidence-derived confidence bands, and a proactive leadership view that leads with what changed and what needs attention.
 
-Corporate slides defeat standard OCR: dense layouts, nested tables, meaning carried by icons and color. After burning through the open-source OCR stacks, I landed on Azure Content Understanding plus a multimodal vision pass. It emits structured facts with bounding boxes on a normalized grid, so every extracted claim renders as a highlight on the actual source page. Tables are chunked as atomic units and routed through table-specific extraction prompts.
+I am now extending the product into executive briefings and deeper cross-portfolio analysis: the intelligence views that let a leader move from a finding to its evidence in two clicks, and governed executive outputs built from the reconciled portfolio state.
 
-### The fact ledger
+## Trust Controls
 
-Extraction writes subject-predicate-object claims with confidence scores, qualifiers, temporal windows, and full lineage to their source chunk. The verify stage detects conflicts between new and accepted claims and routes them to the right owner by walking the entity graph. Reviewers accept, edit (with a required written reason), reject, escalate, or keep both sides of a conflict with explicit effective-date windows, and every mutation is audited. The auto-accept threshold is a runtime setting an admin can move at any time.
+The platform treats trust as a product requirement, not a disclaimer:
 
-A self-bootstrapping classifier keeps the queue clean: when enough facts share a novel predicate, an LLM classifies it once, caches the result in a predicate registry, and structural noise like slide numbers and document dates stops reaching human reviewers. The classifier ships with a labeled eval suite and an 85% per-class accuracy gate.
+- A finding publishes only after passing explicit gates, with a confidence band derived from its evidence.
+- Identical documents in produce identical findings out, so runs are reproducible and diffable.
+- Reporting periods, snapshots, and baselines make change over time a first-class object: the same two snapshots always produce the same change set.
+- Every mutation to the portfolio state is audited, and relationship history is append-only.
 
-### Graph-augmented retrieval
+## AI-Native Delivery
 
-The knowledge graph lives in Postgres with pgvector rather than a graph database: a relationship-aware relational model with vector indexes gets most of the benefit with far less operational drag. On top of it:
+The product is specified before it is built: a normative specification defines every guarantee, and each guarantee is covered by at least one machine-verifiable proof that runs against a clean checkout and the deployed environment. Coding agents implement against that specification under my direction; a single gate command is the proof of state, and CI runs the identical command.
 
-* **Cross-document entity resolution.** The same initiative described three ways by three teams auto-merges above a similarity threshold, defers to human review in the gray zone, and keeps a merge audit trail either way.
-* **Community detection.** Louvain clustering groups the graph into themes; per-community reports feed a map-reduce search for portfolio-wide questions.
-* **Multi-hop traversal tools.** The agent walks relationships ("what depends on the thing this risk threatens?") instead of hoping similarity search finds the path.
-* **Triplet embeddings.** Facts are indexed (HNSW) alongside text chunks, so retrieval matches on relationships as well as wording.
-* **A query router.** Hard questions decompose into sub-questions, each routed to literal lookup, vector search, graph traversal, or map-reduce.
+## Microsoft Ecosystem Fit
 
-In chat, the agent plans sub-questions, calls these tools, and answers with rendered components (fact tables, entity graphs, timelines, conflict pairs) when structure answers better than prose. Citations come from the actual tool results, not the model's memory.
-
-### The agent layer
-
-Synthesis runs as an agent reasoning over the corpus rather than a set of scheduled detectors. The agent has durable, versioned memory (beliefs it can recall, write, and supersede), and every conclusion carries a reasoning trace. After each upload, a reflective loop re-reads what changed, proposes belief updates, compiles per-entity briefs, and updates the recommendation queue behind the daily briefing. It shipped behind a feature flag with idempotency fingerprints so retries can't double-write: shadow mode first, evals gating promotion, and a kill switch.
-
-### Determinism first, LLMs second
-
-LLM output is never load-bearing where a deterministic path can do the job. The prose explaining each pending fact to reviewers is composed by a deterministic template from structured anchors, so it cannot fabricate and produces identical output every run. An optional LLM polish pass sits behind a flag, wrapped in a sentence-shape validator, a per-document circuit breaker, and a fallback to the template on any failure. Free-text input that reaches a prompt is fenced against injection, low-confidence classifications disable the commit button until a person looks, and every model sits behind an env-configured, OpenAI-compatible provider layer, so swapping or A/B-testing a model is a config change. Small models handle triage and classification; the expensive calls are reserved for synthesis.
-
-### Evals as the merge gate
-
-Eight eval suites cover extraction F1, retrieval quality (with an A/B mode), portfolio-level Q&A graded on answer quality rather than retrieval hits, agent behavior, predicate classification, and reviewer-facing prose (an LLM-as-judge rubric over deterministic validators). Prompt and model changes land only when the suites show no regression. The same harness ran an embedding-provider tournament and a reranking impact study before either touched production.
-
-### Production posture
-
-Infrastructure is defined in Bicep: Container Apps behind a VNet, managed identity everywhere instead of connection strings, Key Vault for the rest, and a production Postgres with public network access disabled. Operational scripts run as an allowlisted, manually triggered container job inside the VNet, not from a laptop. The pipeline emits structured telemetry at every stage, background jobs coordinate through advisory locks, and graceful shutdown handlers keep revision swaps from racing the connection pool.
-
-## Building with AI
-
-Most of Threadbase is written with AI, routed through fixed procedures rather than improvised prompts: one for scoping a change, one for exploring the codebase before touching it, one for reviewing a diff, one for debugging. Each runs the same steps every time, so quality doesn't depend on how I phrased the request that day.
-
-* **A knowledge graph of the code.** Before any change, the workflow checks blast radius and cross-module connections. Nothing gets called "isolated" until the graph agrees. The index updates itself on every edit and commit.
-* **Planning before code.** Major features start as a written plan, and there are dozens of them now. Adjacent work gets logged instead of quietly absorbed.
-* **Tests from the acceptance criteria, not the implementation.** Every task ships with a verification command and a self-check against each criterion before it can move to review.
-* **Project rules that don't drift.** Naming, SQL, architecture, providers, deployment, testing gotchas: written down once, applied every time.
-
-The eval suites hold the AI's own output to the same bar: a prompt change proves it didn't regress before it lands, like any other code. This workflow is how I've built every project since.
-
-## What I Learned
-
-* **Adoption depends on effort.** If using the tool takes work, people fall back to what they already do.
-* **Use the data people already create.** Don't ask for one more update; extract value from what already exists.
-* **A knowledge graph doesn't require a graph database.** A solid relational model plus vector search covers most of it without the operational drag.
-* **Provenance is what earns action.** Spatial citations, audit trails, deterministic fallbacks, and human review checkpoints are why anyone inside an org acts on what the system says.
-* **Knowing what to build is the bottleneck.** Once code generation is fast, the limit is specifying exactly what you want and proving with evals that you got it.
+The platform runs on Azure Container Apps and PostgreSQL with Entra-based identity and managed identities throughout, with infrastructure as code in Bicep. Document understanding uses Azure AI Content Understanding, so dense corporate slides resolve into findings that still point at the exact source page.

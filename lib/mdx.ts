@@ -4,7 +4,12 @@ import {
   requireFrontmatterKeys,
   type ContentEntry,
 } from "./content";
-import { VALID_STATUSES, type ProjectStatus } from "./status";
+import {
+  VALID_CATEGORIES,
+  VALID_STATUSES,
+  type ProjectCategory,
+  type ProjectStatus,
+} from "./status";
 
 export interface ProjectFrontmatter {
   title: string;
@@ -12,8 +17,15 @@ export interface ProjectFrontmatter {
   date: string;
   // Optional "last updated" date, shown alongside the start date.
   updated?: string;
+  // Product-level platform tags shown on cards (e.g. "Power Platform").
+  platforms: string[];
+  // Full implementation technologies, shown only inside the case study.
   stack: string[];
   status: ProjectStatus;
+  // Which group the project renders under; defaults to "independent".
+  category: ProjectCategory;
+  // One-sentence role summary shown with the case study.
+  ownership?: string;
   url?: string;
   github?: string;
   featured?: boolean;
@@ -37,6 +49,10 @@ function normalizeFrontmatter(
     ? (data.status as ProjectStatus)
     : "in-progress";
 
+  const category = VALID_CATEGORIES.includes(data.category as ProjectCategory)
+    ? (data.category as ProjectCategory)
+    : "independent";
+
   return {
     title: String(data.title),
     summary: String(data.summary),
@@ -44,8 +60,11 @@ function normalizeFrontmatter(
     updated: data.updated
       ? normalizeContentDate("content/projects", slug, data.updated)
       : undefined,
+    platforms: Array.isArray(data.platforms) ? (data.platforms as string[]) : [],
     stack: Array.isArray(data.stack) ? (data.stack as string[]) : [],
     status,
+    category,
+    ownership: data.ownership ? String(data.ownership) : undefined,
     url: data.url ? String(data.url) : undefined,
     github: data.github ? String(data.github) : undefined,
     featured: Boolean(data.featured),
@@ -74,4 +93,10 @@ export const getAllProjects = loader.getAll;
 
 export function getFeaturedProjects(): Project[] {
   return getAllProjects().filter((project) => project.frontmatter.featured);
+}
+
+export function getProjectsByCategory(category: ProjectCategory): Project[] {
+  return getAllProjects().filter(
+    (project) => project.frontmatter.category === category
+  );
 }

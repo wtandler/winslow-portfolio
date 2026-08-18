@@ -6,7 +6,7 @@ import {
   getProjectBySlug,
   getProjectSlugs,
 } from "@/lib/mdx";
-import { VALID_STATUSES } from "@/lib/status";
+import { VALID_CATEGORIES, VALID_STATUSES } from "@/lib/status";
 import sitemap from "@/app/sitemap";
 
 const projectsDir = path.join(process.cwd(), "content/projects");
@@ -50,7 +50,20 @@ describe("getAllProjects", () => {
         false
       );
       expect(VALID_STATUSES).toContain(project.frontmatter.status);
+      expect(VALID_CATEGORIES).toContain(project.frontmatter.category);
+      expect(Array.isArray(project.frontmatter.platforms)).toBe(true);
       expect(project.readingTime).toMatch(/min read/);
+    }
+  });
+
+  it("gives every real project card-level platform tags", () => {
+    // Cards render platforms, not stack; an entry without them would show an
+    // empty tag row. This applies to real content only, not fixtures.
+    for (const project of getAllProjects()) {
+      expect(
+        project.frontmatter.platforms.length,
+        project.slug
+      ).toBeGreaterThan(0);
     }
   });
 
@@ -170,6 +183,10 @@ describe("project frontmatter edge cases", () => {
         expect(project!.frontmatter.url).toBeUndefined();
         expect(project!.frontmatter.github).toBeUndefined();
         expect(project!.frontmatter.updated).toBeUndefined();
+        expect(project!.frontmatter.category).toBe("independent");
+        expect(project!.frontmatter.platforms).toEqual([]);
+        expect(project!.frontmatter.stack).toEqual([]);
+        expect(project!.frontmatter.ownership).toBeUndefined();
       }
     );
   });
@@ -177,6 +194,23 @@ describe("project frontmatter edge cases", () => {
   it("returns no slugs when the projects directory does not exist", () => {
     vi.spyOn(fs, "existsSync").mockReturnValue(false);
     expect(getProjectSlugs()).toEqual([]);
+  });
+});
+
+describe("renamed slugs", () => {
+  it("redirects the old css-agentic-intake slug to agentic-intake", async () => {
+    // The prototype page was replaced by the launched product under a new
+    // slug; the published URL must keep resolving.
+    const config = (await import("../next.config")).default;
+    const redirects = await config.redirects!();
+    expect(redirects).toContainEqual(
+      expect.objectContaining({
+        source: "/projects/css-agentic-intake",
+        destination: "/projects/agentic-intake",
+        permanent: true,
+      })
+    );
+    expect(getProjectBySlug("css-agentic-intake")).toBeNull();
   });
 });
 

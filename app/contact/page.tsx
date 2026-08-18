@@ -11,19 +11,19 @@ const contactLinks = [
     label: "email",
     value: "winslow.tandler@gmail.com",
     href: "mailto:winslow.tandler@gmail.com",
-    description: "Best for project inquiries",
+    description: "Enterprise AI product and architecture inquiries",
   },
   {
     label: "github",
     value: "@wtandler",
     href: "https://github.com/wtandler",
-    description: "See my code",
+    description: "Selected repositories and build history",
   },
   {
     label: "linkedin",
     value: "in/wtandler",
     href: "https://linkedin.com/in/wtandler",
-    description: "Professional profile",
+    description: "Professional experience and background",
   },
 ];
 
@@ -38,14 +38,16 @@ export default function ContactPage() {
               className="text-2xl sm:text-3xl font-medium tracking-tight mb-4"
               style={{ color: "var(--text-primary)" }}
             >
-              Let&apos;s talk.
+              Work with me
             </h1>
           </StaggeredItem>
 
           <StaggeredItem>
             <p style={{ color: "var(--text-secondary)" }}>
-              Interested in working together, have a question about my projects,
-              or just want to connect? Reach out through any of the channels below.
+              I work with change and program management teams that know a
+              process is slowing them down but may not yet know what product to
+              ask for. I can help define the problem, design the system, and
+              own the product through production.
             </p>
           </StaggeredItem>
         </section>

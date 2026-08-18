@@ -12,7 +12,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const { slug, frontmatter, readingTime } = project;
-  const { title, summary, date, stack, status } = frontmatter;
+  const { title, summary, date, platforms, status, ownership } = frontmatter;
 
   const formattedDate = formatDate(date, "monthYear");
 
@@ -52,15 +52,21 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </span>
         </div>
 
-        <p className="mb-4 text-sm" style={{ color: "var(--text-tertiary)" }}>
+        <p className="mb-2 text-sm" style={{ color: "var(--text-tertiary)" }}>
           {summary}
         </p>
 
+        {ownership && (
+          <p className="mb-4 text-xs" style={{ color: "var(--text-muted)" }}>
+            {ownership}
+          </p>
+        )}
+
         <div className="flex items-center justify-between">
           <div className="flex flex-wrap gap-1">
-            {stack.slice(0, 4).map((tech) => (
+            {platforms.slice(0, 4).map((platform) => (
               <span
-                key={tech}
+                key={platform}
                 className="px-2 py-0.5 text-xs"
                 style={{
                   background: "var(--bg-secondary)",
@@ -68,17 +74,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   border: "1px solid var(--border-subtle)",
                 }}
               >
-                {tech}
+                {platform}
               </span>
             ))}
-            {stack.length > 4 && (
-              <span
-                className="px-2 py-0.5 text-xs"
-                style={{ color: "var(--text-muted)" }}
-              >
-                +{stack.length - 4}
-              </span>
-            )}
           </div>
 
           <div

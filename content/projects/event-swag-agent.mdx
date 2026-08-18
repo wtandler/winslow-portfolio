@@ -1,15 +1,24 @@
 ---
 title: Event Swag Agent
-summary: "AI swag allocation for a large events program: a Copilot Studio agent that proposes and negotiates packages within budget, paired with a dense admin app for the ops team, on one Dataverse backend."
+summary: "A Microsoft-native AI allocation product for about 90 events per quarter. It pairs a Copilot Studio agent for requesters with an operations app on Dataverse and is estimated to save close to $250K a year in specialist time."
 date: 2026-04
+updated: 2026-08
+platforms: [Copilot Studio, Dataverse, Power Automate, Power Platform]
 stack: [Copilot Studio, Power Fx, Power Automate, Dataverse, Microsoft Entra, Vite, React, TypeScript, Fluent UI]
 status: in-progress
+category: enterprise
+ownership: "Product discovery through production ownership"
 featured: true
+priority: 60
 ---
 
 ## The Problem
 
 A central team manages all the swag for seller events at a company with more than 5,000 account managers and sellers: 90 events per quarter, 7-8 per week, each hosted by an account team for customers somewhere between the C-suite and the technical staff. Each tier of attendee warrants a different level of swag, every event draws against a single budget that has to last the whole period, and the budget, inventory, allocation rules, and orders are tracked across scattered spreadsheets. One hard constraint applied from the start: it had to be built Power-Platform-first (Copilot Studio for the agent, Dataverse for the data) so it lived natively inside the org's existing tools, identity, and governance rather than as one more outside app to adopt and secure.
+
+## What I Owned
+
+I worked with event operations stakeholders to define the problem, proposed the two-surface product, designed the budget and allocation workflow, and directed the build. The product is in final testing with the operations group, and I own governance, support, compliance, and product changes through launch and after it.
 
 ## The Insight
 
@@ -36,7 +45,11 @@ Second, personas-as-data. The customer-attendee tiers (C-suite down to technical
 
 ## Building on the Microsoft Stack
 
-Everything lives natively: Dataverse for storage, an Entra-backed people picker for identity, Dataverse security roles for access, Power Automate for orchestration. Deployment is `pac solution import` for the agent and `pac code push` for the app. The UI follows Fluent 2 with WCAG-redundant status encoding (color *and* icon), feature flags for chrome surfaces, and a test suite pinned with fake timers so date-bucketed assertions don't flake on the CI clock.
+Everything lives natively: Dataverse for storage, an Entra-backed people picker for identity, Dataverse security roles for access, Power Automate for orchestration. The product inherits the org's existing identity, permissions, and governance instead of adding an outside app to adopt and secure.
+
+## Results and Status
+
+The product covers about 90 events per quarter and is estimated to save close to $250K a year in specialist time, based on the allocation and negotiation work it removes from the central team. It is in final testing with the operations group before launch.
 
 ## What I Learned
 

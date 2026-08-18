@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Winslow Tandler: AI tools built for specific domains";
+export const alt =
+  "Winslow Tandler: AI products built from the business problem through production";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -46,7 +47,7 @@ export default function OpengraphImage() {
             maxWidth: 920,
           }}
         >
-          AI tools built for specific domains.
+          AI products built from the business problem through production.
         </div>
         <div
           style={{
@@ -56,8 +57,8 @@ export default function OpengraphImage() {
             marginTop: 36,
           }}
         >
-          trading desks · event ops · change management · nonprofit ops ·
-          intake &amp; triage
+          Enterprise change and program management · Microsoft-native systems ·
+          AI-native delivery
         </div>
       </div>
     ),

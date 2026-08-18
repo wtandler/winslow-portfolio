@@ -53,8 +53,26 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   const { frontmatter, content, readingTime } = project;
-  const { title, summary, date, updated, stack, status, url, github } =
-    frontmatter;
+  const {
+    title,
+    summary,
+    date,
+    updated,
+    platforms,
+    stack,
+    status,
+    category,
+    ownership,
+    url,
+    github,
+  } = frontmatter;
+
+  // Enterprise case studies share one role strip; other categories show
+  // their one-line ownership label (e.g. "Independent build").
+  const roleLine =
+    category === "enterprise"
+      ? "Stakeholder discovery · Product strategy · System design · AI-native delivery · Governance · Production support"
+      : ownership;
 
   const formattedDate = updated
     ? `${formatDate(date, "monthYear")} · updated ${formatDate(updated, "monthYear")}`
@@ -108,26 +126,41 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           {title}
         </h1>
 
-        <p className="mb-6" style={{ color: "var(--text-secondary)" }}>
+        <p className="mb-4" style={{ color: "var(--text-secondary)" }}>
           {summary}
         </p>
 
-        {/* Tech stack */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          {stack.map((tech) => (
+        {/* Role strip */}
+        {roleLine && (
+          <p className="mb-4 text-sm" style={{ color: "var(--text-muted)" }}>
             <span
-              key={tech}
-              className="px-2 py-0.5 text-xs"
-              style={{
-                background: "var(--bg-secondary)",
-                color: "var(--text-tertiary)",
-                border: "1px solid var(--border-subtle)",
-              }}
+              className="text-xs uppercase mr-2"
+              style={{ letterSpacing: "var(--tracking-caps)" }}
             >
-              {tech}
+              My role
             </span>
-          ))}
-        </div>
+            {roleLine}
+          </p>
+        )}
+
+        {/* Platforms */}
+        {platforms.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {platforms.map((platform) => (
+              <span
+                key={platform}
+                className="px-2 py-0.5 text-xs"
+                style={{
+                  background: "var(--bg-secondary)",
+                  color: "var(--text-tertiary)",
+                  border: "1px solid var(--border-subtle)",
+                }}
+              >
+                {platform}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Links */}
         {(url || github) && (
@@ -169,6 +202,31 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <div className="prose">
         <MDXContent source={content} />
       </div>
+
+      {/* Technology used in this product */}
+      {stack.length > 0 && (
+        <section
+          className="mt-12 pt-6"
+          style={{ borderTop: "1px solid var(--border-subtle)" }}
+        >
+          <h2 className="kicker mb-3">Technology used in this product</h2>
+          <div className="flex flex-wrap gap-2">
+            {stack.map((tech) => (
+              <span
+                key={tech}
+                className="px-2 py-0.5 text-xs"
+                style={{
+                  background: "var(--bg-secondary)",
+                  color: "var(--text-tertiary)",
+                  border: "1px solid var(--border-subtle)",
+                }}
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Footer */}
       <footer

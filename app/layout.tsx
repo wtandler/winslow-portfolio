@@ -21,27 +21,35 @@ const siteUrl =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Winslow Tandler",
+    default: "Winslow Tandler | AI Systems Architect and Product Builder",
     template: "%s | Winslow Tandler",
   },
   description:
-    "AI tools built for specific domains. Selected work and case studies.",
-  keywords: ["AI", "product", "engineering", "portfolio", "AI products", "case studies"],
+    "AI systems architect and product builder creating Microsoft-native products for enterprise change and program management teams.",
+  keywords: [
+    "AI systems architect",
+    "AI product builder",
+    "enterprise change management",
+    "program management",
+    "Microsoft ecosystem",
+    "Power Platform",
+    "case studies",
+  ],
   authors: [{ name: "Winslow Tandler" }],
   openGraph: {
     type: "website",
     locale: "en_US",
     url: siteUrl,
     siteName: "Winslow Tandler",
-    title: "Winslow Tandler",
+    title: "Winslow Tandler | AI Systems Architect and Product Builder",
     description:
-      "AI tools built for specific domains.",
+      "AI systems architect and product builder creating Microsoft-native products for enterprise change and program management teams.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Winslow Tandler",
+    title: "Winslow Tandler | AI Systems Architect and Product Builder",
     description:
-      "AI tools built for specific domains.",
+      "AI systems architect and product builder creating Microsoft-native products for enterprise change and program management teams.",
   },
 };
 
