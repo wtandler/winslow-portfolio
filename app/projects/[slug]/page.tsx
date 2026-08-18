@@ -4,6 +4,7 @@ import { getProjectBySlug, getProjectSlugs } from "@/lib/mdx";
 import { STATUS_COLORS } from "@/lib/status";
 import { formatDate } from "@/lib/dates";
 import { MDXContent } from "@/components/projects/MDXContent";
+import { TagList } from "@/components/projects/TagList";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -61,18 +62,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     platforms,
     stack,
     status,
-    category,
     ownership,
+    role,
     url,
     github,
   } = frontmatter;
 
-  // Enterprise case studies share one role strip; other categories show
-  // their one-line ownership label (e.g. "Independent build").
-  const roleLine =
-    category === "enterprise"
-      ? "Stakeholder discovery · Product strategy · System design · AI-native delivery · Governance · Production support"
-      : ownership;
+  // The case-study header shows the full role strip when the frontmatter
+  // declares one, otherwise the one-line ownership label. Both come from the
+  // content file so an independent build never inherits an enterprise claim.
+  const roleLine = role ?? ownership;
 
   const formattedDate = updated
     ? `${formatDate(date, "monthYear")} · updated ${formatDate(updated, "monthYear")}`
@@ -145,20 +144,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         {/* Platforms */}
         {platforms.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-6">
-            {platforms.map((platform) => (
-              <span
-                key={platform}
-                className="px-2 py-0.5 text-xs"
-                style={{
-                  background: "var(--bg-secondary)",
-                  color: "var(--text-tertiary)",
-                  border: "1px solid var(--border-subtle)",
-                }}
-              >
-                {platform}
-              </span>
-            ))}
+          <div className="mb-6">
+            <TagList tags={platforms} />
           </div>
         )}
 
@@ -210,21 +197,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           style={{ borderTop: "1px solid var(--border-subtle)" }}
         >
           <h2 className="kicker mb-3">Technology used in this product</h2>
-          <div className="flex flex-wrap gap-2">
-            {stack.map((tech) => (
-              <span
-                key={tech}
-                className="px-2 py-0.5 text-xs"
-                style={{
-                  background: "var(--bg-secondary)",
-                  color: "var(--text-tertiary)",
-                  border: "1px solid var(--border-subtle)",
-                }}
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
+          <TagList tags={stack} />
         </section>
       )}
 

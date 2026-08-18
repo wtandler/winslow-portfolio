@@ -159,6 +159,10 @@ body {
 
 .disclosure > summary::after {
   content: "+";
+  /* Alt-text syntax hides the glyph from screen readers (details/summary
+     already announces expanded state); browsers without support keep the
+     plain declaration above. */
+  content: "+" / "";
   font-size: 1rem;
   line-height: 1;
   color: var(--text-muted);

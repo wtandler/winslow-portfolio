@@ -18,14 +18,17 @@ const geistMono = Geist_Mono({
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://winslowtandler.com";
 
+const siteTitle = "Winslow Tandler | AI Systems Architect and Product Builder";
+const siteDescription =
+  "AI systems architect and product builder creating Microsoft-native products for enterprise change and program management teams.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Winslow Tandler | AI Systems Architect and Product Builder",
+    default: siteTitle,
     template: "%s | Winslow Tandler",
   },
-  description:
-    "AI systems architect and product builder creating Microsoft-native products for enterprise change and program management teams.",
+  description: siteDescription,
   keywords: [
     "AI systems architect",
     "AI product builder",
@@ -41,15 +44,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "Winslow Tandler",
-    title: "Winslow Tandler | AI Systems Architect and Product Builder",
-    description:
-      "AI systems architect and product builder creating Microsoft-native products for enterprise change and program management teams.",
+    title: siteTitle,
+    description: siteDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Winslow Tandler | AI Systems Architect and Product Builder",
-    description:
-      "AI systems architect and product builder creating Microsoft-native products for enterprise change and program management teams.",
+    title: siteTitle,
+    description: siteDescription,
   },
 };
 

@@ -11,7 +11,10 @@ For each project, provide:
 ```
 Name:
 One-line summary:
-Status: live / in-progress / archived
+Status: live / in-progress / completed / archived
+Category: enterprise / independent / earlier
+Platforms: (product-level card tags, e.g. Power Platform, Dataverse)
+Ownership: (one-line role label, e.g. Product discovery through production ownership)
 URL: (if live)
 GitHub: (if public)
 Tech stack: (comma-separated)

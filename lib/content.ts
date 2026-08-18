@@ -76,12 +76,14 @@ export function createContentLoader<F>({
     };
   });
 
-  function getAll(): ContentEntry<F>[] {
+  // cache() so multiple sections filtering the same list (e.g. per-category
+  // groups) share one directory scan and one sorted array per render.
+  const getAll = cache((): ContentEntry<F>[] => {
     return getSlugs()
       .map((slug) => getBySlug(slug))
       .filter((entry): entry is ContentEntry<F> => entry !== null)
       .sort(compare);
-  }
+  });
 
   return { getSlugs, getBySlug, getAll };
 }

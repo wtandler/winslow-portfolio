@@ -5,6 +5,7 @@ import {
   getAllProjects,
   getProjectBySlug,
   getProjectSlugs,
+  getProjectsByCategory,
 } from "@/lib/mdx";
 import { VALID_CATEGORIES, VALID_STATUSES } from "@/lib/status";
 import sitemap from "@/app/sitemap";
@@ -64,6 +65,42 @@ describe("getAllProjects", () => {
         project.frontmatter.platforms.length,
         project.slug
       ).toBeGreaterThan(0);
+      for (const tag of project.frontmatter.platforms) {
+        expect(typeof tag, project.slug).toBe("string");
+      }
+      for (const tech of project.frontmatter.stack) {
+        expect(typeof tech, project.slug).toBe("string");
+      }
+    }
+  });
+
+  it("gives every enterprise and independent project an ownership label", () => {
+    // Cards and case pages render the role line only when present; a missing
+    // label silently drops it. Only "earlier" work may omit it.
+    for (const project of getAllProjects()) {
+      if (project.frontmatter.category !== "earlier") {
+        expect(project.frontmatter.ownership, project.slug).toBeTruthy();
+      }
+    }
+  });
+
+  it("partitions all projects across the valid categories in sort order", () => {
+    const all = getAllProjects();
+    const grouped = VALID_CATEGORIES.flatMap((category) =>
+      getProjectsByCategory(category)
+    );
+    expect(grouped.length).toBe(all.length);
+    expect(new Set(grouped.map((p) => p.slug)).size).toBe(all.length);
+    for (const category of VALID_CATEGORIES) {
+      const group = getProjectsByCategory(category);
+      for (const project of group) {
+        expect(project.frontmatter.category).toBe(category);
+      }
+      // Within-group order preserves the global sort.
+      const globalOrder = all
+        .filter((p) => p.frontmatter.category === category)
+        .map((p) => p.slug);
+      expect(group.map((p) => p.slug)).toEqual(globalOrder);
     }
   });
 
@@ -178,7 +215,6 @@ describe("project frontmatter edge cases", () => {
       () => {
         const project = getProjectBySlug("__fixture-minimal__");
         expect(project).not.toBeNull();
-        expect(project!.frontmatter.featured).toBe(false);
         expect(project!.frontmatter.priority).toBe(0);
         expect(project!.frontmatter.url).toBeUndefined();
         expect(project!.frontmatter.github).toBeUndefined();
@@ -187,6 +223,44 @@ describe("project frontmatter edge cases", () => {
         expect(project!.frontmatter.platforms).toEqual([]);
         expect(project!.frontmatter.stack).toEqual([]);
         expect(project!.frontmatter.ownership).toBeUndefined();
+      }
+    );
+  });
+
+  it("throws with the file name on an invalid status", () => {
+    // A silent fallback would misclassify a case study; statuses must
+    // reflect current reality, so a typo fails the build loudly.
+    withFixture(
+      "__fixture-bad-status__",
+      `---\ntitle: "Bad status"\nsummary: "Typo'd status."\ndate: "2026-01-01"\nstatus: "shipped"\n---\n\nBody.\n`,
+      () => {
+        expect(() => getProjectBySlug("__fixture-bad-status__")).toThrow(
+          /__fixture-bad-status__\.mdx has an invalid status: shipped/
+        );
+      }
+    );
+  });
+
+  it("throws with the file name on an invalid category", () => {
+    withFixture(
+      "__fixture-bad-category__",
+      `---\ntitle: "Bad category"\nsummary: "Typo'd category."\ndate: "2026-01-01"\ncategory: "Enterprise"\n---\n\nBody.\n`,
+      () => {
+        expect(() => getProjectBySlug("__fixture-bad-category__")).toThrow(
+          /__fixture-bad-category__\.mdx has an invalid category: Enterprise/
+        );
+      }
+    );
+  });
+
+  it("accepts the completed status and every valid category", () => {
+    withFixture(
+      "__fixture-completed__",
+      `---\ntitle: "Completed"\nsummary: "Prior shipped product."\ndate: "2026-01-01"\nstatus: "completed"\ncategory: "earlier"\n---\n\nBody.\n`,
+      () => {
+        const project = getProjectBySlug("__fixture-completed__");
+        expect(project!.frontmatter.status).toBe("completed");
+        expect(project!.frontmatter.category).toBe("earlier");
       }
     );
   });

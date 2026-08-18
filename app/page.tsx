@@ -52,7 +52,7 @@ export default function HomePage() {
       >
         <details className="disclosure">
           <summary>
-            <span className="kicker">How I work</span>
+            <h2 className="kicker">How I work</h2>
           </summary>
           <div className="disclosure-body">
             <ol className="grid gap-4 sm:grid-cols-3">
@@ -78,7 +78,7 @@ export default function HomePage() {
 
         <details className="disclosure">
           <summary>
-            <span className="kicker">Microsoft ecosystem</span>
+            <h2 className="kicker">Microsoft ecosystem</h2>
           </summary>
           <div className="disclosure-body">
             <p
@@ -97,41 +97,45 @@ export default function HomePage() {
       </section>
 
       {/* Enterprise work */}
-      <section className="rule-strong pt-5">
-        <div className="flex items-baseline justify-between mb-4">
-          <h2 className="kicker">Enterprise change and operations</h2>
-          <Link
-            href="/projects"
-            className="text-sm hover:underline"
-            style={{ color: "var(--text-muted)" }}
-          >
-            All projects
-          </Link>
-        </div>
+      {enterpriseProjects.length > 0 && (
+        <section className="rule-strong pt-5">
+          <div className="flex items-baseline justify-between mb-4">
+            <h2 className="kicker">Enterprise change and operations</h2>
+            <Link
+              href="/projects"
+              className="text-sm hover:underline"
+              style={{ color: "var(--text-muted)" }}
+            >
+              All projects
+            </Link>
+          </div>
 
-        <div className="grid gap-3">
-          {enterpriseProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
-      </section>
+          <div className="grid gap-3">
+            {enterpriseProjects.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Independent work */}
-      <section className="mt-12 rule-strong pt-5">
-        <h2 className="kicker mb-3">Independent products and research</h2>
-        <p
-          className="max-w-2xl mb-4 text-sm"
-          style={{ color: "var(--text-tertiary)" }}
-        >
-          Products I build and run on my own, applying the same approach in
-          markets, research, and community operations.
-        </p>
-        <div className="grid gap-3">
-          {independentProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
-      </section>
+      {independentProjects.length > 0 && (
+        <section className="mt-12 rule-strong pt-5">
+          <h2 className="kicker mb-3">Independent products and research</h2>
+          <p
+            className="max-w-2xl mb-4 text-sm"
+            style={{ color: "var(--text-tertiary)" }}
+          >
+            Products I build and run on my own, applying the same approach in
+            markets, research, and community operations.
+          </p>
+          <div className="grid gap-3">
+            {independentProjects.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Links */}
       <footer

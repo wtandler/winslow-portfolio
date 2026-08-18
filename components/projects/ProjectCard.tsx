@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import type { Project } from "@/lib/mdx";
 import { STATUS_COLORS } from "@/lib/status";
 import { formatDate } from "@/lib/dates";
+import { TagList } from "./TagList";
 
 interface ProjectCardProps {
   project: Project;
@@ -63,21 +64,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         )}
 
         <div className="flex items-center justify-between">
-          <div className="flex flex-wrap gap-1">
-            {platforms.slice(0, 4).map((platform) => (
-              <span
-                key={platform}
-                className="px-2 py-0.5 text-xs"
-                style={{
-                  background: "var(--bg-secondary)",
-                  color: "var(--text-tertiary)",
-                  border: "1px solid var(--border-subtle)",
-                }}
-              >
-                {platform}
-              </span>
-            ))}
-          </div>
+          <TagList tags={platforms} max={4} />
 
           <div
             className="flex items-center gap-2 text-xs"
