@@ -3,6 +3,15 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.6.1] - 2026-08-18
+
+### Added
+- Pathfinder case study: the change-management command center on Dataverse and Power Platform built and run at Microsoft from launch in 2020 through 2023, used by about 1,000 change managers, program managers, and sponsors across 14 divisions. First use of the completed status; it renders fifth in the enterprise group.
+
+### Changed
+- Second Order card summary says "independent weekly research briefing" instead of "weekly client research briefing"; the product is independent research, not client work.
+- CoachGPT card summary leads with what it is in the positioning story: an early AI-native product and the origin of the current build approach, per the alignment brief's recommended card emphasis.
+
 ## [0.3.6.0] - 2026-08-18
 
 ### Changed
