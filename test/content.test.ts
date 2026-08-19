@@ -74,6 +74,16 @@ describe("getAllProjects", () => {
     }
   });
 
+  it("never sets a urlLabel without a url to label", () => {
+    // The label renders only inside the url button; without a url it is dead
+    // frontmatter that silently does nothing.
+    for (const project of getAllProjects()) {
+      if (project.frontmatter.urlLabel !== undefined) {
+        expect(project.frontmatter.url, project.slug).toBeTruthy();
+      }
+    }
+  });
+
   it("gives every enterprise and independent project an ownership label", () => {
     // Cards and case pages render the role line only when present; a missing
     // label silently drops it. Only "earlier" work may omit it.
@@ -223,6 +233,7 @@ describe("project frontmatter edge cases", () => {
         expect(project!.frontmatter.platforms).toEqual([]);
         expect(project!.frontmatter.stack).toEqual([]);
         expect(project!.frontmatter.ownership).toBeUndefined();
+        expect(project!.frontmatter.urlLabel).toBeUndefined();
       }
     );
   });

@@ -30,6 +30,9 @@ export interface ProjectFrontmatter {
   // back to ownership when absent.
   role?: string;
   url?: string;
+  // Label for the primary link button; defaults to "View live". Set it when
+  // the destination is not a running app (e.g. a published research archive).
+  urlLabel?: string;
   github?: string;
   // Higher sorts first; ties fall back to date (newest first). Defaults to 0.
   priority?: number;
@@ -85,6 +88,7 @@ function normalizeFrontmatter(
     ownership: data.ownership ? String(data.ownership) : undefined,
     role: data.role ? String(data.role) : undefined,
     url: data.url ? String(data.url) : undefined,
+    urlLabel: data.urlLabel ? String(data.urlLabel) : undefined,
     github: data.github ? String(data.github) : undefined,
     priority: typeof data.priority === "number" ? data.priority : 0,
   };

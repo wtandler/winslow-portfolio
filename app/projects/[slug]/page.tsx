@@ -65,6 +65,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     ownership,
     role,
     url,
+    urlLabel,
     github,
   } = frontmatter;
 
@@ -163,7 +164,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   color: "var(--bg-primary)",
                 }}
               >
-                View live
+                {urlLabel ?? "View live"}
               </a>
             )}
             {github && (

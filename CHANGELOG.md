@@ -3,6 +3,13 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.6.2] - 2026-08-18
+
+### Changed
+- The Second Order case study links to the published issues from the header, where every other project with a live destination already had a button. It was the only project with no `url` in its frontmatter, so the only path to the research notes was a link buried at the end of a paragraph halfway down the page.
+- Case studies can name their primary link with an optional `urlLabel`, defaulting to "View live". Second Order uses "Read the published issues" because the destination is a research archive, not a running app.
+- The in-body link to the research notes stands as its own paragraph instead of trailing a long block.
+
 ## [0.3.6.1] - 2026-08-18
 
 ### Added
