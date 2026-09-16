@@ -6,6 +6,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["exec", "next", "start", "--port", "3789"],
       "port": 3789
+    },
+    {
+      "name": "portfolio-dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev", "--port", "3790"],
+      "port": 3790
     }
   ]
 }
