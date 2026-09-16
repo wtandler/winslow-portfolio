@@ -2,21 +2,6 @@ import { getProjectsByCategory } from "@/lib/mdx";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import Link from "next/link";
 
-const workSteps = [
-  {
-    title: "Start with the work.",
-    body: "I learn how stakeholders make decisions, where effort is lost, and which problems have not yet become formal requirements.",
-  },
-  {
-    title: "Define the product.",
-    body: "I turn the operating problem into a workflow, system design, success measures, and release plan that fit the organization's existing tools and controls.",
-  },
-  {
-    title: "Own it in production.",
-    body: "I direct coding agents, test the product, manage releases, support users, maintain compliance, and keep improving it after launch.",
-  },
-];
-
 export default function HomePage() {
   const enterpriseProjects = getProjectsByCategory("enterprise");
   const independentProjects = getProjectsByCategory("independent");
@@ -44,57 +29,6 @@ export default function HomePage() {
           release decisions, and ongoing operations.
         </p>
       </header>
-
-      {/* Front matter: collapsible method and platform notes */}
-      <section
-        className="mb-10"
-        style={{ borderTop: "1px solid var(--border-subtle)" }}
-      >
-        <details className="disclosure">
-          <summary>
-            <h2 className="kicker">How I work</h2>
-          </summary>
-          <div className="disclosure-body">
-            <ol className="grid gap-4 sm:grid-cols-3">
-              {workSteps.map((step, i) => (
-                <li key={step.title}>
-                  <p
-                    className="text-sm font-medium mb-1"
-                    style={{ color: "var(--text-primary)" }}
-                  >
-                    {i + 1}. {step.title}
-                  </p>
-                  <p
-                    className="text-sm"
-                    style={{ color: "var(--text-tertiary)" }}
-                  >
-                    {step.body}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </details>
-
-        <details className="disclosure">
-          <summary>
-            <h2 className="kicker">Microsoft ecosystem</h2>
-          </summary>
-          <div className="disclosure-body">
-            <p
-              className="max-w-2xl text-sm"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              Most of my enterprise work lives in the Microsoft ecosystem. I
-              build with Power Platform, Power Apps canvas, model-driven and
-              code apps, Dataverse, Copilot Studio, Power Automate, Azure,
-              Azure DevOps Boards and work items, Microsoft Fabric, Azure AI
-              Foundry, Azure OpenAI, Azure AI Search, Microsoft Graph, and
-              Entra ID.
-            </p>
-          </div>
-        </details>
-      </section>
 
       {/* Enterprise work */}
       {enterpriseProjects.length > 0 && (
