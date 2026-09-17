@@ -1,0 +1,64 @@
+---
+title: Liquet
+summary: "A portfolio-intelligence platform built on first-order data: the decks, calls, and documents where enterprise change work actually happens. It builds the portfolio from what teams already produce, finds the hidden dependencies that derail programs, and ties every finding to its evidence."
+date: 2025-08
+updated: 2026-09
+platforms: [Portfolio intelligence, Azure, Evidence pipelines, Human governance]
+stack: [Azure Container Apps, Azure Blob Storage, PostgreSQL, pgvector, Azure AI Content Understanding, Microsoft Entra, Bicep, TypeScript]
+status: in-progress
+category: enterprise
+ownership: "Independent build for enterprise change portfolios"
+role: "Product vision · Specification · System design · Build direction · Deployment"
+priority: 70
+url: https://threadbase.co
+urlLabel: "Visit the product site"
+---
+
+Liquet is the current working name for the product previously called Threadbase.
+
+## The Problem
+
+Enterprise portfolios run on a program-management tool that nobody trusts, because its data is a tax on the people doing the work. Nobody thinks of their job as entering data, so the record is never complete and never fully accurate. Leaders make decisions on summaries of summaries, contradictions between teams get smoothed over on the way up, and when someone asks where a number came from, nobody can answer.
+
+## What I Noticed
+
+The best data in a portfolio is not in the system of record. I ran Pathfinder for about 1,000 users across 14 divisions, and the pattern held everywhere:
+
+1. **People work hardest on calls and in decks.** A steering-committee deck is reviewed for days before the meeting. Nobody reviews a status field for days.
+2. **Spoken word is the closest record of implicit knowledge.** A call transcript captures what people know but never write down, and that knowledge leaks into the decks as well.
+3. **Form data arrives late and incomplete.** It is typed in after the fact, by someone who would rather be doing the work.
+
+Decks and transcripts are first-order data. A system of record should be built from them, not from a form.
+
+## The Product Decision
+
+Liquet reads the decks, transcripts, assessments, and registers a portfolio already produces and builds the portfolio from them. Nobody types anything extra. Four rules govern the design:
+
+1. **It speaks first.** When a leader opens it, Liquet shows what changed, what needs a decision, and what it can prove, before anyone asks a question.
+2. **Evidence first.** Every material finding links to the page it came from, within two clicks. Unknown, stale, partial, and failed are shown as distinct states. A failed query never renders as a zero, and "all clear" appears only when it is provably true. The name is the Latin verdict a Roman judge recorded when the evidence settled a question.
+3. **People stay in the loop.** Liquet proposes what it found, and a reviewer confirms, corrects, or rejects it before it counts. Every judgment is recorded with its reason, and later analysis never silently overwrites it.
+4. **Connections are the intelligence.** Programs derail on dependencies nobody drew. Liquet models programs, people, risks, and milestones as a graph of typed relationships, such as depends on and blocks, so a risk in one team's deck can be traced to another team's milestone.
+
+## What I Owned
+
+Liquet is an independent build, designed for the enterprise change portfolios I work in professionally. I own the product vision, the specification, the system design, the build direction, and the deployment.
+
+## What Is Built
+
+The core Azure workflow is deployed. It turns portfolio materials into source-linked findings, routes disputed or incomplete information for human review, and reconciles approved findings into one governed portfolio view. The deployed chain covers:
+
+1. Document admission with malware and credential scanning.
+2. Claim extraction with page-level provenance.
+3. A governed review queue with deterministic ranking and append-only relationship history.
+4. Publication gates with confidence bands derived from evidence, never from workflow status.
+5. A proactive leadership view that leads with what changed and what needs attention.
+
+I am now building proactive discovery across sources, question-driven investigation in conversation, and governed executive outputs in which every material statement carries a validated citation.
+
+## AI-Native Delivery
+
+The product is specified before it is built. The specification defines 359 guarantees, each written as behavior that can be tested from outside the code. Coding agents implement against it under my direction, and a proof claims each guarantee by its ID. A single gate command is the proof of state, and CI runs the identical command. As of September 2026, 294 of the 359 guarantees have passing proof on the integration branch. Release requires all 359 plus a pass against the deployed environment.
+
+## Microsoft Ecosystem Fit
+
+The platform runs on Azure Container Apps and PostgreSQL with Entra identity and managed identities throughout, with infrastructure as code in Bicep. Document understanding uses Azure AI Content Understanding, so dense corporate slides resolve into findings that still point at the exact source page.

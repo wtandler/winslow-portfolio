@@ -14,6 +14,12 @@ const nextConfig: NextConfig = {
         destination: "/projects/agentic-intake",
         permanent: true,
       },
+      // Threadbase was renamed Liquet; keep old links working.
+      {
+        source: "/projects/threadbase",
+        destination: "/projects/liquet",
+        permanent: true,
+      },
     ];
   },
 };

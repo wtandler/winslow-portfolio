@@ -3,6 +3,13 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.6.3] - 2026-09-17
+
+### Changed
+- Threadbase is now Liquet, its current working name. The case study moved from `/projects/threadbase` to `/projects/liquet` with a permanent redirect, and it says once that the product was previously called Threadbase.
+- Rewrote the case study around first-order data: portfolios are built from the decks and call transcripts where the work happens, not from program-management forms nobody completes. Adds the insight section, human review as a product rule, the relationship graph for hidden dependencies, and the proof status of the specification (294 of 359 guarantees with passing proof as of September 2026).
+- The header link to threadbase.co reads "Visit the product site".
+
 ## [0.3.6.2] - 2026-08-18
 
 ### Changed
