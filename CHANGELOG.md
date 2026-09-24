@@ -3,6 +3,19 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.7.0] - 2026-09-24
+
+### Added
+- Second Order Issue 11, "The Firm's Practice and the Worker's Judgment" (September 11, 2026), with its companion deck. Four experiments show AI output rising most for the newest workers; two trials that took the AI away found unaided scores flat or lower.
+- Second Order Issue 12, "Data Centers: The Host's Terms" (September 14, 2026), with its companion deck. It tests the objections to data centers against the records in Quincy, Loudoun, Abilene and Virginia, across ten exhibits.
+- Both pages open with the issue's summary, which replaced the claim box on the PDF covers from Issue 11 on, and link source names inline to the underlying paper or release, as the PDFs do.
+- `test/research.test.ts` checks the hand-published research pages against each other: every internal `/research/` link resolves, every issue page's `<title>`, masthead and archive row agree, the landing feature and recent-issue rows carry each page's title and date, each previous/next link opens the issue its label names, and the case study's issue count matches the archive.
+
+### Changed
+- The research landing page features Issue 12; Issue 11 and Issue 07 join the recent issues, and the archive lists both new issues.
+- The Second Order case study counts nine shipped issues and describes the current issue format (4 to 10 exhibits, an opening conclusion, numbered evidence sections, a boxed second-order effect, the indicators to watch next, and a source list) instead of the original skeleton.
+- Issue 07 links forward to Issue 11, and Issue 11 to Issue 12, as Issues 06 and 06b link forward.
+
 ## [0.3.6.2] - 2026-08-18
 
 ### Changed
