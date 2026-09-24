@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.7.1] - 2026-09-24
+
+### Changed
+- The research landing page's Issue 12 summary is now a condensed version of the LinkedIn post: residents came out ahead where supply kept up and the town kept the tax (Quincy's home rate fell from $14.81 to $8.17 per $1,000), renters and ratepayers paid more where supply came late (Abilene rents rose 37 percent in a year), and the fight is expected to move to state and federal rules, as the railroad fight did.
+
 ## [0.3.7.0] - 2026-09-24
 
 ### Added
