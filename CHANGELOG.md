@@ -3,24 +3,27 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
-## [0.3.8.0] - 2026-09-24
+## [0.3.7.1] - 2026-09-24
 
 ### Changed
 - Second Order Issues 11 and 12 carry the responsive web exhibit set introduced with Issue 07. At 375px the print exhibits shrank to about 22 percent of their size, so notes and axis labels were unreadable. Phones now get portrait redraws, 1040px wide and served through `<picture>` under 640px, with the print exhibit kept as the fallback above that width. Titles, notes and sources are the print copy; where a stacked phone layout puts the print's left panel on top, the phone copy says "Top" and "Bottom".
 - Issue 11 Exhibit 1, the two-by-two framework, ships as a native HTML table using the `.so-ex` / `table.so-t` system. On phones it restacks into one framed card per cell under its row heading. Exhibits 2 to 4 are phone redraws.
 - Issue 12's ten exhibits are all charts, and each has a phone redraw. The wide two-panel exhibits stack vertically, and Exhibit 9's three panels run in order with their panel titles.
 - Page weight rises because both images are inlined, as on Issue 07: Issue 11 from 721KB to 818KB, and Issue 12 from 2.76MB to 4.16MB. The phone PNGs are quantized, which cut them by about 70 percent.
+- The markup comes from the second-order build script (`issues/issue12b/build_web_pages.py`), so a rebuild keeps it. Prose and links are unchanged.
 
 ## [0.3.7.0] - 2026-09-24
 
 ### Added
-- Second Order Issue 11, "The Firm's Practice and the Worker's Judgment" (September 8, 2026), with its companion deck. Four experiments show AI output rising most for the newest workers; two trials that took the AI away found unaided scores flat or lower.
-- Second Order Issue 12, "Data Centers: The Host's Terms" (September 14, 2026), with its companion deck. Ten exhibits test the objections to data centers against the records in Quincy, Loudoun, Abilene and Virginia. Source names link inline to the underlying release or paper, as in the PDF.
-- Both pages open with the issue's summary, which replaced the claim box on the PDF covers from Issue 11 on.
+- Second Order Issue 11, "The Firm's Practice and the Worker's Judgment" (September 11, 2026), with its companion deck. Four experiments show AI output rising most for the newest workers; two trials that took the AI away found unaided scores flat or lower.
+- Second Order Issue 12, "Data Centers: The Host's Terms" (September 14, 2026), with its companion deck. It tests the objections to data centers against the records in Quincy, Loudoun, Abilene and Virginia, across ten exhibits.
+- Both pages open with the issue's summary, which replaced the claim box on the PDF covers from Issue 11 on, and link source names inline to the underlying paper or release, as the PDFs do.
+- `test/research.test.ts` checks the hand-published research pages against each other: every internal `/research/` link resolves, every issue page's `<title>`, masthead and archive row agree, the landing feature and recent-issue rows carry each page's title and date, each previous/next link opens the issue its label names, and the case study's issue count matches the archive.
 
 ### Changed
 - The research landing page features Issue 12; Issue 11 and Issue 07 join the recent issues, and the archive lists both new issues.
-- The Second Order case study counts nine shipped issues.
+- The Second Order case study counts nine shipped issues and describes the current issue format (4 to 10 exhibits, an opening conclusion, numbered evidence sections, a boxed second-order effect, the indicators to watch next, and a source list) instead of the original skeleton.
+- Issue 07 links forward to Issue 11, and Issue 11 to Issue 12, as Issues 06 and 06b link forward.
 
 ## [0.3.6.2] - 2026-08-18
 
