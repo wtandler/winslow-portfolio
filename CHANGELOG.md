@@ -3,6 +3,14 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.8.0] - 2026-09-24
+
+### Changed
+- Second Order Issues 11 and 12 carry the responsive web exhibit set introduced with Issue 07. At 375px the print exhibits shrank to about 22 percent of their size, so notes and axis labels were unreadable. Phones now get portrait redraws, 1040px wide and served through `<picture>` under 640px, with the print exhibit kept as the fallback above that width. Titles, notes and sources are the print copy; where a stacked phone layout puts the print's left panel on top, the phone copy says "Top" and "Bottom".
+- Issue 11 Exhibit 1, the two-by-two framework, ships as a native HTML table using the `.so-ex` / `table.so-t` system. On phones it restacks into one framed card per cell under its row heading. Exhibits 2 to 4 are phone redraws.
+- Issue 12's ten exhibits are all charts, and each has a phone redraw. The wide two-panel exhibits stack vertically, and Exhibit 9's three panels run in order with their panel titles.
+- Page weight rises because both images are inlined, as on Issue 07: Issue 11 from 721KB to 818KB, and Issue 12 from 2.76MB to 4.16MB. The phone PNGs are quantized, which cut them by about 70 percent.
+
 ## [0.3.7.0] - 2026-09-24
 
 ### Added
