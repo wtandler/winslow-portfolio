@@ -40,18 +40,6 @@
 **Priority:** P3
 **Depends on:** None
 
-### Test the cross-file invariants of published issues
-
-**What:** Each published issue repeats its title and date in three places: the article `<title>`/masthead, the feature block in `second-order.html`, and the row in `second-order-archive.html`. Nothing checks they agree. Add a vitest that globs `public/research/second-order-issue-*.html`, extracts each title and dateline, asserts the archive row and (for the newest issue) the landing feature match, and asserts every internal `href` in `public/research/*.html` resolves to a file that exists.
-
-**Why:** A republish touches all three files by hand. A missed edit ships silently, which happened during the Issue 07 work: the page said July 20 while the landing and archive still said July 15.
-
-**Context:** The existing suite only covers `lib/` and never reads `public/research/`. Flagged by the testing specialist during the v0.3.5.8 ship.
-
-**Effort:** S
-**Priority:** P3
-**Depends on:** None
-
 ## Writing
 
 ### Extract a shared WritingListItem component
