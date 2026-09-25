@@ -60,10 +60,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
-      >
+    // The font variables go on <html>, not <body>: --font-sans is declared
+    // on :root and references --font-geist-sans, which must already exist
+    // there or the whole site falls back to the system font.
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+    >
+      <body className="antialiased min-h-screen flex flex-col">
         <MotionProvider>
           <Navigation />
           <main className="flex-1 pt-20">{children}</main>

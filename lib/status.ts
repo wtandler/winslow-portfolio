@@ -7,9 +7,26 @@ export type ProjectStatus = "live" | "in-progress" | "completed" | "archived";
 // "archived" is a product no longer maintained.
 export const STATUS_COLORS: Record<ProjectStatus, string> = {
   live: "var(--accent)",
-  "in-progress": "var(--accent-warm)",
+  "in-progress": "var(--accent-label)",
   completed: "var(--text-secondary)",
   archived: "var(--text-muted)",
+};
+
+// Live and in-progress are both navy shades, so the marker shape carries the
+// difference: a filled dot for a running or shipped product, a hollow ring
+// for one not yet shipped or no longer maintained.
+export const STATUS_MARKERS: Record<ProjectStatus, "dot" | "ring"> = {
+  live: "dot",
+  "in-progress": "ring",
+  completed: "dot",
+  archived: "ring",
+};
+
+export const STATUS_LABELS: Record<ProjectStatus, string> = {
+  live: "Live",
+  "in-progress": "In progress",
+  completed: "Completed",
+  archived: "Archived",
 };
 
 export const VALID_STATUSES: ProjectStatus[] = [

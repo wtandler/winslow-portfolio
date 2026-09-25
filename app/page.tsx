@@ -1,5 +1,5 @@
 import { getProjectsByCategory } from "@/lib/mdx";
-import { ProjectCard } from "@/components/projects/ProjectCard";
+import { ProjectTable } from "@/components/projects/ProjectTable";
 import Link from "next/link";
 
 const workSteps = [
@@ -24,21 +24,27 @@ export default function HomePage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-8">
       {/* Hero */}
-      <header className="mb-10">
-        <p className="kicker mb-3">AI Systems Architect and Product Builder</p>
+      <header className="pt-8 sm:pt-12 mb-12">
+        <p className="kicker mb-4">AI Systems Architect and Product Builder</p>
         <h1
-          className="text-2xl sm:text-3xl font-medium tracking-tight mb-3"
-          style={{ color: "var(--text-primary)" }}
+          className="text-[2.75rem] sm:text-6xl font-semibold leading-none mb-6 -ml-0.5"
+          style={{ color: "var(--text-primary)", letterSpacing: "-0.04em" }}
         >
           Winslow Tandler
         </h1>
-        <p className="max-w-2xl mb-3" style={{ color: "var(--text-secondary)" }}>
+        <p
+          className="max-w-2xl mb-4 text-lg sm:text-[1.1875rem] leading-relaxed"
+          style={{ color: "var(--text-primary)" }}
+        >
           I work with enterprise change and program teams to uncover
           operational problems and create Microsoft-native AI products. I own
           the work from stakeholder discovery and product design through
           launch, governance, compliance, and production support.
         </p>
-        <p className="max-w-2xl text-sm" style={{ color: "var(--text-tertiary)" }}>
+        <p
+          className="max-w-2xl text-[0.9375rem]"
+          style={{ color: "var(--text-tertiary)" }}
+        >
           I use coding agents to turn product requirements into production
           software while retaining responsibility for system design, quality,
           release decisions, and ongoing operations.
@@ -99,22 +105,18 @@ export default function HomePage() {
       {/* Enterprise work */}
       {enterpriseProjects.length > 0 && (
         <section className="rule-strong pt-5">
-          <div className="flex items-baseline justify-between mb-4">
+          <div className="flex items-baseline justify-between gap-4 mb-4">
             <h2 className="kicker">Enterprise change and operations</h2>
             <Link
               href="/projects"
-              className="text-sm hover:underline"
+              className="text-sm whitespace-nowrap hover:underline"
               style={{ color: "var(--text-muted)" }}
             >
               All projects
             </Link>
           </div>
 
-          <div className="grid gap-3">
-            {enterpriseProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </div>
+          <ProjectTable projects={enterpriseProjects} />
         </section>
       )}
 
@@ -129,11 +131,7 @@ export default function HomePage() {
             Products I build and run on my own, applying the same approach in
             markets, research, and community operations.
           </p>
-          <div className="grid gap-3">
-            {independentProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </div>
+          <ProjectTable projects={independentProjects} />
         </section>
       )}
 

@@ -14,9 +14,12 @@
   /* Used for functional links and metadata; must hold 4.5:1 AA on --bg-elevated */
   --text-muted: #6e7278;
 
-  /* Accents - navy for links and emphasis, rust for small labels. Nothing else. */
+  /* Accents - one navy hue in three values. Nothing else. */
   --accent: #1f3a5f;
-  --accent-warm: #b25411;
+  /* Kickers and in-progress status; lighter than link navy (5.7:1 on paper) */
+  --accent-label: #4f6684;
+  /* Link hover: darkens instead of changing hue */
+  --accent-hover: #142a47;
 
   /* Borders and rules */
   --border-subtle: #e7e4da;
@@ -128,7 +131,94 @@ body {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent-warm);
+  color: var(--accent-label);
+}
+
+/* Status pill: filled dot for live and completed, hollow ring for in-progress
+   and archived, so status reads by shape as well as by shade. */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4375rem;
+  padding: 0.1875rem 0.625rem 0.1875rem 0.5625rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.status-pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background: currentColor;
+}
+
+.status-pill[data-marker="ring"]::before {
+  background: transparent;
+  border: 1.5px solid currentColor;
+}
+
+/* Project table: Product | Status | Started. Stacks below 640px. */
+.project-table-head,
+.project-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 8.5rem 5.5rem;
+  column-gap: 1.75rem;
+}
+
+.project-table-head {
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid var(--border-default);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.project-row {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.project-row:hover .project-row-title,
+.project-row:focus-visible .project-row-title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.project-row-date,
+.project-table-head > :last-child {
+  text-align: right;
+}
+
+.project-row-summary strong {
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text-primary);
+}
+
+@media (max-width: 639px) {
+  .project-table-head {
+    display: none;
+  }
+  .project-row {
+    grid-template-columns: 1fr auto;
+    row-gap: 0.625rem;
+  }
+  .project-row-main {
+    grid-column: 1 / -1;
+    order: 2;
+  }
+  .project-row-date {
+    order: 1;
+  }
 }
 
 /* Heavy top rule used to open major sections */
@@ -254,7 +344,8 @@ pre code {
 }
 
 .prose a:hover {
-  color: var(--accent-warm);
+  color: var(--accent-hover);
+  text-decoration-thickness: 2px;
 }
 
 .prose ul,
