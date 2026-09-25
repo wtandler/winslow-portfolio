@@ -3,6 +3,11 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.8.1] - 2026-09-25
+
+### Removed
+- The "How I work" disclosure row on the homepage. Its three steps (start with the work, define the product, own it in production) restated what the hero and every case study already show, so the hero now leads straight to the Microsoft ecosystem row and the project table.
+
 ## [0.3.8.0] - 2026-09-25
 
 ### Changed
