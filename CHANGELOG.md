@@ -8,7 +8,7 @@ Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 ### Changed
 - One-hue palette: the rust accent is gone. Kickers and the in-progress status use a lighter steel navy (`--accent-label`, 5.7:1 on paper), and prose links darken to `--accent-hover` on hover instead of turning rust.
 - Status reads by shape as well as shade. A small pill shows a filled dot for live and completed products and a hollow ring for in-progress and archived ones, with plain labels ("In progress" instead of "IN-PROGRESS"), on the project lists and the case-study header.
-- Project lists on the homepage and projects page are a ruled table with Product, Status, and Started columns instead of boxed cards. Platforms are plain text separated by slashes, and the numbers in each summary are set in ink so a skimming reader catches them. On phones the status and date sit above each product.
+- Project lists on the homepage and projects page are a ruled table with Product, Status, and Started columns instead of boxed cards. Platforms are plain text separated by slashes, here and on the case-study pages (header platforms and the technology list), and the numbers in each summary are set in ink so a skimming reader catches them. On phones the status and date sit above each product.
 - The hero has real scale: the name is 60px semibold with tight tracking, and the opening paragraph is larger and in full ink. The nav wordmark is set in normal case instead of spaced capitals.
 
 ### Fixed

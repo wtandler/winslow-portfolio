@@ -3,6 +3,7 @@ import type { Project } from "@/lib/mdx";
 import { formatDate } from "@/lib/dates";
 import { splitFigures } from "@/lib/figures";
 import { StatusPill } from "./StatusPill";
+import { TagList } from "./TagList";
 
 // Ruled project list: Product | Status | Started. Each row links to its case
 // study; on phones the status and date move above the product text.
@@ -55,9 +56,7 @@ function ProjectRow({ project }: { project: Project }) {
           </p>
         )}
         {platforms.length > 0 && (
-          <p className="mt-2.5 text-xs" style={{ color: "var(--text-muted)" }}>
-            {platforms.join(" / ")}
-          </p>
+          <TagList tags={platforms} className="mt-2.5 text-xs" />
         )}
       </div>
       <div>
