@@ -3,6 +3,15 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.8.2] - 2026-09-25
+
+### Changed
+- Second Order Issues 11 and 12 follow the new claret accent (`#8C1D40`), matching the rebrand from Second Order's own project (amber `#C97B1D` and the separate risk red are retired there). Every exhibit chart, the companion deck, and the page's own accent color are republished.
+- Issue 12's exhibits, report, and deck were rebuilt from source in the Second Order repo. Issue 11's page prose and source data are no longer available there, so its four exhibit images were recolored directly (amber to claret, red to ink) rather than regenerated; the chart data and layout are unchanged.
+
+### Known follow-ups
+- Issues 01 through 07, 06b, the sidebar, and the addendum, plus the research landing and archive pages, still carry the old amber accent. Extending the rebrand to them needs the same per-issue rebuild (or, where source is gone, the same recolor) this release did for 11 and 12.
+
 ## [0.3.8.1] - 2026-09-25
 
 ### Removed
