@@ -8,7 +8,7 @@ The site positions Winslow as "AI Systems Architect and Product Builder" for ent
 
 ## Design
 
-Paper-and-ink editorial look, modeled on a research briefing: warm paper background, near-black ink, hairline rules with a heavy 2px rule opening major sections, small uppercase rust kickers (`.kicker`), navy for links and emphasis. Limited palette: ink, navy (`--accent`), rust (`--accent-warm`), nothing else. Sans for reading, mono only for code. No terminal artifacts (shell prompts, `-->` arrows, `//` comments).
+Paper-and-ink look with a restrained product-site finish: warm paper background, near-black ink, hairline rules with a heavy 2px rule opening major sections, small uppercase steel-blue kickers (`.kicker`), navy for links and emphasis. Limited palette: ink plus one navy hue in three values, `--accent` (links, live status), `--accent-label` (kickers, in-progress status), `--accent-hover` (link hover), nothing else. Status reads by shape as well as shade: filled dot for live and completed, hollow ring for in-progress and archived. Projects list as a ruled table (Product, Status, Started), not cards, with the numbers in each summary set in ink. Sans for reading, mono only for code. No terminal artifacts (shell prompts, `-->` arrows, `//` comments).
 
 ## Testing
 

@@ -23,8 +23,8 @@ export function Navigation() {
         <div className="flex items-center justify-between py-4">
           <Link
             href="/"
-            className="text-sm font-semibold uppercase transition-opacity hover:opacity-70"
-            style={{ color: "var(--text-primary)", letterSpacing: "0.14em" }}
+            className="text-[0.9375rem] font-semibold transition-opacity hover:opacity-70"
+            style={{ color: "var(--text-primary)", letterSpacing: "-0.01em" }}
           >
             Winslow Tandler
           </Link>

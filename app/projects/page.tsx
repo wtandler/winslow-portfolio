@@ -1,5 +1,5 @@
 import { getProjectsByCategory } from "@/lib/mdx";
-import { ProjectCard } from "@/components/projects/ProjectCard";
+import { ProjectTable } from "@/components/projects/ProjectTable";
 import { CATEGORY_LABELS, VALID_CATEGORIES } from "@/lib/status";
 
 export const metadata = {
@@ -42,11 +42,7 @@ export default function ProjectsPage() {
         groups.map((group) => (
           <section key={group.category} className="rule-strong pt-5 mb-10">
             <h2 className="kicker mb-4">{group.label}</h2>
-            <div className="grid gap-4">
-              {group.projects.map((project) => (
-                <ProjectCard key={project.slug} project={project} />
-              ))}
-            </div>
+            <ProjectTable projects={group.projects} />
           </section>
         ))
       ) : (

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/mdx";
-import { STATUS_COLORS } from "@/lib/status";
+import { StatusPill } from "@/components/projects/StatusPill";
 import { formatDate } from "@/lib/dates";
 import { MDXContent } from "@/components/projects/MDXContent";
 import { TagList } from "@/components/projects/TagList";
@@ -92,19 +92,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       {/* Header */}
       <header className="mb-10 pt-6 rule-strong">
         <div className="flex items-center gap-2 mb-4 text-sm">
-          <span
-            className="flex items-center gap-1.5 text-xs uppercase"
-            style={{
-              color: STATUS_COLORS[status],
-              letterSpacing: "var(--tracking-caps)",
-            }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ background: STATUS_COLORS[status] }}
-            />
-            {status}
-          </span>
+          <StatusPill status={status} />
           <span style={{ color: "var(--text-muted)" }} aria-hidden="true">
             ·
           </span>
