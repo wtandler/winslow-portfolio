@@ -1,6 +1,6 @@
 ---
 title: Threadbase
-summary: "A proactive portfolio-intelligence platform for enterprise change leaders. It reads the reports, presentations, assessments, and transcripts teams already produce and surfaces changes, risks, dependencies, and conflicting accounts with every finding tied to its evidence."
+summary: "Software for enterprise change leaders that reads the reports, decks, assessments, and transcripts their programs already produce and flags changes, risks, dependencies, and contradictions, each linked to its source page."
 date: 2025-08
 updated: 2026-08
 platforms: [Portfolio intelligence, Azure, Evidence pipelines, Human governance]
@@ -14,13 +14,13 @@ url: https://threadbase.co
 
 ## The Problem
 
-Enterprise change leaders receive fragmented, contradictory, and stale reporting across their programs. The signal exists in the decks, assessments, and meeting transcripts their teams already produce, but no one reads all of it, and status tools only answer the questions someone knows to ask. The dangerous question is the one nobody asks.
+Enterprise change leaders get status reports from each program that disagree with each other and are often out of date. What they need to know is usually already in the decks, assessments, and meeting transcripts their teams produce, but nobody reads all of it, and status tools only answer the questions someone thinks to ask, so risks nobody asked about go unreported.
 
 ## The Product Decision
 
-Threadbase speaks first. Instead of waiting for a user to query it, the product reads everything the portfolio produces, reconciles it into one governed portfolio view, and surfaces what changed, what needs judgment, and where programs conflict. Two rules govern the design:
+I designed Threadbase to report findings without waiting for a question. It reads the documents each program produces, combines them into one portfolio view, and shows what changed, what needs a decision, and where programs contradict each other. I built it on two rules:
 
-1. **Evidence first.** Every material finding links to the source page it came from. Incomplete evidence is shown as incomplete rather than presented as fact, and a true all-clear is distinguished from missing or stale information. The product never renders a failure as a zero.
+1. **Evidence first.** Every material finding links to the source page it came from. Incomplete evidence is labeled incomplete, and the product separates a true all-clear from missing or stale data, so a failed extraction never shows up as zero issues.
 2. **Human governance.** Disputed or incomplete findings route to people for judgment. Reviewers accept, edit, or reject with recorded reasons, and every decision remains auditable.
 
 ## What I Owned
@@ -29,22 +29,28 @@ Threadbase is an independent build, designed for the enterprise change portfolio
 
 ## What Is Built
 
-I have built and deployed the core Azure workflow that turns portfolio materials into source-linked findings, routes disputed or incomplete information for human review, and reconciles approved findings into one governed portfolio view. That covers the full chain in production: document ingestion with malware and credential scanning, extraction of claims with page-level provenance, a governed review queue with deterministic ranking, publication gates with evidence-derived confidence bands, and a proactive leadership view that leads with what changed and what needs attention.
+The core workflow is deployed on Azure. In production today:
 
-I am now extending the product into executive briefings and deeper cross-portfolio analysis: the intelligence views that let a leader move from a finding to its evidence in two clicks, and governed executive outputs built from the reconciled portfolio state.
+1. Document ingestion with malware and credential scanning.
+2. Claim extraction that records the source page for every claim.
+3. A review queue for disputed or incomplete findings, ranked the same way on every run.
+4. Publication gates that assign each finding a confidence band based on its evidence.
+5. A leadership view that opens with what changed and what needs attention.
+
+I am now building executive briefings and analysis across portfolios. A leader will be able to get from any finding to its source page in two clicks.
 
 ## Trust Controls
 
-The platform treats trust as a product requirement, not a disclaimer:
+Four controls make every finding checkable:
 
 - A finding publishes only after passing explicit gates, with a confidence band derived from its evidence.
-- Identical documents in produce identical findings out, so runs are reproducible and diffable.
-- Reporting periods, snapshots, and baselines make change over time a first-class object: the same two snapshots always produce the same change set.
+- Identical documents always produce identical findings, so any run can be repeated and compared.
+- Reporting periods, snapshots, and baselines are stored as records, so comparing the same two snapshots always returns the same list of changes.
 - Every mutation to the portfolio state is audited, and relationship history is append-only.
 
 ## AI-Native Delivery
 
-The product is specified before it is built: a normative specification defines every guarantee, and each guarantee is covered by at least one machine-verifiable proof that runs against a clean checkout and the deployed environment. Coding agents implement against that specification under my direction; a single gate command is the proof of state, and CI runs the identical command.
+I write the specification before any code. It lists every guarantee the product makes, and each guarantee has at least one automated check that runs against a clean copy of the code and against the deployed system. Coding agents build to that specification. One command runs every check, and the CI pipeline runs the same command.
 
 ## Microsoft Ecosystem Fit
 

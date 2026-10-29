@@ -14,8 +14,7 @@ export function Footer() {
       <div className="mx-auto max-w-4xl px-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-            Winslow Tandler · AI systems architect and AI-native product
-            builder
+            Winslow Tandler · AI systems architect and product builder
           </p>
 
           <div className="flex items-center gap-4">

@@ -21,18 +21,18 @@ export default function HomePage() {
           className="max-w-2xl mb-4 text-lg sm:text-[1.1875rem] leading-relaxed"
           style={{ color: "var(--text-primary)" }}
         >
-          I work with enterprise change and program teams to uncover
-          operational problems and create Microsoft-native AI products. I own
-          the work from stakeholder discovery and product design through
-          launch, governance, compliance, and production support.
+          I build AI products for enterprise change and program management
+          teams, mostly on Microsoft platforms. I work with the team to find
+          the problem, design the product, ship it, and run it in production,
+          including governance and compliance.
         </p>
         <p
           className="max-w-2xl text-[0.9375rem]"
           style={{ color: "var(--text-tertiary)" }}
         >
-          I use coding agents to turn product requirements into production
-          software while retaining responsibility for system design, quality,
-          release decisions, and ongoing operations.
+          Coding agents write the code. I design the system, write the
+          requirements, test the work, decide what ships, and support it after
+          launch.
         </p>
       </header>
 
@@ -87,8 +87,9 @@ export default function HomePage() {
             className="max-w-2xl mb-4 text-sm"
             style={{ color: "var(--text-tertiary)" }}
           >
-            Products I build and run on my own, applying the same approach in
-            markets, research, and community operations.
+            Products I build and run on my own: a U.S. rates research site, a
+            weekly research briefing on AI and the economy, and a membership
+            platform for Nurse Honor Guard chapters.
           </p>
           <ProjectTable projects={independentProjects} />
         </section>

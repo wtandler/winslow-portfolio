@@ -44,10 +44,9 @@ export default function ContactPage() {
 
           <StaggeredItem>
             <p style={{ color: "var(--text-secondary)" }}>
-              I work with change and program management teams that know a
-              process is slowing them down but may not yet know what product to
-              ask for. I can help define the problem, design the system, and
-              own the product through production.
+              If your change or program team has a slow manual process and no
+              clear product request yet, I can help define the problem, design
+              a product for it, build it, and support it in production.
             </p>
           </StaggeredItem>
         </section>

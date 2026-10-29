@@ -14,15 +14,15 @@ priority: 90
 
 ## The Problem
 
-Program intake required 6-10 hours of manual work to prepare a charter, assess readiness and risk, and decide where the program should route. The portfolio office handles about 60 programs each quarter, so the same research and document preparation repeated at scale. Almost all of that time went to gathering context and formatting documents, not to the judgment call the reviewer is actually there to make.
+Program intake required 6-10 hours of manual work to prepare a charter, assess readiness and risk, and decide where the program should route. The portfolio office handles about 60 programs each quarter, so the same research and document preparation repeated at scale. Almost all of that time went to gathering context and formatting documents, and very little went to the routing decision itself.
 
 ## What I Noticed
 
-Nobody had asked for this product. The intake process was accepted as the cost of doing business, and the requests that did surface were for more reviewer capacity. Working with the portfolio stakeholders, I saw that the bottleneck was research, not judgment. When AI can do the reading and preparation, the division of labor flips: AI analyzes and prepares, a person judges and decides.
+Nobody had asked for this product. The portfolio office treated the 6-10 hours as fixed, and the only requests were for more reviewers. Working with the portfolio stakeholders, I saw that most of a reviewer's time went to reading and preparing documents, which AI can do, and little went to the decision, which should stay with a person.
 
 ## The Product Decision
 
-I proposed a workspace in which AI prepares the material and a person makes the decision. Six specialist agents assemble source context, draft the charter, complete the readiness and risk review, and recommend routing. Each output carries source links, confidence indicators, version history, validation checks, and a human approval step. The obvious alternative was a form with an AI summary bolted on; it would have saved minutes, not hours, because the research burden would have stayed with the reviewer.
+I proposed a workspace in which AI prepares the material and a person makes the decision. Six specialist agents assemble source context, draft the charter, complete the readiness and risk review, and recommend routing. Each output carries source links, confidence indicators, version history, validation checks, and a human approval step. I considered a simpler option, an intake form with an AI summary. It would have saved minutes per program instead of hours, because the reviewer would still have done the research.
 
 ## What I Owned
 
@@ -38,7 +38,7 @@ The combined process fell from 6-10 hours to about 10 minutes per program, with 
 
 ## Microsoft Ecosystem Fit
 
-The six agents run across Dataverse and Microsoft AI services, inside the organization's existing identity, data, and security controls. The product reads the same systems the portfolio office already uses, so there is no separate data store to govern and no new tool to secure.
+The six agents run on Dataverse and Microsoft AI services, under the organization's existing sign-in, data, and security controls. The product reads the systems the portfolio office already uses, so it adds no new data store.
 
 ## AI-Native Delivery
 
@@ -46,4 +46,4 @@ I own product direction, architecture, requirements, acceptance criteria, testin
 
 ## Ongoing Ownership
 
-I support the production system, manage governance and compliance, and run the division rollouts. Product changes ship under the same requirements-and-approval discipline the product itself enforces on intake.
+I support the production system, manage governance and compliance, and run the division rollouts. Product changes go through written requirements and my approval before release.

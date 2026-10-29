@@ -3,6 +3,16 @@
 All notable changes to winslowtandler.com are documented in this file.
 Versions follow the MAJOR.MINOR.PATCH.MICRO format.
 
+## [0.3.9.0] - 2026-10-29
+
+### Added
+- Skills Bazaar case study: an internal registry where program and change teams find, publish, and turn on AI skills for Microsoft 365 Copilot Cowork and GitHub Copilot. Listed as in progress ahead of its November 2026 launch to 4 organizations.
+
+### Changed
+- Rewrote copy across the homepage, projects page, contact page, footer, share image text, and all nine existing case studies to remove AI writing patterns: closing one-liners, "not X, Y" contrasts, repeated boilerplate paragraphs, intensifiers, and sales-style feature lines. Every number is kept.
+- Replaced the repeated "The Hard Part" and "The Insight" headings with headings that name each section's subject.
+- Cut sections that restated their page: the Lamp & Rose tech stack (moved into its front matter, which now matches), two Second Order "What I Learned" bullets, and the Short Rates Desk "What I Learned" section.
+
 ## [0.3.8.3] - 2026-09-25
 
 ### Changed

@@ -1,9 +1,9 @@
 ---
 title: Lamp & Rose
-summary: "Multi-tenant platform for Nurse Honor Guard chapters: public sites, member portals, and admin tools that scale without mixing data."
+summary: "A platform for Nurse Honor Guard chapters. Each chapter gets a public site, a member portal, admin tools, and payments, with its data kept separate from every other chapter."
 date: 2025-04
 platforms: [Multi-tenant platform, Payments, Community operations]
-stack: [Next.js, React, TypeScript, Supabase, Postgres, Stripe, Tailwind, Radix UI, Playwright, Vitest]
+stack: [Next.js, React, TypeScript, Supabase, Postgres, Stripe Connect, Tailwind, shadcn/ui, Radix UI, Zod, Upstash Redis, Playwright, Vitest]
 status: live
 category: independent
 ownership: "Independent build"
@@ -13,7 +13,7 @@ url: https://nursehonorguardnova.org
 
 ## The Problem
 
-Nurse Honor Guard chapters are run by retired nurses. They spent decades in healthcare, not tech, and they're managing volunteer organizations with paper sign-up sheets, email threads, cash donations, and spreadsheets on someone's personal laptop. The chapter leaders I talked to tracked member dues in one spreadsheet, ceremony availability in another, and training certifications in a third, all while fielding emails about who could cover a service next Tuesday.
+Nurse Honor Guard chapters are volunteer organizations run by retired nurses, and most run on paper sign-up sheets, email threads, cash donations, and spreadsheets on a personal laptop. The chapter leaders I talked to tracked dues in one spreadsheet, ceremony availability in a second, and training certifications in a third, and arranged ceremony coverage by email.
 
 ## What I Built
 
@@ -21,13 +21,13 @@ Lamp & Rose gives each chapter its own space (a subdomain or custom domain) with
 
 The admin console consolidates everything chapter leaders were juggling separately:
 
-**Member management:** Full roster with contact info, dues status, training certifications, and ceremony availability. Filter by who's trained, who's current on dues, who's available on a given date. Nobody has to cross-reference three spreadsheets to answer a simple question.
+**Member management:** Full roster with contact info, dues status, training certifications, and ceremony availability. Filter by who's trained, who's current on dues, who's available on a given date.
 
-**Ceremony coordination:** Schedule ceremonies, request volunteers, track RSVPs, record attendance. Members see upcoming ceremonies in their portal and can indicate availability directly. Admins get a clear picture of who's signed up without chasing emails.
+**Ceremony coordination:** Schedule ceremonies, request volunteers, track RSVPs, record attendance. Members see upcoming ceremonies in their portal and can indicate availability directly. Admins see the volunteer list for each ceremony in one place.
 
-**Training & credentials:** Track who's completed what training and when certifications expire. Overdue credentials get flagged automatically, and leadership can pull compliance reports when they need them.
+**Training & credentials:** Track who's completed what training and when certifications expire. Overdue credentials get flagged automatically, and leaders can export a compliance report.
 
-**Communications:** Announcements, event reminders, dues notices. Templated messages pull in member data so no one's copy-pasting names into emails one at a time.
+**Communications:** Announcements, event reminders, dues notices. Templates fill in member names and details automatically.
 
 ## Payments
 
@@ -35,30 +35,16 @@ I integrated Stripe Connect so donations and dues route directly to each chapter
 
 **Public donations:** Visitors donate from the public site with embedded checkout instead of being bounced to a third-party page. Attribution ties to the chapter at the moment of payment.
 
-**Member dues:** Members pay through the portal. The system tracks payment history, sends renewal reminders, and flags overdue accounts. Admins see who's current at a glance without maintaining a separate ledger.
+**Member dues:** Members pay through the portal. The system tracks payment history, sends renewal reminders, and flags overdue accounts. Admins see who is current on dues, and the payment record is the ledger, so chapters no longer reconcile a separate spreadsheet at month end.
 
-There's no manual reconciliation and no spreadsheet handoff at the end of the month.
+## Keeping Chapters Separate
 
-## The Hard Part
-
-Multi-tenancy with payments. Public chapter sites, subdomains, private member portals, chapter-level payments, and a platform management layer all rest on the same tenant boundary, and a donation landing in the wrong chapter's account is the one failure the platform cannot have. So every request carries explicit tenant context rather than guessing or falling back to a default, and if context is missing the system fails closed. That rule runs through routing, permissions, data access, and observability, and it was designed in from the start rather than bolted on later.
-
-The other challenge was the domain itself. I knew nothing about this industry when I started, so I had to learn the workflows, vocabulary, and edge cases before I could model the system correctly.
-
-## Tech Stack
-
-**Frontend:** Next.js App Router, React, TypeScript, Tailwind, shadcn/ui.
-
-**Backend:** Supabase for auth, Postgres, and storage.
-
-**Payments:** Stripe Connect for multi-tenant attribution.
-
-**Quality:** Zod for validation, Playwright for E2E, Vitest for unit/integration, Redis/Upstash for caching and rate limiting.
+Every chapter's public site, subdomain, member portal, and payments sit behind the same tenant boundary, along with the platform management layer, and the worst possible failure is a donation reaching the wrong chapter's account. So every request names its chapter explicitly, and a request with no chapter is refused instead of falling back to a default. Routing, permissions, data access, and logging all follow that rule, and it was in the first version.
 
 ## How It Came Together
 
-This is the first thing I built that's actually used outside work. I started with an anchor chapter, one group of chapter leaders whose first requirements list was a photo of notes on a napkin. We worked closely throughout the build: they tested continuously as I shipped, and I adjusted based on what they found.
+This is the first thing I built that people use outside my job. I started with an anchor chapter, one group of chapter leaders whose first requirements list was a photo of notes on a napkin. They tested each release as I shipped it, and I changed the product based on what they found.
 
 It was also the first project where what I needed most from AI was domain knowledge rather than code. I'm not involved with Nurse Honor Guard chapters, so I used it to research how they operate: their ceremonies, training requirements, membership structures, the vocabulary they use. That research shaped the domain model and helped me ask the chapter leaders better questions when I validated against the real thing.
 
-The architecture moved from single-tenant to multi-tenant once it was clear the anchor chapter's pain points weren't unique: every chapter juggles the same spreadsheets, email chains, and manual payment tracking. Build once, and any chapter can spin up its own instance with full data isolation.
+The architecture moved from single-tenant to multi-tenant once it was clear the anchor chapter's pain points weren't unique: every chapter juggles the same spreadsheets, email chains, and manual payment tracking. Any chapter can now get its own site, with its data kept separate from other chapters.

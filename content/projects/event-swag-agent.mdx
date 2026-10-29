@@ -14,45 +14,40 @@ priority: 60
 
 ## The Problem
 
-A central team manages all the swag for seller events at a company with more than 5,000 account managers and sellers: 90 events per quarter, 7-8 per week, each hosted by an account team for customers somewhere between the C-suite and the technical staff. Each tier of attendee warrants a different level of swag, every event draws against a single budget that has to last the whole period, and the budget, inventory, allocation rules, and orders are tracked across scattered spreadsheets. One hard constraint applied from the start: it had to be built Power-Platform-first (Copilot Studio for the agent, Dataverse for the data) so it lived natively inside the org's existing tools, identity, and governance rather than as one more outside app to adopt and secure.
+A central team manages swag for seller events at a company with more than 5,000 account managers and sellers. The team handles about 90 events a quarter, 7-8 a week. Each event is hosted by an account team for customers ranging from C-suite executives to technical staff, and each attendee tier gets a different level of swag. Every event draws from one budget that has to last the full period, and the budget, inventory, allocation rules, and orders were tracked in separate spreadsheets.
 
 ## What I Owned
 
-I worked with event operations stakeholders to define the problem, proposed the two-surface product, designed the budget and allocation workflow, and directed the build. The product is in final testing with the operations group, and I own governance, support, compliance, and product changes through launch and after it.
+I worked with the event operations team to define the problem, proposed a product with one interface for requesters and one for the operations team, designed the budget and allocation workflow, and directed the build. The product is in final testing with the operations group, and I own governance, support, compliance, and product changes through launch and after it.
 
-## The Insight
+## The Product Decision
 
-This is really two products with two opposite users, and forcing them into one interface would have made both worse. So I built two surfaces on a single shared Dataverse backend:
+The product had to be built on Power Platform, with Copilot Studio for the agent and Dataverse for the data. It also serves two groups with different needs: people requesting swag for one event, and an operations team managing budget and inventory across all of them. I built one interface for each, on one shared Dataverse backend:
 
-* A **Copilot Studio agent** for the people requesting swag. Conversational and low friction: the requester just describes the event.
-* An **admin Code App** for the ops team. Dense and data-first.
-
-Same data underneath, two surfaces each tuned to a completely different user.
+* A **Copilot Studio agent** for requesters, who describe the event in plain language.
+* An **admin Code App** for the operations team, with dense screens for budget, inventory, and orders.
 
 ## What I Built
 
 **The agent.** Someone describes an event in natural language; the agent proposes a swag package, negotiates within budget, and finalizes it. The budget optimization is portfolio-aware, allocating against the program's remaining budget across all events rather than just the one in front of it. The negotiation math lives in Power Fx, with two Power Automate flows handling context loading and finalization.
 
-**The admin app.** A Vite + React + TypeScript app in Fluent UI, built in the spirit of the Azure Portal's Cost Management rather than a marketing page: an events-first budget dashboard, a packages editor, personas managed as data, inventory, and orders. Budget health is a real business rule: green, yellow, or red, derived from remaining budget against the program total.
+**The admin app.** A Vite, React, and TypeScript app in Fluent UI, modeled on Azure Cost Management: an events-first budget dashboard, a packages editor, personas managed as data, inventory, and orders. Budget health shows green, yellow, or red based on remaining budget as a share of the program total.
 
-## The Hard Part
+## Budget Negotiation and Editable Tiers
 
-Two things were genuinely hard, and both came partly from the Power-Platform-first constraint.
+Two problems took the most work, and both came partly from building on Power Platform.
 
-First, budget-aware negotiation inside Copilot Studio. A Copilot Studio agent isn't a free-form LLM loop; you build within its topics, flows, and Power Fx. Getting it to propose a package, hold a budget constraint, and negotiate down meant pushing the optimization math into Power Fx and keeping the agent's state honest across the conversation.
-
-Second, personas-as-data. The customer-attendee tiers (C-suite down to technical staff) started life hardcoded as a TypeScript union, which meant a code change and a deploy every time the program renamed or re-cut a tier. I made personas editable data instead: rename a tier in settings and it propagates everywhere without a deploy. That's the difference between a tool the ops team owns and one they file tickets against.
+1. **Budget negotiation inside Copilot Studio.** In Copilot Studio, an agent's logic has to be built from topics, flows, and Power Fx. To have the agent propose a package, stay within budget, and negotiate down, I put the optimization math in Power Fx and kept the agent's record of the remaining budget correct through the whole conversation.
+2. **Editable attendee tiers.** The attendee tiers (C-suite down to technical staff) started as a hardcoded TypeScript type, so every rename or regrouping of a tier needed a code change and a deploy. I moved the tiers into data, so renaming a tier in settings updates it everywhere without a deploy. The operations team can now change tiers themselves instead of filing a ticket.
 
 ## Building on the Microsoft Stack
 
-Everything lives natively: Dataverse for storage, an Entra-backed people picker for identity, Dataverse security roles for access, Power Automate for orchestration. The product inherits the org's existing identity, permissions, and governance instead of adding an outside app to adopt and secure.
+Storage is Dataverse, the people picker uses Entra, access uses Dataverse security roles, and Power Automate runs the flows. Because of that, the product uses the organization's existing sign-in, permissions, and governance.
 
 ## Results and Status
 
 The product covers about 90 events per quarter and is estimated to save close to $250K a year in specialist time, based on the allocation and negotiation work it removes from the central team. It is in final testing with the operations group before launch.
 
-## What I Learned
+## The Tradeoff
 
-* **Two users means two surfaces.** A conversational agent for requesters and a dense admin for ops. A single interface would have served neither well.
-* **Configuration shouldn't require a deploy.** Making personas editable data is what let the ops team own the tool.
-* **Power-Platform-first is a deliberate tradeoff.** You give up flexibility and gain native identity, permissions, governance, and adoption you'd otherwise have to build and defend yourself. Worth it when the tool has to live inside an existing org.
+Building on Power Platform cost me flexibility: the agent's budget logic had to fit inside Copilot Studio topics and Power Fx. In exchange the product got the organization's identity, permissions, and governance without my building them. For a tool that has to run inside an existing organization, I would make the same choice again.
