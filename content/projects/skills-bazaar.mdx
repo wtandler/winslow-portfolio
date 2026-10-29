@@ -1,6 +1,6 @@
 ---
 title: Skills Bazaar
-summary: "An internal registry where program and change teams find, publish, and turn on AI skills for Microsoft 365 Copilot Cowork and GitHub Copilot without using Git, a terminal, or configuration files. It launches to 4 organizations at Microsoft in November 2026."
+summary: "An internal library where program and change teams add, use, and remove AI skills for Microsoft 365 Copilot Cowork and GitHub Copilot with one click each, with no GitHub, downloads, or installs. It launches to 4 organizations at Microsoft in November 2026."
 date: 2026-08
 updated: 2026-10
 platforms: [Microsoft 365 Copilot, GitHub Copilot, Azure, AI governance]
@@ -14,11 +14,11 @@ priority: 85
 
 ## The Problem
 
-Program and change teams had started building reusable AI workflows, called skills, for Microsoft 365 Copilot Cowork and GitHub Copilot, and had no workable way to share them. A skill is a set of instructions plus the reference documents, templates, and scripts it needs. Most authors and users are program managers and change leads without a GitHub account, so a shared repository got no use. Skills passed around as loose files either changed without review or went stale with no way to withdraw a bad one. Users split between Cowork, which runs in the cloud, and the GitHub Copilot desktop app, with no common way to package a skill for both. And the tenant allows no prompt logging and no standing service access to company SharePoint.
+Program and change teams had started building reusable AI workflows, called skills, for Microsoft 365 Copilot Cowork and GitHub Copilot, and the existing ways to share them were built for developers. A skill is a set of instructions plus the reference documents, templates, and scripts it needs. Most skill libraries are a web page on top of a GitHub repository. Publishing a skill means exporting it in the right format, adding it to the repository, and working in GitHub, and most of these authors are program managers and change leads without a GitHub account. Using a skill means downloading it and installing it into the agent by hand, and installed skills tend to stay forever because people do not know how to remove them. Agents can only load a limited number of skills, so the old ones pile up and cause failures. Users also split between Cowork, which runs in the cloud, and the GitHub Copilot desktop app, and the tenant allows no prompt logging and no standing service access to company SharePoint.
 
 ## What I Noticed
 
-A skill runs inside a colleague's agent, so it needs the controls of versioned software: fixed versions, immediate withdrawal, and a record of who changed what. My first two designs treated skills as shared documents, and I dropped both within two weeks:
+The people using skills should need to know two things: what a skill does and which AI app they work in. Existing libraries also expect them to know Git, packaging formats, and where their agent keeps its skill files. A skill also runs inside a colleague's agent, so it needs the controls of versioned software: fixed versions, immediate withdrawal, and a record of who changed what. My first two designs each missed one of these, and I dropped both within two weeks:
 
 1. **A GitHub content hub, August 20 to 25, 2026.** Business users would not use Git, and a Git catalog beside a user-facing app needed manual syncing.
 2. **SharePoint as the store, August 26 to September 3, 2026.** A revoked skill would stay usable until the next sync, list limits and throttling do not fit a check on every agent call, security review would not grant the standing SharePoint access the design needed, and anyone who could edit the permissions list could grant themselves access.
@@ -29,6 +29,7 @@ I recorded every change of direction in a decision record, 35 of them by late Oc
 
 I built Skills Bazaar as a package registry for AI skills, similar to npm, with a web store on top for people who never touch code.
 
+- **One click each to add, use, and remove a skill.** Adding a skill in the store makes it available in the user's agent with no download or install. Removing it takes it out of the agent, and package files are deleted after each task, so old skills do not pile up.
 - **One service owns every published skill.** Records live in Azure Cosmos DB and package files in Azure Blob Storage, each identified by its SHA-256 hash. Skills can link to SharePoint documents under the user's own permissions, and the service never calls SharePoint itself.
 - **Turning on a skill pins its exact version.** When an author publishes version 1.1.0, users stay on 1.0.0 until they choose to update, so an author cannot change what runs in a colleague's agent. An administrator's revocation blocks the skill on the next agent call.
 - **No mandatory human review.** The first version required a second person to certify each skill. In the pilot that produced a queue nobody had time to clear, and the "Reviewed" and "approved" badges implied a safety check nobody was doing. I removed the queue and the badges in October. Skills are available to their audience once published, each user turns a skill on for themselves, and the site shows only the checks the system runs.
@@ -40,7 +41,7 @@ I worked with program and change leads to define the problem, designed the produ
 ## What Shipped
 
 1. **A web store** where people browse skills, see who published each one and what the automated check found, and turn skills on or off.
-2. **Skills that run with no install step.** Packages can reach 15 MB with templates and scripts, and turning a skill on is the only thing a user does. In GitHub Copilot, a local connector checks the pinned version and hash, unpacks the package into a temporary folder for the task, and deletes it afterward. In Cowork, the service sends the files in hash-checked chunks. I verified both on October 23, 2026 with files up to a 6.02 MB PowerPoint deck. Skills Bazaar never runs code itself; the user's agent runs the skill under its normal permission prompts.
+2. **Skills that run with no install step.** Packages can reach 15 MB with templates and scripts. In GitHub Copilot, a local connector checks the pinned version and hash, unpacks the package into a temporary folder for the task, and deletes it afterward. In Cowork, the service sends the files in hash-checked chunks. I verified both on October 23, 2026 with files up to a 6.02 MB PowerPoint deck. Skills Bazaar never runs code itself; the user's agent runs the skill under its normal permission prompts.
 3. **Publishing from chat.** The agent shows the full text of every file, asks the author to pick the owning team and the AI apps the skill supports, and sends it only after the author approves those exact files. Only a skill's publishers can release a new version; anyone else makes their own copy.
 4. **GitHub Copilot install without a GitHub account.** The GitHub Copilot app installs plugins only from Git, so the service serves the connector as a read-only Git repository itself. A Windows path-length limit then broke the install on a test PC, so I cut the connector from 730 files and 51 MB to 11 files and about 14 MB.
 
