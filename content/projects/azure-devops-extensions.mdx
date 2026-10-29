@@ -14,11 +14,11 @@ priority: 80
 
 ## The Problem
 
-Change and program leaders across 14 divisions run their portfolios on Azure DevOps Boards, and two jobs consumed disproportionate manual effort. Writing a standardized change assessment meant re-entering information that already existed in work items, roughly 150-200 hours of data entry across the organization every month. And no view answered the staffing question leaders kept asking: who is committed to what, over the next 12 months, across programs.
+Change and program leaders across 14 divisions run their portfolios on Azure DevOps Boards, and two tasks there took the most manual work. First, writing a standardized change assessment meant re-entering information already in work items, about 150-200 hours of data entry a month across the organization. Second, nothing showed who was committed to which program over the next 12 months, which leaders asked about every planning cycle.
 
 ## What I Noticed
 
-Neither problem had a product request attached to it. The assessment burden was distributed across many people, so no single team felt it enough to escalate, and the capacity question was answered with spreadsheets rebuilt for each planning cycle. I knew where the manual effort lived because I built the platform it lived in: both extensions build on [Pathfinder](/projects/pathfinder), the change-management command center I built and ran at Microsoft from 2020 through 2023. Pathfinder also taught me its own limit: a single system forces every team into one taxonomy when data goes in. The extensions invert that. Teams work in Azure DevOps, where they already want to be, in their own terms, and AI interprets their work into the governed taxonomy reporting needs.
+Neither problem had a product request attached to it. The assessment burden was distributed across many people, so no single team felt it enough to escalate, and the capacity question was answered with spreadsheets rebuilt for each planning cycle. I knew where the manual work was because both extensions build on [Pathfinder](/projects/pathfinder), the change-management system I built and ran at Microsoft from 2020 to January 2024. Pathfinder's main limit was that every team had to enter data in one shared taxonomy. With the extensions, teams work in Azure DevOps in their own terms, and AI maps their work to the taxonomy that reporting needs.
 
 ## What I Owned
 
@@ -28,16 +28,16 @@ I found the business problems with change and program leaders, proposed both pro
 
 **Change assessment extension.** Azure AI Foundry drafts each work item's change classification against the live governed taxonomy, a person reviews and approves it, and the plan saves atomically to Dataverse with source links and drift detection. Creation time dropped to under a minute per assessment, saving roughly 150-200 hours of monthly data entry across the 14 divisions. Built in about a week in June 2026 and live in July.
 
-**Resource and capacity extension.** A Resources roster tab on Program work items and a project-level Capacity hub, both on one shared Dataverse model. Leaders get person, program, and portfolio views of 12-month allocation, with over-allocation and peak staffing needs flagged, so planning conversations start from a shared, current view instead of a stale spreadsheet. Built in about a week in July 2026, with all surfaces live in early August.
+**Resource and capacity extension.** A Resources roster tab on Program work items and a project-level Capacity hub, both on one shared Dataverse model. Leaders get person, program, and portfolio views of 12-month allocation, with over-allocation and peak staffing needs flagged, so leaders plan from the same current data instead of a spreadsheet rebuilt each cycle. Built in about a week in July 2026, with all surfaces live in early August.
 
 ## Microsoft Ecosystem Fit
 
-Both products are Boards work-item extensions, so they inherit the organization's existing identity, permissions, and governance. There is no separate application to adopt, secure, or train on; the products appear inside the workflow their users already run every day.
+Both products are Boards work-item extensions, so they use the organization's existing sign-in, permissions, and governance, and users see them inside the work items they already open every day.
 
 ## AI-Native Delivery
 
-I own product direction, architecture, requirements, acceptance criteria, testing, release decisions, and operations. Coding agents implement and maintain the software under that direction. That is what made the one-week build cycles possible: each extension went from proposal to working product in about a week, with my time spent on the workflow design, the review gates, and the release decision rather than on writing code.
+Each extension took about a week from proposal to working product. I spent that week on the workflow design, the review steps, and the release decision, and coding agents wrote the code.
 
 ## Ongoing Ownership
 
-Both extensions are in production across the 14 divisions. I own support, compliance, maintenance, and the product roadmap, and changes ship through the same review-and-approval workflow the extensions themselves enforce.
+Both extensions are in production across the 14 divisions. I own support, compliance, maintenance, and the product roadmap, and changes go through review and my approval before release.

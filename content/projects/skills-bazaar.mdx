@@ -1,0 +1,72 @@
+---
+title: Skills Bazaar
+summary: "An internal library where program and change teams add, use, and remove AI skills for Microsoft 365 Copilot Cowork and GitHub Copilot with one click each, while the organization controls which versions run, who can see each skill, and what gets withdrawn. It launches to 4 organizations at Microsoft in November 2026."
+date: 2026-08
+updated: 2026-10
+platforms: [Microsoft 365 Copilot, GitHub Copilot, Azure, AI governance]
+stack: [Azure App Service, Azure Cosmos DB, Azure Blob Storage, Azure OpenAI, Azure Container Registry, Azure Application Gateway, Microsoft Entra ID, Model Context Protocol, React, Fluent UI, Node.js, TypeScript, Vitest]
+status: in-progress
+category: enterprise
+ownership: "Product discovery through production ownership"
+role: "Stakeholder discovery · Product strategy · Architecture · Security and privacy design · AI-native delivery · Production support"
+priority: 85
+---
+
+## The Problem
+
+Program and change teams had started building reusable AI workflows, called skills, for Microsoft 365 Copilot Cowork and GitHub Copilot, and no way of sharing them was both easy enough for business users and safe enough for the organization. A skill is a set of instructions plus the reference documents, templates, and scripts an agent uses with the user's own access. For users, most skill libraries are a web page on top of a GitHub repository: publishing means exporting the skill in the right format and working in GitHub, using one means a manual download and install, and installed skills rarely get removed, so they pile up until the agent hits its skill limit and starts failing. For the organization, a skill shared as files either changes in everyone's agent the moment its author edits it, with no review, or lives on as stale copies that cannot be withdrawn. There was no record of who used which skill, a skill could carry a credential or hidden instructions, and the tenant allows no prompt logging and no standing service access to company SharePoint.
+
+## What I Noticed
+
+The product had two requirements of equal weight. Users should need to know only what a skill does and which AI app they work in. The organization needs the controls it already expects of software: fixed versions, immediate withdrawal, checks before release, a record of who published what, and no service access it has not approved. Existing libraries expect users to know Git and packaging formats and give the organization no control over what is installed. My first two designs each failed one of the two requirements, and I dropped both within two weeks:
+
+1. **A GitHub content hub, August 20 to 25, 2026.** Business users would not use Git, and a Git catalog beside a user-facing app needed manual syncing.
+2. **SharePoint as the store, August 26 to September 3, 2026.** A revoked skill would stay usable until the next sync, security review would not grant the standing SharePoint access the design needed, and anyone who could edit the permissions list could grant themselves access.
+
+I recorded every change of direction in a decision record, 35 of them by late October.
+
+## The Product Decision
+
+I built Skills Bazaar as a package registry for AI skills, similar to npm, with a web store on top for people who never touch code. The registry gives the organization control over every skill, and the store keeps that control out of the user's way.
+
+- **One click each to add, use, and remove a skill.** Adding a skill in the store makes it available in the user's agent with no download or install. Removing it takes it out of the agent, so old skills do not pile up.
+- **One service owns every published skill.** Records live in Azure Cosmos DB and package files in Azure Blob Storage, each identified by its SHA-256 hash. Skills can link to SharePoint documents under the user's own permissions.
+- **No mandatory human review.** The first version required a second person to certify each skill. In the pilot that produced a queue nobody had time to clear, and the "Reviewed" badges implied a safety check nobody was doing. In October I replaced the queue and badges with automated checks on every version.
+
+## What I Owned
+
+I worked with program and change leads to define the problem, designed the product, the architecture, and the security and privacy model, directed the build, and own deployment, launch, and production support.
+
+## What Shipped
+
+1. **A web store** where people browse skills, see who published each one and what the automated check found, and turn skills on or off.
+2. **Skills that run with no install step.** Packages can reach 15 MB with templates and scripts. In GitHub Copilot, a local connector checks the pinned version and hash, unpacks the package into a temporary folder for the task, and deletes it afterward. In Cowork, the service sends the files in hash-checked chunks. I verified both on October 23, 2026 with files up to a 6.02 MB PowerPoint deck.
+3. **Publishing from chat.** The agent shows the full text of every file, asks the author to pick the owning team and the AI apps the skill supports, and sends it only after the author approves those exact files.
+4. **GitHub Copilot install without a GitHub account.** The GitHub Copilot app installs plugins only from Git, so the service serves the connector as a read-only Git repository itself. To get under a Windows path-length limit, I cut the connector from 730 files and 51 MB to 11 files and about 14 MB.
+
+## Security and Governance
+
+An organization will only turn on a skill library its security and governance teams can approve, so I designed these controls together with the user experience.
+
+1. **Control over what runs.** Turning on a skill pins its exact version and hash, so a new version reaches a user only when that user chooses to update. Only a skill's publishers can release a new version; anyone else makes their own copy. An administrator's revocation blocks the skill on the next agent call, with no sync delay.
+2. **Control over who sees what.** Sign-in is Microsoft Entra ID, limited to member accounts with the right app role, and the service checks each skill's audience on every request. Access is set in the service, so nobody can grant themselves access by editing a list.
+3. **Checks before release.** Every upload is screened for private keys, tokens, connection strings, unsafe instructions, and invisible Unicode characters used to hide instructions. Azure OpenAI then reads each new version as plain text with no tool access, and any concerns appear on the skill's page and in chat before the agent uses the skill. An author's approval to publish is tied to a hash of the exact files, so any later edit needs a new approval.
+4. **A fixed boundary on execution.** Skills Bazaar delivers files and never runs code or installs dependencies. The user's agent runs the skill under its own permission prompts, and package files are deleted after each task.
+5. **No prompt or chat data.** Telemetry is limited to 9 fields, such as IDs, timestamps, and outcome, and the service rejects any event that contains a prompt, a response, or conversation text. Adds, uses, and ratings stay hidden until at least 5 different people have contributed, so no one on a small team can be singled out. Feedback is stored only after the user has reviewed it.
+6. **Least-privilege infrastructure.** The service runs with no public network access, reaches Cosmos DB through a managed identity with no stored keys, and never calls SharePoint or Microsoft Graph. When two administrators change the same skill at once, the second change is rejected instead of overwriting the first.
+
+## Results
+
+The build took about 10 weeks, from August 20 to October 28, 2026: 133 commits, 35 decision records, 18 runbooks, and 184 test files. Skills Bazaar runs in the development environment, production infrastructure is in place, and it launches to 4 organizations at Microsoft in early November 2026. There are no usage numbers yet.
+
+## Microsoft Ecosystem Fit
+
+Skills run in Microsoft 365 Copilot Cowork and GitHub Copilot, the AI apps the teams already use. Identity is Microsoft Entra ID, hosting is Azure App Service behind Azure Application Gateway, storage is Cosmos DB and Blob Storage, and bug reports go to the team's Azure DevOps board.
+
+## AI-Native Delivery
+
+Coding agents wrote the code to my requirements and acceptance criteria. Every project document separates evidence from local tests, the development environment in Azure, and the real Cowork and GitHub Copilot apps, so no document claims a feature works in those apps based on a local test.
+
+## Ongoing Ownership
+
+I own the launch, support, security patches, and product changes. Each release ships as a container image pinned to its exact digest and rolls back automatically if the health check fails, so no release needs a public firewall opening.

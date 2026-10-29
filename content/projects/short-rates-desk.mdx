@@ -14,33 +14,33 @@ url: https://shortratesdesk.com
 
 ## The Problem
 
-A rates PM's edge is having a view before everyone else does, and defending it when the desk pushes back. Forming that view means reading sell-side research from a dozen banks, economist Substacks, Fed releases, NBER and SSRN papers, prediction-market odds, and the prints themselves. None of it is hidden; it's scattered. Large funds pay research teams to do the reading, and it still takes hours every morning.
+A rates portfolio manager (PM) forms a view on Fed policy and rates each morning from sell-side research from a dozen banks, economist Substacks, Fed releases, NBER and SSRN papers, prediction-market odds, and the data releases. All of it is public but spread across dozens of sources. Large funds pay research teams to read it, and the reading still takes hours every morning.
 
-## The Insight
+## The Product Decision
 
-There are really only four voices in this market, and the signal is in where they disagree:
+I grouped the sources into four views and built the product around where they disagree:
 
 * What **markets** say: Polymarket and Kalshi odds on Fed / CPI / NFP.
 * What **dealers** say: the NY Fed's Survey of Market Expectations.
 * What the **Street** is writing: bank desks, economists, independent researchers.
-* What the **data** says: our own model.
+* What the **data** says: my own model.
 
-A product that surfaces the gaps between them, using only public data, replaces hours of morning reading.
+The product shows where the four disagree, using only public data, so a PM can see the disagreements without doing the morning reading.
 
 ## What It Does
 
-* **Today's View**: a proprietary forecast plus a one-paragraph thesis in a senior-strategist voice.
+* **Today's View**: my model's forecast and a one-paragraph explanation, written in the voice of a senior strategist.
 * **Consensus vs Our View**: Markets / Dealers / Street / Our Model, side by side, with divergence flags.
-* **Event Feed**: a real-time chronological feed of Fed events, data prints, rate moves, and research drops, each AI-synthesized with attribution.
-* **Prediction Markets**: Kalshi + Polymarket probability bars on the relevant contracts.
+* **Event Feed**: a real-time feed of Fed events, data releases, rate moves, and new research in time order, each summarized by AI with a link to its source.
+* **Prediction Markets**: Kalshi and Polymarket probability bars on the relevant contracts.
 * **Street Synthesis**: firm-by-firm positioning (Barclays / Goldman / JPM / …) with consensus-vs-divergence flags.
-* **Morning & Close Notes**: twice-daily synthesis (7:00 AM ET pre-open, 4:15 PM ET post-close), emailed to subscribers.
+* **Morning and Close Notes**: twice-daily synthesis (7:00 AM ET pre-open, 4:15 PM ET post-close), emailed to subscribers.
 
-## The Hard Part
+## Sourcing and Checking
 
-The interesting problem is trustworthy ingestion and synthesis over messy public sources, not the UI. Pulling structured signal from DTCC, OFR, FINRA TRACE, NY Fed percentiles, prediction-market APIs, and free-form sell-side commentary means a custom adapter per source and a clustering step to dedupe the same idea showing up in ten places.
+Most of the work went into collecting and summarizing public sources reliably. Pulling structured signal from DTCC, OFR, FINRA TRACE, NY Fed percentiles, prediction-market APIs, and free-form sell-side commentary means a custom adapter per source and a clustering step to dedupe the same idea showing up in ten places.
 
-Then synthesis has to be defensible. A rates PM will not trust a number they can't trace. So every synthesized claim carries attribution back to its source, and the LLM work runs in tiers with a cross-model check: Claude Haiku for fast, event-driven Tier 1 synthesis, Claude Opus for the scheduled morning/close notes and position extraction, and a GPT pass as cross-model confirmation on Tier 1 outputs before anything publishes.
+Every summarized claim links to its source, because a PM will not trust a number they cannot trace. The model work runs in tiers with a cross-model check: Claude Haiku for fast, event-driven Tier 1 synthesis, Claude Opus for the scheduled morning/close notes and position extraction, and a GPT pass as cross-model confirmation on Tier 1 outputs before anything publishes.
 
 ## Current Work
 
@@ -48,15 +48,8 @@ I am extending the review process beyond fact checking with a senior trader crit
 
 ## The Architecture
 
-A Python worker does the heavy lifting (ingest, clustering, synthesis, LLM notes) and writes to Postgres (Neon). The Next.js frontend on Vercel reads Postgres only, so the read path stays fast and dumb. All scheduling runs on GitHub Actions cron, which means there's no always-on infra to babysit. Email goes out through Resend. There's an admin research-intake console behind HTTP Basic Auth for pasting, uploading, and overriding failed notes.
+A Python worker collects sources, groups duplicates, writes the summaries and notes, and saves them to Postgres (Neon). The Next.js site on Vercel only reads from Postgres, which keeps pages fast. GitHub Actions runs every scheduled job, so there are no servers to keep running. Email goes out through Resend. There's an admin research-intake console behind HTTP Basic Auth for pasting, uploading, and overriding failed notes.
 
 ## Building with AI
 
-This is a single-builder attempt at something that normally takes a team. The leverage comes from AI-assisted ingestion and summarization, which let one person cover the reading load of a research desk. I built and shipped the first version in a weekend with Claude Code, leaning on the workflow I developed building Threadbase. The discipline is in the guardrails: public data only, attribution on every claim, and a cross-model confirmation pass so the morning note is something a PM can actually act on.
-
-## What I Learned
-
-* **The value is in the disagreement.** Any single source on its own is mostly noise.
-* **Attribution is non-negotiable in finance.** A synthesized view nobody can trace is worthless on a desk.
-* **Tiered + cross-model beats one big call.** Cheap fast models for the feed, expensive careful models for the notes, a second model to confirm. Each does the job it's best at.
-* **GitHub Actions is an underrated scheduler.** For a cron-driven data product, it removed a whole category of infrastructure.
+I built the first version in a weekend with Claude Code, using the workflow I developed on Threadbase. AI summarization lets one person cover reading that a research desk would normally split across several people.

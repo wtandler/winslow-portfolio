@@ -25,16 +25,15 @@ export default function ProjectsPage() {
           Products and case studies
         </h1>
         <p className="mb-4" style={{ color: "var(--text-secondary)" }}>
-          These case studies show how I find a business problem, define the
-          product, and own it through production. My professional work focuses
-          on change and program management in the Microsoft ecosystem.
-          Independent projects show how I apply the same approach in markets,
-          research, and community operations.
+          Case studies of products I have built. The enterprise work is change
+          and program management tooling on Microsoft platforms. The
+          independent work is a rates research site, a weekly research
+          briefing, and a platform for volunteer nurse chapters.
         </p>
         <p className="text-sm" style={{ color: "var(--text-tertiary)" }}>
-          I own product direction, architecture, requirements, acceptance
-          criteria, testing, release decisions, and operations. Coding agents
-          implement and maintain the software under that direction.
+          On every product here I set the direction, design the system, write
+          the requirements and acceptance criteria, test, decide releases, and
+          run it in production. Coding agents write and maintain the code.
         </p>
       </div>
 
